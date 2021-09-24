@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+				xmlns:xs="http://www.w3.org/2001/XMLSchema"
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+				xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+				xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+				xmlns:annox="http://annox.dev.java.net"
+				jaxb:extensionBindingPrefixes="xjc annox"
+				version="2.1">
+    <jaxb:bindings>
+        <jaxb:globalBindings generateElementProperty="false" typesafeEnumMaxMembers="600">
+            <jaxb:javaType name="java.util.Calendar" xmlType="xs:dateTime" parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime" printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+            <jaxb:javaType name="java.util.Calendar" xmlType="xs:date" parseMethod="javax.xml.bind.DatatypeConverter.parseDate" printMethod="javax.xml.bind.DatatypeConverter.printDate"/>
+        </jaxb:globalBindings>
+
+        <jaxb:typesafeEnumClass map="false"/>
+    </jaxb:bindings>
+</jaxws:bindings>

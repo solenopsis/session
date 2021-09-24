@@ -23,10 +23,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java>11</java>
+        <java>8</java>
 
         <com.github.github_site-maven-plugin>0.12</com.github.github_site-maven-plugin>
-        <org.apache.maven.plugins_maven-compiler-plugin>3.6.1</org.apache.maven.plugins_maven-compiler-plugin>
+        <org.apache.maven.plugins_maven-compiler-plugin>3.8.0</org.apache.maven.plugins_maven-compiler-plugin>
         <org.apache.maven.plugins_maven-surefire-plugin>3.0.0-M3</org.apache.maven.plugins_maven-surefire-plugin>
         <org.apache.maven.plugins_maven-project-info-reports-plugin>2.9</org.apache.maven.plugins_maven-project-info-reports-plugin>
         <org.apache.maven.plugins_maven-javadoc-plugin>2.10.4</org.apache.maven.plugins_maven-javadoc-plugin>
@@ -37,6 +37,7 @@
         <org.codehaus.mojo_findbugs-maven-plugin>3.0.4</org.codehaus.mojo_findbugs-maven-plugin>
         <org.jvnet.jax-ws-commons_jaxws-maven-plugin>2.3</org.jvnet.jax-ws-commons_jaxws-maven-plugin>
         <net.sourceforge.cobertura_cobertura>2.1.1</net.sourceforge.cobertura_cobertura>
+        <javax.ws.rs_javax.ws.rs-api>2.1.1</javax.ws.rs_javax.ws.rs-api>
 
         <junit_junit>4.12</junit_junit>
 
@@ -44,6 +45,8 @@
             
         <enunciate.maven.version>2.11.1</enunciate.maven.version>
         <maven.enunciate.version>1.17</maven.enunciate.version>
+
+        <com.redhat_commons>1.50</com.redhat_commons>
     </properties>
 
     <developers>
@@ -61,6 +64,7 @@
 
     <build>
         <plugins>
+            <!--
             <plugin>
                 <groupId>com.webcohesion.enunciate</groupId>
                 <artifactId>enunciate-maven-plugin</artifactId>
@@ -78,6 +82,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
                 <!--
             <plugin>
@@ -133,14 +138,14 @@
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
-							<packageName>${base.package}.apex</packageName>
+							<packageName>org.solenopsis.session.apex</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
                                 <wsdlFile>Session-apex.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
-                                <bindingFile>${basedir}/jaxws/binding.xml</bindingFile>
+                                <bindingFile>${basedir}/src/main/resources/jaxws/binding.xml</bindingFile>
                             </bindingFiles>
                             <xjcArgs>
                                 <!-- Must use -B-XautoNameResolution when used on the command line -->
@@ -161,14 +166,14 @@
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
-							<packageName>${base.package}.enterprise</packageName>
+							<packageName>org.solenopsis.session.enterprise</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
                                 <wsdlFile>Session-enterprise.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
-                                <bindingFile>${basedir}/jaxws/binding.xml</bindingFile>
+                                <bindingFile>${basedir}/src/main/resources/jaxws/binding.xml</bindingFile>
                             </bindingFiles>
                             <xjcArgs>
                                 <!-- Must use -B-XautoNameResolution when used on the command line -->
@@ -189,14 +194,14 @@
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
-							<packageName>${base.package}.metadata</packageName>
+							<packageName>org.solenopsis.session.metadata</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
                                 <wsdlFile>Session-metadata.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
-                                <bindingFile>${basedir}/jaxws/binding.xml</bindingFile>
+                                <bindingFile>${basedir}/src/main/resources/jaxws/binding.xml</bindingFile>
                             </bindingFiles>
                             <xjcArgs>
                                 <!-- Must use -B-XautoNameResolution when used on the command line -->
@@ -217,14 +222,14 @@
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
-							<packageName>${base.package}.partner</packageName>
+							<packageName>org.solenopsis.session.partner</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
                                 <wsdlFile>Session-partner.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
-                                <bindingFile>${basedir}/jaxws/binding.xml</bindingFile>
+                                <bindingFile>${basedir}/src/main/resources/jaxws/binding.xml</bindingFile>
                             </bindingFiles>
                             <xjcArgs>
                                 <!-- Must use -B-XautoNameResolution when used on the command line -->
@@ -245,14 +250,14 @@
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
-							<packageName>${base.package}.tooling</packageName>
+							<packageName>org.solenopsis.session.tooling</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
                                 <wsdlFile>Session-tooling.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
-                                <bindingFile>${basedir}/jaxws/binding.xml</bindingFile>
+                                <bindingFile>${basedir}/src/main/resources/jaxws/binding.xml</bindingFile>
                             </bindingFiles>
                             <xjcArgs>
                                 <!-- Must use -B-XautoNameResolution when used on the command line -->
@@ -275,7 +280,7 @@
                 <version>${org.apache.maven.plugins_maven-javadoc-plugin}</version>
 
                 <configuration>
-                    <excludePackageNames>org.solenopsis.keraiai.wsdl.*</excludePackageNames>
+                    <excludePackageNames>org.solenopsis.session.wsdl.*</excludePackageNames>
                 </configuration>
             </plugin>
 
@@ -286,13 +291,13 @@
                 <configuration>
                     <instrumentation>
                         <ignores>
-                            <ignore>org.solenopsis.keraiai.wsdl.*</ignore>
+                            <ignore>org.solenopsis.session.wsdl.*</ignore>
                         </ignores>
 
                         <excludes>
                             <exclude>org/flossware/jcore/**/*.class</exclude>
-                            <exclude>org/solenopsis/keraiai/wsdl/**/*.class</exclude>
-                            <exclude>org/solenopsis/keraiai/**/*Test.class</exclude>
+                            <exclude>org/solenopsis/session/wsdl/**/*.class</exclude>
+                            <exclude>org/solenopsis/session/**/*Test.class</exclude>
                         </excludes>
                     </instrumentation>
 
@@ -307,7 +312,7 @@
 
                         <regexes>
                             <regex>
-                                <pattern>org.solenopsis.keraiai.*</pattern>
+                                <pattern>org.solenopsis.session.*</pattern>
                                 <branchRate>90</branchRate>
                                 <lineRate>80</lineRate>
                             </regex>
@@ -386,7 +391,7 @@
                 <version>${org.codehaus.mojo_findbugs-maven-plugin}</version>
 
                 <configuration>
-                    <onlyAnalyze>org.solenopsis.keraiai.*</onlyAnalyze>
+                    <onlyAnalyze>org.solenopsis.session.*</onlyAnalyze>
 
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -399,7 +404,14 @@
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.1.1</version>
+            <version>${javax.ws.rs_javax.ws.rs-api}</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.redhat</groupId>
+            <artifactId>commons</artifactId>
+            <version>${com.redhat_commons}</version>
             <type>jar</type>
         </dependency>
 
