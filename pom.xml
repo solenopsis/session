@@ -23,7 +23,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java>1.8</java>
+        <java>11</java>
 
         <com.github.github_site-maven-plugin>0.12</com.github.github_site-maven-plugin>
         <org.apache.maven.plugins_maven-compiler-plugin>3.6.1</org.apache.maven.plugins_maven-compiler-plugin>
@@ -136,7 +136,7 @@
 							<packageName>${base.package}.apex</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
-                                <wsdlFile>Keraiai-apex.wsdl</wsdlFile>
+                                <wsdlFile>Session-apex.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
@@ -164,7 +164,7 @@
 							<packageName>${base.package}.enterprise</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
-                                <wsdlFile>Keraiai-enterprise.wsdl</wsdlFile>
+                                <wsdlFile>Session-enterprise.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
@@ -192,7 +192,7 @@
 							<packageName>${base.package}.metadata</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
-                                <wsdlFile>Keraiai-metadata.wsdl</wsdlFile>
+                                <wsdlFile>Session-metadata.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
@@ -220,7 +220,7 @@
 							<packageName>${base.package}.partner</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
-                                <wsdlFile>Keraiai-partner.wsdl</wsdlFile>
+                                <wsdlFile>Session-partner.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
@@ -248,7 +248,7 @@
 							<packageName>${base.package}.tooling</packageName>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
                             <wsdlFiles>
-                                <wsdlFile>Keraiai-tooling.wsdl</wsdlFile>
+                                <wsdlFile>Session-tooling.wsdl</wsdlFile>
                             </wsdlFiles>
                             <sourceDestDir>${project.build.directory}/generated-sources/jaxws/wsimport</sourceDestDir>
                             <bindingFiles>
