@@ -23,7 +23,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java>8</java>
+        <java>11</java>
 
         <com.github.github_site-maven-plugin>0.12</com.github.github_site-maven-plugin>
         <org.apache.maven.plugins_maven-compiler-plugin>3.8.0</org.apache.maven.plugins_maven-compiler-plugin>
