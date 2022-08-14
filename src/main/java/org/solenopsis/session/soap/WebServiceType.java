@@ -46,7 +46,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, Service service, Class<P> portType);
+    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, S service, Class<P> portType);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.

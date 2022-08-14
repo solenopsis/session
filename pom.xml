@@ -18,14 +18,19 @@
 	<packaging>jar</packaging>
 
     <name>SFDC Session Library</name>
-    <description>This project is a Java session managements library for SFDC.</description>
+    <description>This project is a Java session management library for SFDC.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java>11</java>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.toolchains.jdk-version>17</maven.toolchains.jdk-version>
+
+        <java>17</java>
 
         <com.github.github_site-maven-plugin>0.12</com.github.github_site-maven-plugin>
+        <org.apache.commons_commons-lang3>3.12.0</org.apache.commons_commons-lang3>
         <org.apache.maven.plugins_maven-compiler-plugin>3.8.0</org.apache.maven.plugins_maven-compiler-plugin>
         <org.apache.maven.plugins_maven-surefire-plugin>3.0.0-M3</org.apache.maven.plugins_maven-surefire-plugin>
         <org.apache.maven.plugins_maven-project-info-reports-plugin>2.9</org.apache.maven.plugins_maven-project-info-reports-plugin>
@@ -45,8 +50,6 @@
             
         <enunciate.maven.version>2.11.1</enunciate.maven.version>
         <maven.enunciate.version>1.17</maven.enunciate.version>
-
-        <com.redhat_commons>1.50</com.redhat_commons>
     </properties>
 
     <developers>
@@ -108,10 +111,12 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${org.apache.maven.plugins_maven-compiler-plugin}</version>
 
+                <!--
                 <configuration>
                     <source>${java}</source>
                     <target>${java}</target>
                 </configuration>
+                -->
             </plugin>
 
             <plugin>
@@ -409,23 +414,22 @@
         </dependency>
 
         <dependency>
-            <groupId>com.redhat</groupId>
-            <artifactId>commons</artifactId>
-            <version>${com.redhat_commons}</version>
-            <type>jar</type>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit_junit}</version>
-            <scope>test</scope>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${org.apache.commons_commons-lang3}</version>
         </dependency>
 
         <dependency>
             <groupId>net.sourceforge.cobertura</groupId>
             <artifactId>cobertura</artifactId>
             <version>${net.sourceforge.cobertura_cobertura}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit_junit}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

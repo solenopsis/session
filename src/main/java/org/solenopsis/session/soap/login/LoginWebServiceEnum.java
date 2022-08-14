@@ -16,7 +16,6 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.flossware.jcore.utils.soap.SoapUtils;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.LoginContext;
 import org.solenopsis.session.soap.ApiWebService;
