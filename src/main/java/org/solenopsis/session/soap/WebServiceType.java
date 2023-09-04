@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Scot P. Floess
+ * Copyright (C) 2023 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 package org.solenopsis.session.soap;
 
 import java.net.URL;
-import javax.xml.ws.Service;
 import org.solenopsis.session.Credentials;
 
 /**

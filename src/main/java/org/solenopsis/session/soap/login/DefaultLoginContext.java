@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Scot P. Floess
+ * Copyright (C) 2023 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@ package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.LoginContext;
-import org.flossware.jcore.utils.StringUtils;
-import org.flossware.jcore.utils.net.UrlUtils;
 
 /**
  * Non web service specific login result. Same information as one will receive from the enterprise, partner and tooling web

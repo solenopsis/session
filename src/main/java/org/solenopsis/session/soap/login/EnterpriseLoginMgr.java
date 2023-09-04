@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Scot P. Floess
+ * Copyright (C) 2023 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,6 @@ package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.LoginContext;
-import org.solenopsis.keraiai.wsdl.enterprise.InvalidIdFault_Exception;
-import org.solenopsis.keraiai.wsdl.enterprise.LoginFault_Exception;
-import org.solenopsis.keraiai.wsdl.enterprise.Soap;
-import org.solenopsis.keraiai.wsdl.enterprise.UnexpectedErrorFault_Exception;
 
 /**
  * Implementation using the enterprise web service.

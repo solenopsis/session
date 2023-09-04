@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Scot P. Floess
+ * Copyright (C) 2023 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,6 @@ package org.solenopsis.session.soap.exception;
 
 import java.io.IOException;
 import java.util.logging.Logger;
-import org.flossware.jcore.exception.ContainsExceptionProcessor;
-import org.flossware.jcore.exception.ContainsMessageExceptionProcessor;
-import org.flossware.jcore.exception.ExceptionProcessor;
-import org.flossware.jcore.exception.UnknownExceptionProcessor;
 
 /**
  * Enum representing Salesforce exceptions.
