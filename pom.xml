@@ -83,6 +83,54 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+
+                        <!--
+                        <configuration>
+                            <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/myService.wsdl</wsdl>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        -->
+
+                        <configuration>
+                            <!--
+                            <defaultOptions>
+                                <bindingFiles>
+                                    <bindingFile>${basedir}/src/main/jaxb/bindings.xml</bindingFile>
+                                </bindingFiles>
+                                <noAddressBinding>true</noAddressBinding>
+                            </defaultOptions>
+                            -->
+
+                            <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
+
+                            <includes>
+                                <include>Session-*.wsdl</include>
+                            </includes>
+                        </configuration>
+
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>
