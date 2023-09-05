@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Salesforce.com Apex API version 40.0
+Salesforce.com Apex API version 58.0
 
-Copyright 2006-2017 Salesforce.com, inc. All Rights Reserved
+Copyright 2006-2023 Salesforce.com, inc. All Rights Reserved
 -->
 <definitions targetNamespace="http://soap.sforce.com/2006/08/apex" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.sforce.com/2006/08/apex">
  <types>
@@ -24,6 +24,15 @@ Copyright 2006-2017 Salesforce.com, inc. All Rights Reserved
      <xsd:element name="maxFailedTests" minOccurs="0" type="xsd:int"/>
      <xsd:element name="namespace" type="xsd:string"/>
      <xsd:element name="packages" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+     <xsd:element name="skipCodeCoverage" minOccurs="0" type="xsd:boolean"/>
+     <xsd:element name="tests" minOccurs="0" maxOccurs="unbounded" type="tns:TestsNode"/>
+    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="TestsNode">
+    <xsd:sequence>
+     <xsd:element name="classId" type="xsd:string"/>
+     <xsd:element name="className" type="xsd:string"/>
+     <xsd:element name="testMethods" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
     </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="CompileAndTestResult">
@@ -69,6 +78,8 @@ Copyright 2006-2017 Salesforce.com, inc. All Rights Reserved
      <xsd:element name="codeCoverage" minOccurs="0" maxOccurs="unbounded" type="tns:CodeCoverageResult"/>
      <xsd:element name="codeCoverageWarnings" minOccurs="0" maxOccurs="unbounded" type="tns:CodeCoverageWarning"/>
      <xsd:element name="failures" minOccurs="0" maxOccurs="unbounded" type="tns:RunTestFailure"/>
+     <xsd:element name="flowCoverage" minOccurs="0" maxOccurs="unbounded" type="tns:FlowCoverageResult"/>
+     <xsd:element name="flowCoverageWarnings" minOccurs="0" maxOccurs="unbounded" type="tns:FlowCoverageWarning"/>
      <xsd:element name="numFailures" type="xsd:int"/>
      <xsd:element name="numTestsRun" type="xsd:int"/>
      <xsd:element name="successes" minOccurs="0" maxOccurs="unbounded" type="tns:RunTestSuccess"/>
@@ -113,6 +124,64 @@ Copyright 2006-2017 Salesforce.com, inc. All Rights Reserved
      <xsd:element name="stackTrace" type="xsd:string" nillable="true"/>
      <xsd:element name="time" type="xsd:double"/>
      <xsd:element name="type" type="xsd:string"/>
+    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="FlowCoverageResult">
+    <xsd:sequence>
+     <xsd:element name="elementsNotCovered" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+     <xsd:element name="flowId" type="xsd:string"/>
+     <xsd:element name="flowName" type="xsd:string"/>
+     <xsd:element name="flowNamespace" type="xsd:string" nillable="true"/>
+     <xsd:element name="numElements" type="xsd:int"/>
+     <xsd:element name="numElementsNotCovered" type="xsd:int"/>
+     <xsd:element name="processType" type="tns:FlowProcessType"/>
+    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:simpleType name="FlowProcessType">
+    <xsd:restriction base="xsd:string">
+     <xsd:enumeration value="AutoLaunchedFlow"/>
+     <xsd:enumeration value="Flow"/>
+     <xsd:enumeration value="Workflow"/>
+     <xsd:enumeration value="CustomEvent"/>
+     <xsd:enumeration value="InvocableProcess"/>
+     <xsd:enumeration value="LoginFlow"/>
+     <xsd:enumeration value="ActionPlan"/>
+     <xsd:enumeration value="JourneyBuilderIntegration"/>
+     <xsd:enumeration value="UserProvisioningFlow"/>
+     <xsd:enumeration value="Survey"/>
+     <xsd:enumeration value="SurveyEnrich"/>
+     <xsd:enumeration value="Appointments"/>
+     <xsd:enumeration value="FSCLending"/>
+     <xsd:enumeration value="DigitalForm"/>
+     <xsd:enumeration value="FieldServiceMobile"/>
+     <xsd:enumeration value="OrchestrationFlow"/>
+     <xsd:enumeration value="FieldServiceWeb"/>
+     <xsd:enumeration value="TransactionSecurityFlow"/>
+     <xsd:enumeration value="ContactRequestFlow"/>
+     <xsd:enumeration value="ActionCadenceFlow"/>
+     <xsd:enumeration value="ManagedContentFlow"/>
+     <xsd:enumeration value="CheckoutFlow"/>
+     <xsd:enumeration value="CartAsyncFlow"/>
+     <xsd:enumeration value="CustomerLifecycle"/>
+     <xsd:enumeration value="Journey"/>
+     <xsd:enumeration value="RecommendationStrategy"/>
+     <xsd:enumeration value="Orchestrator"/>
+     <xsd:enumeration value="RoutingFlow"/>
+     <xsd:enumeration value="ServiceCatalogItemFlow"/>
+     <xsd:enumeration value="EvaluationFlow"/>
+     <xsd:enumeration value="LoyaltyManagementFlow"/>
+     <xsd:enumeration value="ManagedContentAuthoringWorkflow"/>
+     <xsd:enumeration value="ActionCadenceAutolaunchedFlow"/>
+     <xsd:enumeration value="ActionCadenceStepFlow"/>
+     <xsd:enumeration value="IndividualObjectLinkingFlow"/>
+    </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:complexType name="FlowCoverageWarning">
+    <xsd:sequence>
+     <xsd:element name="flowId" type="xsd:string" nillable="true"/>
+     <xsd:element name="flowName" type="xsd:string" nillable="true"/>
+     <xsd:element name="flowNamespace" type="xsd:string" nillable="true"/>
+     <xsd:element name="message" type="xsd:string"/>
     </xsd:sequence>
    </xsd:complexType>
    <xsd:complexType name="RunTestSuccess">
@@ -207,6 +276,7 @@ Copyright 2006-2017 Salesforce.com, inc. All Rights Reserved
      <xsd:enumeration value="Visualforce"/>
      <xsd:enumeration value="System"/>
      <xsd:enumeration value="Wave"/>
+     <xsd:enumeration value="Nba"/>
      <xsd:enumeration value="All"/>
     </xsd:restriction>
    </xsd:simpleType>
@@ -522,7 +592,7 @@ Copyright 2006-2017 Salesforce.com, inc. All Rights Reserved
  <service name="ApexService">
   <documentation>Manage your Salesforce.com Apex classes and triggers</documentation>
   <port binding="tns:ApexBinding" name="Apex">
-   <soap:address location="https://login.salesforce.com/services/Soap/s/40.0"/>
+   <soap:address location="https://login.salesforce.com/services/Soap/s/58.0"/>
   </port>
  </service>
 </definitions>
