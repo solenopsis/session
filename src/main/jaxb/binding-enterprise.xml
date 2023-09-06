@@ -8,7 +8,7 @@
 				jxb:extensionBindingPrefixes="xjc annox"
                 version="2.1">
 	<jaxws:bindings
-			node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='urn:sobject.enterprise.soap.sforce.com']">
+        node="/wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='urn:sobject.enterprise.soap.sforce.com']">
 		<jxb:globalBindings xmlns:xs="http://www.w3.org/2001/XMLSchema"
 							xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
                             generateElementProperty="false"
@@ -31,6 +31,27 @@
 			</annox:annotate>
 		</jxb:bindings>
 
+        <jxb:bindings node="//xs:complexType[@name='DescribeLayout']">
+            <jxb:property name="DescribeLayoutType"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:element[@name='describeLayout']">
+            <jxb:property name="DescribeLayoutElement"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:operation[@name='describeLayout']">
+            <jxb:property name="DescribeLayoutOperation"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='DescribeGlobalTheme']">
+            <jxb:property name="DescribeThemeType"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='DescribeApprovalLayout']">
+            <jxb:property name="DescribeApprovalLayout"/>
+        </jxb:bindings>
+
+        <!--
         <jxb:bindings node="//xs:complexType[@name='Account']//xs:element[@name='isStrategicComputed__c']">
             <jxb:property name="IsStrategicComputedBoolean"/>
         </jxb:bindings>
@@ -38,5 +59,6 @@
         <jxb:bindings node="//xs:complexType[@name='Account']//xs:element[@name='isStrategic_Computed__c']">
             <jxb:property name="IsStrategicComputedDouble"/>
         </jxb:bindings>
+        -->
 	</jaxws:bindings>
 </jaxws:bindings>

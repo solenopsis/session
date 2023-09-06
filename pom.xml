@@ -36,10 +36,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <!--
                     <version>3.3.1</version>
-                    -->
                 </plugin>
 
                 <plugin>
@@ -108,20 +105,15 @@
                         -->
 
                         <configuration>
-                            <!--
                             <defaultOptions>
                                 <bindingFiles>
-                                    <bindingFile>${basedir}/src/main/jaxb/bindings.xml</bindingFile>
+                                    <bindingFile>${basedir}/src/main/jaxb/binding.xml</bindingFile>
                                 </bindingFiles>
                                 <noAddressBinding>true</noAddressBinding>
+                                <autoNameResolution>true</autoNameResolution>
                             </defaultOptions>
-                            -->
 
                             <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
-
-                            <extraargs>
-                                <extraarg>-autoNameResolution</extraarg>
-                            </extraargs>
 
                             <includes>
                                 <include>Session-*.wsdl</include>
@@ -159,10 +151,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.3</version>
-            <!--
             <version>5.10.0</version>
-            -->
             <scope>test</scope>
         </dependency>
     </dependencies>
