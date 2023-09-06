@@ -16,7 +16,7 @@
  */
 package org.solenopsis.session.soap.port;
 
-import org.solenopsis.session.soap.session.SessionPortFactory;
+import jakarta.xml.ws.Service;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,15 +24,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
-import javax.xml.ws.Service;
-import org.flossware.jcore.AbstractCommonBase;
-import org.flossware.jcore.utils.ObjectUtils;
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
 import org.solenopsis.session.soap.LoginWebService;
 import org.solenopsis.session.soap.WebServiceType;
 import org.solenopsis.session.soap.exception.ExceptionContext;
 import org.solenopsis.session.soap.exception.SalesforceExceptionEnum;
+import org.solenopsis.session.soap.session.SessionPortFactory;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Acts as a proxy to call methods on ports. This is the real place that auto logins, retries, etc. happen. We leverage the
@@ -54,19 +52,19 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
     static {
         LOGIN_CONTEXT_METHODS = new HashSet<>();
 
-        for (final Method method : LoginContext.class.getDeclaredMethods()) {
+        for (final Method method : LoginContextIfc.class.getDeclaredMethods()) {
             LOGIN_CONTEXT_METHODS.add(method);
         }
     }
     /**
      * The credentials.
      */
-    private final Credentials credentials;
+    private final CredentialsIfc credentials;
 
     /**
      * Holds our login context.
      */
-    private final AtomicReference<LoginContext> loginContext;
+    private final AtomicReference<LoginContextIfc> loginContext;
 
     /**
      * The login web service.
@@ -98,7 +96,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @return the credentials.
      */
-    final Credentials getCredentials() {
+    final CredentialsIfc getCredentials() {
         return credentials;
     }
 
@@ -107,7 +105,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @return the login context.
      */
-    final AtomicReference<LoginContext> getLoginContext() {
+    final AtomicReference<LoginContextIfc> getLoginContext() {
         return loginContext;
     }
 
@@ -175,7 +173,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @throws IllegalArgumentException if any of the params are null.
      */
-    <P> PortInvocationHandler(final Credentials credentials, final LoginWebService loginWebService, final WebServiceType webServiceType, final Service service, final Class portType) {
+    <P> PortInvocationHandler(final CredentialsIfc credentials, final LoginWebService loginWebService, final WebServiceType webServiceType, final Service service, final Class portType) {
         this.credentials = ObjectUtils.ensureObject(credentials, "Must provide credentials!");
         this.loginContext = new AtomicReference<>(loginWebService.login(credentials));
         this.loginWebService = ObjectUtils.ensureObject(loginWebService, "Must provide a login web service!");

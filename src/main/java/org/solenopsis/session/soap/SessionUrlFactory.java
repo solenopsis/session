@@ -17,8 +17,8 @@
 package org.solenopsis.session.soap;
 
 import org.apache.cxf.service.Service;
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Computes a session URL.
@@ -34,7 +34,7 @@ public interface SessionUrlFactory {
      *
      * @return a session url.
      */
-    String computeUrl(Credentials credentials, Service service);
+    String computeUrl(CredentialsIfc credentials, Service service);
 
     /**
      * Will compute a session URL.
@@ -44,5 +44,5 @@ public interface SessionUrlFactory {
      *
      * @return a session url.
      */
-    String computeSessionUrl(LoginContext loginContext, Service service);
+    String computeSessionUrl(LoginContextIfc loginContext, Service service);
 }

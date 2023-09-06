@@ -16,9 +16,9 @@
  */
 package org.solenopsis.session.soap;
 
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
 import org.solenopsis.session.soap.login.LoginWebServiceEnum;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Represents all login SOAP web service: enterprise, partner and tooling. Additionally provides the ability to create a usable
@@ -46,12 +46,12 @@ public interface LoginWebService {
      *
      * @return a login context.
      */
-    LoginContext login(Credentials credentials);
+    LoginContextIfc login(CredentialsIfc credentials);
 
     /**
      * Issues a logout.
      *
      * @param loginContext contains our login data,
      */
-    void logout(LoginContext loginContext);
+    void logout(LoginContextIfc loginContext);
 }

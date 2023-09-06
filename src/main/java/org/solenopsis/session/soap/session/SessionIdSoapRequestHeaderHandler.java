@@ -16,11 +16,8 @@
  */
 package org.solenopsis.session.soap.session;
 
+import jakarta.xml.ws.Service;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import org.flossware.jcore.soap.AbstractSoapRequestHeaderHandler;
-import org.flossware.jcore.utils.ObjectUtils;
-import org.flossware.jcore.utils.StringUtils;
 import org.solenopsis.session.soap.utils.SalesforceSessionHeaderUtils;
 
 /**

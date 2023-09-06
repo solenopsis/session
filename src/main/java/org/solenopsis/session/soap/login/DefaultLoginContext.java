@@ -16,8 +16,8 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Non web service specific login result. Same information as one will receive from the enterprise, partner and tooling web
@@ -25,7 +25,7 @@ import org.solenopsis.session.LoginContext;
  *
  * @author Scot P. Floess
  */
-final class DefaultLoginContext implements LoginContext {
+final class DefaultLoginContext implements LoginContextIfc {
     private final String metadataServerUrl;
 
     private final boolean isPasswordExpired;
@@ -40,9 +40,9 @@ final class DefaultLoginContext implements LoginContext {
 
     private final String userId;
 
-    private final Credentials credentials;
+    private final CredentialsIfc credentials;
 
-    DefaultLoginContext(final String metadataServerUrl, final boolean isPasswordExpired, final boolean isSandbox, final String serverUrl, final String sessionId, final String userId, final Credentials credentials) {
+    DefaultLoginContext(final String metadataServerUrl, final boolean isPasswordExpired, final boolean isSandbox, final String serverUrl, final String sessionId, final String userId, final CredentialsIfc credentials) {
         this.metadataServerUrl = metadataServerUrl;
         this.isPasswordExpired = isPasswordExpired;
         this.isSandbox = isSandbox;
@@ -53,15 +53,15 @@ final class DefaultLoginContext implements LoginContext {
         this.credentials = credentials;
     }
 
-    DefaultLoginContext(final org.solenopsis.keraiai.wsdl.enterprise.LoginResult loginResult, final Credentials credentials) {
+    DefaultLoginContext(final org.solenopsis.keraiai.wsdl.enterprise.LoginResult loginResult, final CredentialsIfc credentials) {
         this(loginResult.getMetadataServerUrl(), loginResult.isPasswordExpired(), loginResult.isSandbox(), loginResult.getServerUrl(), loginResult.getSessionId(), loginResult.getUserId(), credentials);
     }
 
-    DefaultLoginContext(final org.solenopsis.keraiai.wsdl.partner.LoginResult loginResult, final Credentials credentials) {
+    DefaultLoginContext(final org.solenopsis.keraiai.wsdl.partner.LoginResult loginResult, final CredentialsIfc credentials) {
         this(loginResult.getMetadataServerUrl(), loginResult.isPasswordExpired(), loginResult.isSandbox(), loginResult.getServerUrl(), loginResult.getSessionId(), loginResult.getUserId(), credentials);
     }
 
-    DefaultLoginContext(final org.solenopsis.keraiai.wsdl.tooling.LoginResult loginResult, final Credentials credentials) {
+    DefaultLoginContext(final org.solenopsis.keraiai.wsdl.tooling.LoginResult loginResult, final CredentialsIfc credentials) {
         this(loginResult.getMetadataServerUrl(), loginResult.isPasswordExpired(), loginResult.isSandbox(), loginResult.getServerUrl(), loginResult.getSessionId(), loginResult.getUserId(), credentials);
     }
 
@@ -125,7 +125,7 @@ final class DefaultLoginContext implements LoginContext {
      * {@inheritDoc}
      */
     @Override
-    public Credentials getCredentials() {
+    public CredentialsIfc getCredentials() {
         return credentials;
     }
 }

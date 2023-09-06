@@ -16,12 +16,12 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
 import org.solenopsis.session.soap.ApiWebService;
 import org.solenopsis.session.soap.LoginWebService;
 import org.solenopsis.session.soap.port.ApiWebServiceEnum;
 import org.solenopsis.session.soap.session.SessionPortFactory;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Represents all login SOAP web service: enterprise, partner and tooling. Additionally provides the ability to create a usable
@@ -71,7 +71,7 @@ public enum LoginWebServiceEnum implements LoginWebService {
      * {@inheritDoc}
      */
     @Override
-    public LoginContext login(final Credentials credentials) {
+    public LoginContextIfc login(final CredentialsIfc credentials) {
         return getLoginMgr().login(SoapUtils.createPort(getApiWebService().getService(), getApiWebService().getPortType(), getApiWebService().getWebServiceType().getSessionUrlFactory().computeUrl(credentials, getApiWebService().getService())), credentials);
     }
 
@@ -79,7 +79,7 @@ public enum LoginWebServiceEnum implements LoginWebService {
      * {@inheritDoc}
      */
     @Override
-    public void logout(final LoginContext loginContext) {
+    public void logout(final LoginContextIfc loginContext) {
         getLoginMgr().logout(SessionPortFactory.createSessionPort(getApiWebService(), loginContext));
     }
 }

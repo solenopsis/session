@@ -16,10 +16,9 @@
  */
 package org.solenopsis.session.soap.session;
 
-import javax.xml.ws.Service;
-import org.flossware.jcore.utils.soap.ServiceUtils;
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
+import jakarta.xml.ws.Service;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Computes a port name for custom services.
@@ -32,7 +31,7 @@ final class CustomSessionPortNameFactory implements SessionPortNameFactory {
      * {@inheritDoc}
      */
     @Override
-    public String computePortName(final Credentials credentials, final Service service) {
+    public String computePortName(final CredentialsIfc credentials, final Service service) {
         return ServiceUtils.getPortName(service.getClass());
     }
 
@@ -40,7 +39,7 @@ final class CustomSessionPortNameFactory implements SessionPortNameFactory {
      * {@inheritDoc}
      */
     @Override
-    public String computePortName(final LoginContext loginContext, final Service service) {
+    public String computePortName(final LoginContextIfc loginContext, final Service service) {
         return ServiceUtils.getPortName(service.getClass());
     }
 }

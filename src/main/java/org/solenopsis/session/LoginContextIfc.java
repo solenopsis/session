@@ -22,7 +22,7 @@ package org.solenopsis.session;
  *
  * @author Scot P. Floess
  */
-public interface LoginContext {
+public interface LoginContextIfc {
 
     /**
      * The metadata server's URL.
@@ -78,5 +78,5 @@ public interface LoginContext {
      *
      * @return the credentials used for login.
      */
-    Credentials getCredentials();
+    CredentialsIfc getCredentials();
 }

@@ -18,7 +18,7 @@ package org.solenopsis.session.soap;
 
 import java.net.URL;
 import org.apache.cxf.service.Service;
-import org.solenopsis.session.Credentials;
+import org.solenopsis.session.CredentialsIfc;
 
 /**
  * Interface defining the API to create session based ports.
@@ -46,7 +46,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, S service, Class<P> portType);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, LoginWebService loginWebService, S service, Class<P> portType);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -60,7 +60,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, Service service, Class<P> portType);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, Service service, Class<P> portType);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -74,7 +74,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, S service);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, LoginWebService loginWebService, S service);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -87,7 +87,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, S service);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, S service);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -102,7 +102,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, Class<S> serviceClass, final URL wsdlResource);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, LoginWebService loginWebService, Class<S> serviceClass, final URL wsdlResource);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -116,7 +116,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, Class<S> serviceClass, final URL wsdlResource);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, Class<S> serviceClass, final URL wsdlResource);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -131,7 +131,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, Class<S> serviceClass, final String wsdlResource);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, LoginWebService loginWebService, Class<S> serviceClass, final String wsdlResource);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -145,5 +145,5 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, Class<S> serviceClass, final String wsdlResource);
+    <S extends Service, P> P createProxyPort(CredentialsIfc credentials, Class<S> serviceClass, final String wsdlResource);
 }

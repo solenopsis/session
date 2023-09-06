@@ -16,9 +16,10 @@
  */
 package org.solenopsis.session.soap.session;
 
-import javax.xml.ws.Service;
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
+
+import jakarta.xml.ws.Service;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Computes a port names. For an API port (enterprise, parter, tooling, or metadata) it is the version found in credentials. For
@@ -46,7 +47,7 @@ interface SessionPortNameFactory {
      *
      * @return the port name.
      */
-    String computePortName(Credentials credentials, Service service);
+    String computePortName(CredentialsIfc credentials, Service service);
 
     /**
      * Computes the port name based upon <code>loginContext</code> and <code>service</code>. If dealing with an API webservice, the
@@ -58,5 +59,5 @@ interface SessionPortNameFactory {
      *
      * @return the port name.
      */
-    String computePortName(LoginContext loginContext, Service service);
+    String computePortName(LoginContextIfc loginContext, Service service);
 }

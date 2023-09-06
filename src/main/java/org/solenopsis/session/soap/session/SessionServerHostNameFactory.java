@@ -16,7 +16,7 @@
  */
 package org.solenopsis.session.soap.session;
 
-import org.solenopsis.session.LoginContext;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Computes a server host name for a session. For non metadata API calls, this is the LoginContext.getBaseServerUrl(). For metadata
@@ -42,5 +42,5 @@ interface SessionServerHostNameFactory {
      *
      * @return a server name.
      */
-    String computeServer(LoginContext loginContext);
+    String computeServer(LoginContextIfc loginContext);
 }

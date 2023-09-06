@@ -16,7 +16,7 @@
  */
 package org.solenopsis.session.soap.session;
 
-import org.solenopsis.session.LoginContext;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Default session server factory.
@@ -27,7 +27,7 @@ final class DefaultSessionServerHostNameFactory implements SessionServerHostName
     /**
      * {@inheritDoc}
      */
-    public String computeServer(final LoginContext loginContext) {
+    public String computeServer(final LoginContextIfc loginContext) {
         return loginContext.getBaseServerUrl();
     }
 }

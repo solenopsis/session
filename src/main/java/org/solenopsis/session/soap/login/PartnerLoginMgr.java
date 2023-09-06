@@ -16,9 +16,9 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
-import org.solenopsis.keraiai.wsdl.partner.Soap;
+import com.sforce.soap.partner.Soap;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Implementation using the partner web service.
@@ -27,7 +27,7 @@ import org.solenopsis.keraiai.wsdl.partner.Soap;
  */
 final class PartnerLoginMgr implements LoginMgr {
     @Override
-    public LoginContext login(Object port, Credentials credentials) {
+    public LoginContextIfc login(Object port, CredentialsIfc credentials) {
         try {
             return new DefaultLoginContext(((Soap) port).login(credentials.getUserName(), credentials.getSecurityPassword()), credentials);
         } catch (final Throwable t) {

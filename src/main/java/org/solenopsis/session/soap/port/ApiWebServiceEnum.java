@@ -17,7 +17,6 @@
 package org.solenopsis.session.soap.port;
 
 import javax.xml.ws.Service;
-import org.solenopsis.session.Credentials;
 import org.solenopsis.session.soap.ApiWebService;
 import org.solenopsis.session.soap.LoginWebService;
 import org.solenopsis.session.soap.WebServiceType;
@@ -29,6 +28,7 @@ import org.solenopsis.keraiai.wsdl.metadata.MetadataPortType;
 import org.solenopsis.keraiai.wsdl.metadata.MetadataService;
 import org.solenopsis.keraiai.wsdl.tooling.SforceServicePortType;
 import org.solenopsis.keraiai.wsdl.tooling.SforceServiceService;
+import org.solenopsis.session.CredentialsIfc;
 
 /**
  * This enum denotes the built in SFDC API web services.
@@ -97,7 +97,7 @@ public enum ApiWebServiceEnum implements ApiWebService {
      * {@inheritDoc}
      */
     @Override
-    public <P> P createProxyPort(Credentials credentials, LoginWebService loginWebService) {
+    public <P> P createProxyPort(CredentialsIfc credentials, LoginWebService loginWebService) {
         return (P) getWebServiceType().createProxyPort(credentials, loginWebService, getService(), getPortType());
     }
 
@@ -105,7 +105,7 @@ public enum ApiWebServiceEnum implements ApiWebService {
      * {@inheritDoc}
      */
     @Override
-    public <P> P createProxyPort(final Credentials credentials) {
+    public <P> P createProxyPort(final CredentialsIfc credentials) {
         return (P) getWebServiceType().createProxyPort(credentials, getService(), getPortType());
     }
 }

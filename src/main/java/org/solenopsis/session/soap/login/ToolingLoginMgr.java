@@ -16,9 +16,9 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.Credentials;
-import org.solenopsis.session.LoginContext;
-import org.solenopsis.keraiai.wsdl.tooling.SforceServicePortType;
+import com.sforce.soap.tooling.SforceServicePortType;
+import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Implementation using the tooling web service.
@@ -27,7 +27,7 @@ import org.solenopsis.keraiai.wsdl.tooling.SforceServicePortType;
  */
 public class ToolingLoginMgr implements LoginMgr {
     @Override
-    public LoginContext login(Object port, Credentials credentials) {
+    public LoginContextIfc login(Object port, CredentialsIfc credentials) {
         try {
             return new DefaultLoginContext(((SforceServicePortType) port).login(credentials.getUserName(), credentials.getSecurityPassword()), credentials);
         } catch (final Throwable t) {
