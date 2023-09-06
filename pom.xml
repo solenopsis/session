@@ -92,23 +92,14 @@
                         <id>generate-sources</id>
                         <phase>generate-sources</phase>
 
-                        <!--
-                        <configuration>
-                            <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
-
-                            <wsdlOptions>
-                                <wsdlOption>
-                                    <wsdl>${basedir}/src/main/resources/myService.wsdl</wsdl>
-                                </wsdlOption>
-                            </wsdlOptions>
-                        </configuration>
-                        -->
-
                         <configuration>
                             <defaultOptions>
+                                <!--
                                 <bindingFiles>
                                     <bindingFile>${basedir}/src/main/jaxb/binding.xml</bindingFile>
                                 </bindingFiles>
+                                -->
+
                                 <noAddressBinding>true</noAddressBinding>
                                 <autoNameResolution>true</autoNameResolution>
                             </defaultOptions>
