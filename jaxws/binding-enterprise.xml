@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+				xmlns:xs="http://www.w3.org/2001/XMLSchema"
+				xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+				xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+				xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+				xmlns:annox="http://annox.dev.java.net"
+				jxb:extensionBindingPrefixes="xjc annox"
+                version="2.1">
+	<jaxws:bindings
+			node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='urn:sobject.enterprise.soap.sforce.com']">
+		<jxb:globalBindings xmlns:xs="http://www.w3.org/2001/XMLSchema"
+							xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+                            generateElementProperty="false"
+                            typesafeEnumMaxMembers="2048">
+			<jxb:serializable uid="11082011"/>
+
+			<jxb:javaType name="java.util.Calendar" xmlType="xs:dateTime"
+						  parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+						  printMethod="javax.xml.bind.DatatypeConverter.printDateTime">
+			</jxb:javaType>
+			<jxb:javaType name="java.util.Calendar" xmlType="xs:date"
+						  parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+						  printMethod="javax.xml.bind.DatatypeConverter.printDate">
+			</jxb:javaType>
+		</jxb:globalBindings>
+
+		<jxb:bindings node="//xs:complexType">
+			<annox:annotate target="class">
+				<annox:annotate annox:class="com.redhat.gss.easysfdc.annotations.SalesForceEntity"/>
+			</annox:annotate>
+		</jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='Account']//xs:element[@name='isStrategicComputed__c']">
+            <jxb:property name="IsStrategicComputedBoolean"/>
+        </jxb:bindings>
+
+        <jxb:bindings node="//xs:complexType[@name='Account']//xs:element[@name='isStrategic_Computed__c']">
+            <jxb:property name="IsStrategicComputedDouble"/>
+        </jxb:bindings>
+	</jaxws:bindings>
+</jaxws:bindings>

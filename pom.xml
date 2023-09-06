@@ -28,7 +28,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
-        <cxf.version>2.2.3</cxf.version>
+        <cxf.version>4.0.2</cxf.version>
     </properties>
 
     <build>
@@ -118,6 +118,10 @@
                             -->
 
                             <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
+
+                            <extraargs>
+                                <extraarg>-autoNameResolution</extraarg>
+                            </extraargs>
 
                             <includes>
                                 <include>Session-*.wsdl</include>
