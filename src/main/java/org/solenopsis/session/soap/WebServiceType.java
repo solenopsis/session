@@ -17,6 +17,7 @@
 package org.solenopsis.session.soap;
 
 import java.net.URL;
+import org.apache.cxf.service.Service;
 import org.solenopsis.session.Credentials;
 
 /**

@@ -16,6 +16,7 @@
  */
 package org.solenopsis.session.soap;
 
+import org.apache.cxf.service.Service;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.LoginContext;
 
