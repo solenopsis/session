@@ -17,8 +17,7 @@
 package org.solenopsis.session.soap.login;
 
 import com.sforce.soap.partner.Soap;
-import org.solenopsis.session.CredentialsIfc;
-import org.solenopsis.session.LoginContextIfc;
+import org.solenopsis.session.Login;
 
 /**
  * Implementation using the partner web service.
@@ -27,9 +26,9 @@ import org.solenopsis.session.LoginContextIfc;
  */
 final class PartnerLoginMgr implements LoginMgr {
     @Override
-    public LoginContextIfc login(Object port, CredentialsIfc credentials) {
+    public Login login(Object port, Credentials credentials) {
         try {
-            return new DefaultLoginContext(((Soap) port).login(credentials.getUserName(), credentials.getSecurityPassword()), credentials);
+            return new Login(((Soap) port).login(credentials.getUserName(), credentials.getSecurityPassword()), credentials);
         } catch (final Throwable t) {
             throw new LoginException(t);
         }

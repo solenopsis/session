@@ -17,8 +17,7 @@
 package org.solenopsis.session.soap.session;
 
 import jakarta.xml.ws.Service;
-import org.solenopsis.session.CredentialsIfc;
-import org.solenopsis.session.LoginContextIfc;
+import org.solenopsis.session.Login;
 
 /**
  * Computes a port name.
@@ -31,7 +30,7 @@ final class ApiSessionPortNameFactory implements SessionPortNameFactory {
      * {@inheritDoc}
      */
     @Override
-    public String computePortName(final CredentialsIfc credentials, final Service service) {
+    public String computePortName(final Credentials credentials, final Service service) {
         return credentials.getApiVersion();
     }
 
@@ -39,7 +38,7 @@ final class ApiSessionPortNameFactory implements SessionPortNameFactory {
      * {@inheritDoc}
      */
     @Override
-    public String computePortName(final LoginContextIfc loginContext, final Service service) {
+    public String computePortName(final Login loginContext, final Service service) {
         return computePortName(loginContext.getCredentials(), service);
     }
 }

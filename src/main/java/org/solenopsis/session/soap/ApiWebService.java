@@ -17,7 +17,7 @@
 package org.solenopsis.session.soap;
 
 import org.apache.cxf.service.Service;
-import org.solenopsis.session.CredentialsIfc;
+import org.solenopsis.session.Credentials;
 
 /**
  * This interface denotes the built in API SFDC web services.
@@ -56,7 +56,7 @@ public interface ApiWebService {
      *
      * @return a proxy port
      */
-    <P> P createProxyPort(CredentialsIfc credentials, LoginWebService loginWebService);
+    <P> P createProxyPort(Credentials credentials, LoginWebService loginWebService);
 
     /**
      * Will create a proxy port using the API services included in Keraiai.
@@ -67,5 +67,5 @@ public interface ApiWebService {
      *
      * @return a proxy port
      */
-    <P> P createProxyPort(CredentialsIfc credentials);
+    <P> P createProxyPort(Credentials credentials);
 }

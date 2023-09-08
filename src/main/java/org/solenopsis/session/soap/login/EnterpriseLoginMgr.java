@@ -17,8 +17,8 @@
 package org.solenopsis.session.soap.login;
 
 import com.sforce.soap.enterprise.Soap;
-import org.solenopsis.session.CredentialsIfc;
-import org.solenopsis.session.LoginContextIfc;
+import org.solenopsis.session.Credentials;
+import org.solenopsis.session.Login;
 
 /**
  * Implementation using the enterprise web service.
@@ -28,16 +28,16 @@ import org.solenopsis.session.LoginContextIfc;
 final class EnterpriseLoginMgr implements LoginMgr {
 
     @Override
-    public LoginContextIfc login(Object port, CredentialsIfc credentials) {
+    public Login login(final Object port, final Credentials credentials) {
         try {
-            return new DefaultLoginContext(((Soap) port).login(credentials.getUserName(), credentials.getSecurityPassword()), credentials);
+            return new Login(((Soap) port).login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final InvalidIdFault_Exception | LoginFault_Exception | UnexpectedErrorFault_Exception t) {
             throw new LoginException(t);
         }
     }
 
     @Override
-    public void logout(Object port) {
+    public void logout(final Object port) {
         try {
             ((Soap) port).logout();
         } catch (final UnexpectedErrorFault_Exception t) {

@@ -16,7 +16,7 @@
  */
 package org.solenopsis.session.soap.session;
 
-import org.solenopsis.session.LoginContextIfc;
+import org.solenopsis.session.Login;
 
 /**
  * Metadata session server factory - when computing the server name, it uses the metadata server url found in the login context.
@@ -28,7 +28,7 @@ final class MetadataSessionServerHostNameFactory implements SessionServerHostNam
      * {@inheritDoc}
      */
     @Override
-    public String computeServer(final LoginContextIfc loginContext) {
+    public String computeServer(final Login loginContext) {
         return loginContext.getMetadataServerUrl();
     }
 }

@@ -19,6 +19,7 @@ package org.solenopsis.session.soap.utils;
 import jakarta.xml.ws.Service;
 import java.util.Objects;
 import javax.xml.namespace.QName;
+import org.solenopsis.session.utils.Strings;
 
 /**
  * Utility class for port functionality.
@@ -41,7 +42,7 @@ public final class SalesforceSessionHeaderUtils {
      * @throws IllegalArgumentException if namespaceUri is blank or null.
      */
     public static QName computeSessionHeaderNameForNamespace(final String namespaceUri) {
-        StringUtils.ensureString(namespaceUri, "Must provide a namespace URI!");
+        Strings.requireNonBlank(namespaceUri, "Must provide a namespace URI!");
 
         return new QName(namespaceUri, SESSION_HEADER);
     }

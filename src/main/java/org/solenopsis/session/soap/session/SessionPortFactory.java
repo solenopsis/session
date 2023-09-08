@@ -19,9 +19,9 @@ package org.solenopsis.session.soap.session;
 import jakarta.xml.ws.Service;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.solenopsis.session.Login;
 import org.solenopsis.session.soap.ApiWebService;
 import org.solenopsis.session.soap.WebServiceType;
-import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Utility class for port functionality.
@@ -73,7 +73,7 @@ public final class SessionPortFactory {
      *
      * @return a usable port that has session id and URL set.
      */
-    public static <P> P createSessionPort(final WebServiceType webServiceType, final LoginContextIfc loginContext, final Service service, final Class portType) {
+    public static <P> P createSessionPort(final WebServiceType webServiceType, final Login loginContext, final Service service, final Class portType) {
         return createSessionPort(webServiceType.getSessionUrlFactory().computeSessionUrl(loginContext, service), loginContext.getSessionId(), service, portType);
     }
 
@@ -87,7 +87,7 @@ public final class SessionPortFactory {
      *
      * @return a usable port that has session id and URL set.
      */
-    public static <P> P createSessionPort(final ApiWebService apiWebService, final LoginContextIfc loginContext) {
+    public static <P> P createSessionPort(final ApiWebService apiWebService, final Login loginContext) {
         return createSessionPort(apiWebService.getWebServiceType(), loginContext, apiWebService.getService(), apiWebService.getPortType());
     }
 

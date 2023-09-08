@@ -17,9 +17,10 @@
 package org.solenopsis.session.soap.session;
 
 import jakarta.xml.ws.Service;
+import org.apache.commons.lang3.StringUtils;
+import org.solenopsis.session.Credentials;
+import org.solenopsis.session.Login;
 import org.solenopsis.session.soap.SessionUrlFactory;
-import org.solenopsis.session.CredentialsIfc;
-import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Used to compute session urls.
@@ -87,15 +88,15 @@ public enum SessionUrlFactoryEnum implements SessionUrlFactory {
      * {@inheritDoc}
      */
     @Override
-    public String computeUrl(CredentialsIfc credentials, Service service) {
-        return StringUtils.concatWithSeparator(false, "/", credentials.getUrl(), getPartialUrl(), getPortNameFactory().computePortName(credentials, service));
+    public String computeUrl(Credentials credentials, Service service) {
+        return StringUtils.concatWithSeparator(false, "/", credentials.url(), getPartialUrl(), getPortNameFactory().computePortName(credentials, service));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String computeSessionUrl(final LoginContextIfc loginContext, final Service service) {
+    public String computeSessionUrl(final Login loginContext, final Service service) {
         return StringUtils.concatWithSeparator(false, "/", getSessionServerFactory().computeServer(loginContext), getPartialUrl(), getPortNameFactory().computePortName(loginContext, service));
     }
 }

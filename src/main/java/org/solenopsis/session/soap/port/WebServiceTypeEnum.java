@@ -19,12 +19,11 @@ package org.solenopsis.session.soap.port;
 import jakarta.xml.ws.Service;
 import java.lang.reflect.Proxy;
 import java.net.URL;
+import org.solenopsis.session.Credentials;
 import org.solenopsis.session.soap.LoginWebService;
 import org.solenopsis.session.soap.SessionUrlFactory;
 import org.solenopsis.session.soap.WebServiceType;
 import org.solenopsis.session.soap.session.SessionUrlFactoryEnum;
-import org.solenopsis.session.CredentialsIfc;
-import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Denotes an SFDC API web service and the sub URL one needs when calling an SFDC web service and the ability to create session
@@ -96,7 +95,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final LoginWebService loginWebService, final Service service, Class<P> portType) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final LoginWebService loginWebService, final Service service, Class<P> portType) {
         ObjectUtils.ensureObject(service, "Must provide a service!");
         ObjectUtils.ensureObject(portType, "Must provide a port type!");
 
@@ -114,7 +113,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final Service service, Class<P> portType) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final Service service, Class<P> portType) {
         return createProxyPort(credentials, LoginWebService.DEFAULT_LOGIN_WEB_SERVICE, service, portType);
     }
 
@@ -122,7 +121,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final LoginWebService loginWebService, final S service) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final LoginWebService loginWebService, final S service) {
         ObjectUtils.ensureObject(service, "Must provide a service!");
 
         return (P) createProxyPort(credentials, loginWebService, service, ServiceUtils.getPortType(service.getClass()));
@@ -132,7 +131,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final S service) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final S service) {
         return createProxyPort(credentials, LoginWebService.DEFAULT_LOGIN_WEB_SERVICE, service);
     }
 
@@ -140,7 +139,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final LoginWebService loginWebService, final Class<S> serviceClass, final URL wsdlResource) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final LoginWebService loginWebService, final Class<S> serviceClass, final URL wsdlResource) {
         return createProxyPort(credentials, loginWebService, ServiceUtils.createService(serviceClass, wsdlResource));
     }
 
@@ -148,7 +147,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final Class<S> serviceClass, final URL wsdlResource) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final Class<S> serviceClass, final URL wsdlResource) {
         return createProxyPort(credentials, LoginWebService.DEFAULT_LOGIN_WEB_SERVICE, serviceClass, wsdlResource);
     }
 
@@ -156,7 +155,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final LoginWebService loginWebService, final Class<S> serviceClass, final String wsdlResource) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final LoginWebService loginWebService, final Class<S> serviceClass, final String wsdlResource) {
         return createProxyPort(credentials, loginWebService, ServiceUtils.createService(serviceClass, wsdlResource));
     }
 
@@ -164,7 +163,7 @@ public enum WebServiceTypeEnum implements WebServiceType {
      * {@inheritDoc}
      */
     @Override
-    public <S extends Service, P> P createProxyPort(final CredentialsIfc credentials, final Class<S> serviceClass, final String wsdlResource) {
+    public <S extends Service, P> P createProxyPort(final Credentials credentials, final Class<S> serviceClass, final String wsdlResource) {
         return createProxyPort(credentials, LoginWebService.DEFAULT_LOGIN_WEB_SERVICE, serviceClass, wsdlResource);
     }
 }

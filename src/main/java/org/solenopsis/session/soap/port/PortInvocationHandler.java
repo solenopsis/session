@@ -21,16 +21,16 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
+import org.solenopsis.session.Credentials;
 import org.solenopsis.session.soap.LoginWebService;
 import org.solenopsis.session.soap.WebServiceType;
 import org.solenopsis.session.soap.exception.ExceptionContext;
 import org.solenopsis.session.soap.exception.SalesforceExceptionEnum;
 import org.solenopsis.session.soap.session.SessionPortFactory;
-import org.solenopsis.session.CredentialsIfc;
-import org.solenopsis.session.LoginContextIfc;
 
 /**
  * Acts as a proxy to call methods on ports. This is the real place that auto logins, retries, etc. happen. We leverage the
@@ -52,19 +52,19 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
     static {
         LOGIN_CONTEXT_METHODS = new HashSet<>();
 
-        for (final Method method : LoginContextIfc.class.getDeclaredMethods()) {
+        for (final Method method : Login.class.getDeclaredMethods()) {
             LOGIN_CONTEXT_METHODS.add(method);
         }
     }
     /**
      * The credentials.
      */
-    private final CredentialsIfc credentials;
+    private final Credentials credentials;
 
     /**
      * Holds our login context.
      */
-    private final AtomicReference<LoginContextIfc> loginContext;
+    private final AtomicReference<Login> loginContext;
 
     /**
      * The login web service.
@@ -96,7 +96,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @return the credentials.
      */
-    final CredentialsIfc getCredentials() {
+    final Credentials getCredentials() {
         return credentials;
     }
 
@@ -105,7 +105,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @return the login context.
      */
-    final AtomicReference<LoginContextIfc> getLoginContext() {
+    final AtomicReference<Login> getLoginContext() {
         return loginContext;
     }
 
@@ -173,13 +173,13 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @throws IllegalArgumentException if any of the params are null.
      */
-    <P> PortInvocationHandler(final CredentialsIfc credentials, final LoginWebService loginWebService, final WebServiceType webServiceType, final Service service, final Class portType) {
-        this.credentials = ObjectUtils.ensureObject(credentials, "Must provide credentials!");
+    <P> PortInvocationHandler(final Credentials credentials, final LoginWebService loginWebService, final WebServiceType webServiceType, final Service service, final Class portType) {
+        this.credentials = Objects.requireNonNull(credentials, "Must provide credentials!");
         this.loginContext = new AtomicReference<>(loginWebService.login(credentials));
-        this.loginWebService = ObjectUtils.ensureObject(loginWebService, "Must provide a login web service!");
-        this.webServiceType = ObjectUtils.ensureObject(webServiceType, "Must provide a web service type!");
-        this.service = ObjectUtils.ensureObject(service, "Must provide a service!");
-        this.portType = ObjectUtils.ensureObject(portType, "Must provide a port type!");
+        this.loginWebService = Objects.requireNonNull(loginWebService, "Must provide a login web service!");
+        this.webServiceType = Objects.requireNonNull(webServiceType, "Must provide a web service type!");
+        this.service = Objects.requireNonNull(service, "Must provide a service!");
+        this.portType = Objects.requireNonNull(portType, "Must provide a port type!");
         this.port = new AtomicReference(SessionPortFactory.createSessionPort(webServiceType, loginContext.get(), service, portType));
     }
 
@@ -188,8 +188,8 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      */
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-        ObjectUtils.ensureObject(proxy, "Must have a proxy object in which to call methods!");
-        ObjectUtils.ensureObject(method, "Must provide a method to call!");
+        Objects.requireNonNull(proxy, "Must have a proxy object in which to call methods!");
+        Objects.requireNonNull(method, "Must provide a method to call!");
 
         log(Level.FINE, "Calling [{0}.{1}]", getPortType().getName(), method.getName());
 

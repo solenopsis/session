@@ -16,19 +16,13 @@
  */
 package org.solenopsis.session.soap.port;
 
-import javax.xml.ws.Service;
+import com.sforce.soap.enterprise.SforceService;
+import com.sforce.soap.enterprise.Soap;
+import org.apache.cxf.service.Service;
+import org.solenopsis.session.Credentials;
 import org.solenopsis.session.soap.ApiWebService;
 import org.solenopsis.session.soap.LoginWebService;
 import org.solenopsis.session.soap.WebServiceType;
-import org.solenopsis.keraiai.wsdl.apex.ApexPortType;
-import org.solenopsis.keraiai.wsdl.apex.ApexService;
-import org.solenopsis.keraiai.wsdl.enterprise.SforceService;
-import org.solenopsis.keraiai.wsdl.enterprise.Soap;
-import org.solenopsis.keraiai.wsdl.metadata.MetadataPortType;
-import org.solenopsis.keraiai.wsdl.metadata.MetadataService;
-import org.solenopsis.keraiai.wsdl.tooling.SforceServicePortType;
-import org.solenopsis.keraiai.wsdl.tooling.SforceServiceService;
-import org.solenopsis.session.CredentialsIfc;
 
 /**
  * This enum denotes the built in SFDC API web services.
@@ -36,11 +30,11 @@ import org.solenopsis.session.CredentialsIfc;
  * @author Scot P. Floess
  */
 public enum ApiWebServiceEnum implements ApiWebService {
-    APEX_SERVICE(WebServiceTypeEnum.APEX_SERVICE_TYPE, new ApexService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Keraiai-apex.wsdl")), ApexPortType.class),
-    ENTERPRISE_SERVICE(WebServiceTypeEnum.ENTERPRISE_SERVICE_TYPE, new SforceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Keraiai-enterprise.wsdl")), Soap.class),
-    METADATA_SERVICE(WebServiceTypeEnum.METADATA_SERVICE_TYPE, new MetadataService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Keraiai-metadata.wsdl")), MetadataPortType.class),
+    APEX_SERVICE(WebServiceTypeEnum.APEX_SERVICE_TYPE, new ApexService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-apex.wsdl")), ApexPortType.class),
+    ENTERPRISE_SERVICE(WebServiceTypeEnum.ENTERPRISE_SERVICE_TYPE, new SforceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-enterprise.wsdl")), Soap.class),
+    METADATA_SERVICE(WebServiceTypeEnum.METADATA_SERVICE_TYPE, new MetadataService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-metadata.wsdl")), MetadataPortType.class),
     PARTNER_SERVICE(WebServiceTypeEnum.PARTNER_SERVICE_TYPE, new org.solenopsis.keraiai.wsdl.partner.SforceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Keraiai-partner.wsdl")), org.solenopsis.keraiai.wsdl.partner.Soap.class),
-    TOOLING_SERVICE(WebServiceTypeEnum.TOOLING_SERVICE_TYPE, new SforceServiceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Keraiai-tooling.wsdl")), SforceServicePortType.class);
+    TOOLING_SERVICE(WebServiceTypeEnum.TOOLING_SERVICE_TYPE, new SforceServiceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-tooling.wsdl")), SforceServicePortType.class);
 
     /**
      * The web service type.
@@ -97,7 +91,7 @@ public enum ApiWebServiceEnum implements ApiWebService {
      * {@inheritDoc}
      */
     @Override
-    public <P> P createProxyPort(CredentialsIfc credentials, LoginWebService loginWebService) {
+    public <P> P createProxyPort(Credentials credentials, LoginWebService loginWebService) {
         return (P) getWebServiceType().createProxyPort(credentials, loginWebService, getService(), getPortType());
     }
 
@@ -105,7 +99,7 @@ public enum ApiWebServiceEnum implements ApiWebService {
      * {@inheritDoc}
      */
     @Override
-    public <P> P createProxyPort(final CredentialsIfc credentials) {
+    public <P> P createProxyPort(final Credentials credentials) {
         return (P) getWebServiceType().createProxyPort(credentials, getService(), getPortType());
     }
 }
