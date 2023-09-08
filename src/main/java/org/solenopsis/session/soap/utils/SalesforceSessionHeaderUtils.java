@@ -17,6 +17,7 @@
 package org.solenopsis.session.soap.utils;
 
 import jakarta.xml.ws.Service;
+import java.util.Objects;
 import javax.xml.namespace.QName;
 
 /**
@@ -55,7 +56,7 @@ public final class SalesforceSessionHeaderUtils {
      * @throws IllegalArgumentException if serviceName is null.
      */
     public static QName computeSessionHeaderNameForQname(final QName serviceName) {
-        ObjectUtils.ensureObject(serviceName, "Must provide a service QName!");
+        Objects.requireNonNull(serviceName, "Must provide a service QName!");
 
         return computeSessionHeaderNameForNamespace(serviceName.getNamespaceURI());
     }
@@ -70,7 +71,7 @@ public final class SalesforceSessionHeaderUtils {
      * @throws IllegalArgumentException if service is null.
      */
     public static QName computeSessionHeaderNameForService(final Service service) {
-        ObjectUtils.ensureObject(service, "Must provide a service!");
+        Objects.requireNonNull(service, "Must provide a service!");
 
         return computeSessionHeaderNameForQname(service.getServiceName());
     }
