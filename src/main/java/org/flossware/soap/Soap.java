@@ -1,6 +1,6 @@
-package org.solenopsis.session.soap.service;
+package org.flossware.soap;
 
-import org.apache.cxf.service.Service;
+import jakarta.xml.ws.Service;
 
 /**
  *
