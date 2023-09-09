@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Scot P. Floess
+ * Copyright (C) 2015 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,33 +14,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.solenopsis.session.soap.login;
+package org.solenopsis.session.soap.oldlogin;
 
-import com.sforce.soap.enterprise.Soap;
+import com.sforce.soap.partner.Soap;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.Login;
 
 /**
- * Implementation using the enterprise web service.
+ * Implementation using the partner web service.
  *
  * @author Scot P. Floess
  */
-final class EnterpriseLoginMgr implements LoginMgr {
-
+final class PartnerLoginMgr implements LoginMgr {
     @Override
-    public Login login(final Object port, final Credentials credentials) {
+    public Login login(Object port, Credentials credentials) {
         try {
             return new Login(((Soap) port).login(credentials.username(), credentials.securityPassword()), credentials);
-        } catch (final InvalidIdFault_Exception | LoginFault_Exception | UnexpectedErrorFault_Exception t) {
+        } catch (final Throwable t) {
             throw new LoginException(t);
         }
     }
 
     @Override
-    public void logout(final Object port) {
+    public void logout(Object port) {
         try {
             ((Soap) port).logout();
-        } catch (final UnexpectedErrorFault_Exception t) {
+        } catch (final Throwable t) {
             throw new LogoutException(t);
         }
     }

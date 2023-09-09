@@ -18,7 +18,7 @@ package org.solenopsis.session.soap;
 
 import com.sforce.soap.enterprise.Login;
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.soap.login.LoginWebServiceEnum;
+import org.solenopsis.session.soap.oldlogin.LoginWebServiceEnum;
 
 /**
  * Represents all login SOAP web service: enterprise, partner and tooling. Additionally provides the ability to create a usable

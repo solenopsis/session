@@ -14,22 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.solenopsis.session.soap.login;
+package org.solenopsis.session.soap.oldlogin;
 
-import com.sforce.soap.partner.Soap;
+import com.sforce.soap.tooling.SforceServicePortType;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.Login;
 
 /**
- * Implementation using the partner web service.
+ * Implementation using the tooling web service.
  *
  * @author Scot P. Floess
  */
-final class PartnerLoginMgr implements LoginMgr {
+public class ToolingLoginMgr implements LoginMgr {
     @Override
     public Login login(Object port, Credentials credentials) {
         try {
-            return new Login(((Soap) port).login(credentials.username(), credentials.securityPassword()), credentials);
+            return new Login(((SforceServicePortType) port).login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Throwable t) {
             throw new LoginException(t);
         }
@@ -38,7 +38,7 @@ final class PartnerLoginMgr implements LoginMgr {
     @Override
     public void logout(Object port) {
         try {
-            ((Soap) port).logout();
+            ((SforceServicePortType) port).logout();
         } catch (final Throwable t) {
             throw new LogoutException(t);
         }

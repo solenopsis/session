@@ -1,4 +1,4 @@
-/*
+/*[WARNING] WARNING: file:/home/sfloess/Development/github/solenopsis/Session/src/main/resources/wsdl/Session-enterprise.wsdl [36177,13]: Simple type "ExceptionCode" was not mapped to Enum due to EnumMemberSizeCap limit. Facets count: 263, current limit: 256. You can use customization attribute "typesafeEnumMaxMembers" to extend the limit.
  * Copyright (C) 2023 Scot P. Floess
  *
  * This program is free software: you can redistribute it and/or modify
