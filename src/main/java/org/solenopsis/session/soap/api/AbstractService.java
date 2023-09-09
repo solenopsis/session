@@ -3,7 +3,6 @@ package org.solenopsis.session.soap.api;
 import org.apache.cxf.service.Service;
 import org.solenopsis.session.Credentials;
 import solenopsis.session.soap.LoginService;
-import solenopsis.session.soap.ServiceType;
 
 /**
  *
