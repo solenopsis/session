@@ -17,6 +17,7 @@
 package org.solenopsis.session.soap.login;
 
 import com.sforce.soap.partner.Soap;
+import org.solenopsis.session.Credentials;
 import org.solenopsis.session.Login;
 
 /**
@@ -28,7 +29,7 @@ final class PartnerLoginMgr implements LoginMgr {
     @Override
     public Login login(Object port, Credentials credentials) {
         try {
-            return new Login(((Soap) port).login(credentials.getUserName(), credentials.getSecurityPassword()), credentials);
+            return new Login(((Soap) port).login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Throwable t) {
             throw new LoginException(t);
         }

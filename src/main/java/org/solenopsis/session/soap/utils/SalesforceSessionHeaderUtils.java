@@ -19,7 +19,7 @@ package org.solenopsis.session.soap.utils;
 import jakarta.xml.ws.Service;
 import java.util.Objects;
 import javax.xml.namespace.QName;
-import org.solenopsis.session.utils.Strings;
+import org.flossware.util.Strings;
 
 /**
  * Utility class for port functionality.

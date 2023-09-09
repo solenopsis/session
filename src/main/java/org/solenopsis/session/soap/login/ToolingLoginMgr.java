@@ -29,7 +29,7 @@ public class ToolingLoginMgr implements LoginMgr {
     @Override
     public Login login(Object port, Credentials credentials) {
         try {
-            return new Login(((SforceServicePortType) port).login(credentials.getUserName(), credentials.getSecurityPassword()), credentials);
+            return new Login(((SforceServicePortType) port).login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Throwable t) {
             throw new LoginException(t);
         }

@@ -24,13 +24,13 @@ import org.solenopsis.session.Credentials;
  *
  * @author Scot P. Floess
  */
-public interface ApiWebService {
+public interface ApiService {
     /**
      * Return the web service type.
      *
      * @return the web service.
      */
-    WebServiceType getWebServiceType();
+    ServiceType getServiceType();
 
     /**
      * Return the SFDC web service.
@@ -47,7 +47,7 @@ public interface ApiWebService {
     Class getPortType();
 
     /**
-     * Will create a proxy port using the API services included in Keraiai.
+     * Will create a proxy port using the API services.
      *
      * @param <P>             the type of port to create.
      *
@@ -56,10 +56,10 @@ public interface ApiWebService {
      *
      * @return a proxy port
      */
-    <P> P createProxyPort(Credentials credentials, LoginWebService loginWebService);
+    <P> P createProxyPort(Credentials credentials, LoginService loginWebService);
 
     /**
-     * Will create a proxy port using the API services included in Keraiai.
+     * Will create a proxy port using the API services.
      *
      * @param <P>         the type of port to create.
      *

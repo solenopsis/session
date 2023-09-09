@@ -18,10 +18,10 @@ package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.Login;
-import org.solenopsis.session.soap.ApiWebService;
-import org.solenopsis.session.soap.LoginWebService;
-import org.solenopsis.session.soap.port.ApiWebServiceEnum;
+import org.solenopsis.session.soap.port.ApiServiceEnum;
 import org.solenopsis.session.soap.session.SessionPortFactory;
+import org.solenopsis.session.soap.ApiService;
+import org.solenopsis.session.soap.LoginService;
 
 /**
  * Represents all login SOAP web service: enterprise, partner and tooling. Additionally provides the ability to create a usable
@@ -29,15 +29,15 @@ import org.solenopsis.session.soap.session.SessionPortFactory;
  *
  * @author Scot P. Floess
  */
-public enum LoginWebServiceEnum implements LoginWebService {
-    ENTERPRISE_LOGIN_SERVICE(ApiWebServiceEnum.ENTERPRISE_SERVICE, LoginMgr.ENTERPRISE_LOGIN_MGR),
-    PARTNER_LOGIN_SERVICE(ApiWebServiceEnum.PARTNER_SERVICE, LoginMgr.PARTNER_LOGIN_MGR),
-    TOOLING_LOGIN_SERVICE(ApiWebServiceEnum.TOOLING_SERVICE, LoginMgr.TOOLING_LOGIN_MGR);
+public enum LoginWebServiceEnum implements LoginService {
+    ENTERPRISE_LOGIN_SERVICE(ApiServiceEnum.ENTERPRISE_SERVICE, LoginMgr.ENTERPRISE_LOGIN_MGR),
+    PARTNER_LOGIN_SERVICE(ApiServiceEnum.PARTNER_SERVICE, LoginMgr.PARTNER_LOGIN_MGR),
+    TOOLING_LOGIN_SERVICE(ApiServiceEnum.TOOLING_SERVICE, LoginMgr.TOOLING_LOGIN_MGR);
 
     /**
      * The actual web service type.
      */
-    private final ApiWebService apiWebService;
+    private final ApiService apiWebService;
 
     /**
      * The login mgr.
@@ -54,7 +54,7 @@ public enum LoginWebServiceEnum implements LoginWebService {
      * @param webService the SFDC web service.
      * @param portType   the port for the web service.
      */
-    private LoginWebServiceEnum(final ApiWebService apiWebService, final LoginMgr loginMgr) {
+    private LoginWebServiceEnum(final ApiService apiWebService, final LoginMgr loginMgr) {
         this.apiWebService = apiWebService;
         this.loginMgr = loginMgr;
     }
@@ -63,7 +63,7 @@ public enum LoginWebServiceEnum implements LoginWebService {
      * {@inheritDoc}
      */
     @Override
-    public ApiWebService getApiWebService() {
+    public ApiService getApiWebService() {
         return apiWebService;
     }
 
@@ -72,7 +72,7 @@ public enum LoginWebServiceEnum implements LoginWebService {
      */
     @Override
     public Login login(final Credentials credentials) {
-        return getLoginMgr().login(SoapUtils.createPort(getApiWebService().getService(), getApiWebService().getPortType(), getApiWebService().getWebServiceType().getSessionUrlFactory().computeUrl(credentials, getApiWebService().getService())), credentials);
+        return getLoginMgr().login(SoapUtils.createPort(getApiWebService().getService(), getApiWebService().getPortType(), getApiWebService().getServiceType().getSessionUrlFactory().computeUrl(credentials, getApiWebService().getService())), credentials);
     }
 
     /**

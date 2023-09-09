@@ -16,8 +16,8 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.CredentialsIfc;
-import org.solenopsis.session.LoginContextIfc;
+import org.solenopsis.session.Credentials;
+import org.solenopsis.session.Login;
 
 /**
  * Represents a way to login and out of SFDC for the enterprise, partner and tooling web services. Additionally, maintains a session
@@ -50,7 +50,7 @@ interface LoginMgr {
      *
      * @return a login result from SFDC.
      */
-    LoginContextIfc login(Object port, CredentialsIfc credentials);
+    Login login(Object port, Credentials credentials);
 
     /**
      * Force a logout.

@@ -108,9 +108,24 @@
 
                             <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
 
+                            <!--
+                            <targetNameSpace>org.solenopsis.session.soap.ws</targetNameSpace>
+                            -->
+
                             <includes>
                                 <include>Session-*.wsdl</include>
                             </includes>
+
+                            <!--
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>org.solenopsis.session.soap.ws</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                            </wsdlOptions>
+                            -->
                         </configuration>
 
                         <goals>

@@ -26,7 +26,7 @@ import org.solenopsis.session.soap.login.LoginWebServiceEnum;
  *
  * @author Scot P. Floess
  */
-public interface LoginWebService {
+public interface LoginService {
     /**
      * The default login web service when omitted...
      */
@@ -37,7 +37,7 @@ public interface LoginWebService {
      *
      * @return the login web service type.
      */
-    ApiWebService getApiWebService();
+    ApiService getApiWebService();
 
     /**
      * Issues a login.

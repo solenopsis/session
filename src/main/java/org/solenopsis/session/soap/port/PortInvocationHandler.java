@@ -26,11 +26,11 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.soap.LoginWebService;
-import org.solenopsis.session.soap.WebServiceType;
 import org.solenopsis.session.soap.exception.ExceptionContext;
 import org.solenopsis.session.soap.exception.SalesforceExceptionEnum;
 import org.solenopsis.session.soap.session.SessionPortFactory;
+import org.solenopsis.session.soap.LoginService;
+import org.solenopsis.session.soap.ServiceType;
 
 /**
  * Acts as a proxy to call methods on ports. This is the real place that auto logins, retries, etc. happen. We leverage the
@@ -69,12 +69,12 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
     /**
      * The login web service.
      */
-    private final LoginWebService loginWebService;
+    private final LoginService loginWebService;
 
     /**
      * The web service type.
      */
-    private final WebServiceType webServiceType;
+    private final ServiceType webServiceType;
 
     /**
      * The web service itself.
@@ -114,7 +114,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @return the login web service.
      */
-    final LoginWebService getLoginWebService() {
+    final LoginService getLoginWebService() {
         return loginWebService;
     }
 
@@ -123,7 +123,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @return the web service type.
      */
-    final WebServiceType getWebServiceType() {
+    final ServiceType getWebServiceType() {
         return webServiceType;
     }
 
@@ -173,7 +173,7 @@ final class PortInvocationHandler extends AbstractCommonBase implements Invocati
      *
      * @throws IllegalArgumentException if any of the params are null.
      */
-    <P> PortInvocationHandler(final Credentials credentials, final LoginWebService loginWebService, final WebServiceType webServiceType, final Service service, final Class portType) {
+    <P> PortInvocationHandler(final Credentials credentials, final LoginService loginWebService, final ServiceType webServiceType, final Service service, final Class portType) {
         this.credentials = Objects.requireNonNull(credentials, "Must provide credentials!");
         this.loginContext = new AtomicReference<>(loginWebService.login(credentials));
         this.loginWebService = Objects.requireNonNull(loginWebService, "Must provide a login web service!");

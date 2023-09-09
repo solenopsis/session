@@ -1,4 +1,4 @@
-package org.solenopsis.session.utils;
+package org.flossware.util;
 
 import org.apache.commons.lang3.StringUtils;
 

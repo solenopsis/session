@@ -20,26 +20,26 @@ import com.sforce.soap.enterprise.SforceService;
 import com.sforce.soap.enterprise.Soap;
 import org.apache.cxf.service.Service;
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.soap.ApiWebService;
-import org.solenopsis.session.soap.LoginWebService;
-import org.solenopsis.session.soap.WebServiceType;
+import org.solenopsis.session.soap.ApiService;
+import org.solenopsis.session.soap.LoginService;
+import org.solenopsis.session.soap.ServiceType;
 
 /**
  * This enum denotes the built in SFDC API web services.
  *
  * @author Scot P. Floess
  */
-public enum ApiWebServiceEnum implements ApiWebService {
-    APEX_SERVICE(WebServiceTypeEnum.APEX_SERVICE_TYPE, new ApexService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-apex.wsdl")), ApexPortType.class),
-    ENTERPRISE_SERVICE(WebServiceTypeEnum.ENTERPRISE_SERVICE_TYPE, new SforceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-enterprise.wsdl")), Soap.class),
-    METADATA_SERVICE(WebServiceTypeEnum.METADATA_SERVICE_TYPE, new MetadataService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-metadata.wsdl")), MetadataPortType.class),
-    PARTNER_SERVICE(WebServiceTypeEnum.PARTNER_SERVICE_TYPE, new org.solenopsis.keraiai.wsdl.partner.SforceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Keraiai-partner.wsdl")), org.solenopsis.keraiai.wsdl.partner.Soap.class),
-    TOOLING_SERVICE(WebServiceTypeEnum.TOOLING_SERVICE_TYPE, new SforceServiceService(ApiWebServiceEnum.class.getClassLoader().getResource("wsdl/Session-tooling.wsdl")), SforceServicePortType.class);
+public enum ApiServiceEnum implements ApiService {
+    APEX_SERVICE(ServiceTypeEnum.APEX_SERVICE_TYPE, new ApexService(ApiServiceEnum.class.getClassLoader().getResource("wsdl/Session-apex.wsdl")), ApexPortType.class),
+    ENTERPRISE_SERVICE(ServiceTypeEnum.ENTERPRISE_SERVICE_TYPE, new SforceService(ApiServiceEnum.class.getClassLoader().getResource("wsdl/Session-enterprise.wsdl")), Soap.class),
+    METADATA_SERVICE(ServiceTypeEnum.METADATA_SERVICE_TYPE, new MetadataService(ApiServiceEnum.class.getClassLoader().getResource("wsdl/Session-metadata.wsdl")), MetadataPortType.class),
+    PARTNER_SERVICE(ServiceTypeEnum.PARTNER_SERVICE_TYPE, new org.solenopsis.keraiai.wsdl.partner.SforceService(ApiServiceEnum.class.getClassLoader().getResource("wsdl/Keraiai-partner.wsdl")), org.solenopsis.keraiai.wsdl.partner.Soap.class),
+    TOOLING_SERVICE(ServiceTypeEnum.TOOLING_SERVICE_TYPE, new SforceServiceService(ApiServiceEnum.class.getClassLoader().getResource("wsdl/Session-tooling.wsdl")), SforceServicePortType.class);
 
     /**
      * The web service type.
      */
-    private final WebServiceType webServiceType;
+    private final ServiceType webServiceType;
 
     /**
      * The SFDC web service.
@@ -57,7 +57,7 @@ public enum ApiWebServiceEnum implements ApiWebService {
      * @param service  the SFDC web service.
      * @param portType the port for the web service.
      */
-    private ApiWebServiceEnum(final WebServiceType webServiceType, final Service service, final Class portType) {
+    private ApiServiceEnum(final ServiceType webServiceType, final Service service, final Class portType) {
         this.webServiceType = webServiceType;
         this.service = service;
         this.portType = portType;
@@ -67,7 +67,7 @@ public enum ApiWebServiceEnum implements ApiWebService {
      * {@inheritDoc}
      */
     @Override
-    public WebServiceType getWebServiceType() {
+    public ServiceType getServiceType() {
         return webServiceType;
     }
 
@@ -91,8 +91,8 @@ public enum ApiWebServiceEnum implements ApiWebService {
      * {@inheritDoc}
      */
     @Override
-    public <P> P createProxyPort(Credentials credentials, LoginWebService loginWebService) {
-        return (P) getWebServiceType().createProxyPort(credentials, loginWebService, getService(), getPortType());
+    public <P> P createProxyPort(Credentials credentials, LoginService loginWebService) {
+        return (P) getServiceType().createProxyPort(credentials, loginWebService, getService(), getPortType());
     }
 
     /**
@@ -100,6 +100,6 @@ public enum ApiWebServiceEnum implements ApiWebService {
      */
     @Override
     public <P> P createProxyPort(final Credentials credentials) {
-        return (P) getWebServiceType().createProxyPort(credentials, getService(), getPortType());
+        return (P) getServiceType().createProxyPort(credentials, getService(), getPortType());
     }
 }

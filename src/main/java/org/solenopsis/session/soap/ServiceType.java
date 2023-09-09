@@ -25,7 +25,7 @@ import org.solenopsis.session.Credentials;
  *
  * @author Scot P. Floess
  */
-public interface WebServiceType {
+public interface ServiceType {
     /**
      * Return the session URL factory for creating session URLs.
      *
@@ -46,7 +46,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, S service, Class<P> portType);
+    <S extends Service, P> P createProxyPort(Credentials credentials, LoginService loginWebService, S service, Class<P> portType);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -74,7 +74,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, S service);
+    <S extends Service, P> P createProxyPort(Credentials credentials, LoginService loginWebService, S service);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -102,7 +102,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, Class<S> serviceClass, final URL wsdlResource);
+    <S extends Service, P> P createProxyPort(Credentials credentials, LoginService loginWebService, Class<S> serviceClass, final URL wsdlResource);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
@@ -131,7 +131,7 @@ public interface WebServiceType {
      *
      * @return a session based port.
      */
-    <S extends Service, P> P createProxyPort(Credentials credentials, LoginWebService loginWebService, Class<S> serviceClass, final String wsdlResource);
+    <S extends Service, P> P createProxyPort(Credentials credentials, LoginService loginWebService, Class<S> serviceClass, final String wsdlResource);
 
     /**
      * Create a proxy based port. This port will be able to perform auto logins, re-logins, etc.
