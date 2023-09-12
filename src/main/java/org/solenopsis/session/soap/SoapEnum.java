@@ -7,20 +7,22 @@ import org.flossware.soap.Soap;
  * @author sfloess
  */
 public enum SoapEnum {
-    APEX(ServiceEnum.APEX, PortEnum.APEX),
-    ENTERPRISE(ServiceEnum.ENTERPRISE, PortEnum.ENTERPRISE),
-    PARTNER(ServiceEnum.PARTNER, PortEnum.PARTNER),
-    METADATA(ServiceEnum.METADATA, PortEnum.METADATA),
-    TOOLING(ServiceEnum.TOOLING, PortEnum.TOOLING);
+    APEX(ServiceEnum.APEX, PortEnum.APEX, PartialUrlEnum.APEX),
+    ENTERPRISE(ServiceEnum.ENTERPRISE, PortEnum.ENTERPRISE, PartialUrlEnum.ENTERPRISE),
+    PARTNER(ServiceEnum.PARTNER, PortEnum.PARTNER, PartialUrlEnum.PARTNER),
+    METADATA(ServiceEnum.METADATA, PortEnum.METADATA, PartialUrlEnum.METADATA),
+    TOOLING(ServiceEnum.TOOLING, PortEnum.TOOLING, PartialUrlEnum.TOOLING);
 
-    final ServiceEnum service;
-    final PortEnum port;
+    private final ServiceEnum service;
+    private final PortEnum port;
+    private final PartialUrlEnum partialUrl;
 
-    final Soap soap;
+    private final Soap soap;
 
-    SoapEnum(final ServiceEnum service, PortEnum port) {
+    SoapEnum(final ServiceEnum service, final PortEnum port ,final PartialUrlEnum partialUrl) {
         this.service = service;
         this.port = port;
+        this.partialUrl = partialUrl;
 
         this.soap = new Soap(service.getService(), port.getPortType());
     }
@@ -31,6 +33,10 @@ public enum SoapEnum {
 
     public PortEnum getPort() {
         return port;
+    }
+
+    public PartialUrlEnum getPartialUrl() {
+        return partialUrl;
     }
 
     public Soap getSoap() {
