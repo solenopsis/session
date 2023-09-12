@@ -1,7 +1,5 @@
 package org.solenopsis.session.soap;
 
-import org.flossware.soap.Soap;
-
 /**
  *
  * @author sfloess
@@ -17,14 +15,10 @@ public enum SoapEnum {
     private final PortEnum port;
     private final PartialUrlEnum partialUrl;
 
-    private final Soap soap;
-
     SoapEnum(final ServiceEnum service, final PortEnum port ,final PartialUrlEnum partialUrl) {
         this.service = service;
         this.port = port;
         this.partialUrl = partialUrl;
-
-        this.soap = new Soap(service.getService(), port.getPortType());
     }
 
     public ServiceEnum getService() {
@@ -37,9 +31,5 @@ public enum SoapEnum {
 
     public PartialUrlEnum getPartialUrl() {
         return partialUrl;
-    }
-
-    public Soap getSoap() {
-        return soap;
     }
 }

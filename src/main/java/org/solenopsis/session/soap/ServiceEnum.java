@@ -13,8 +13,8 @@ import jakarta.xml.ws.Service;
 public enum ServiceEnum {
     APEX(new ApexService(ServiceEnum.class.getClassLoader().getResource("wsdl/Session-apex.wsdl"))),
     ENTERPRISE(new SforceService(ServiceEnum.class.getClassLoader().getResource("wsdl/Session-enterprise.wsdl"))),
-    PARTNER(new com.sforce.soap.partner.SforceService(ServiceEnum.class.getClassLoader().getResource("wsdl/Session-partner.wsdl"))),
     METADATA(new MetadataService(ServiceEnum.class.getClassLoader().getResource("wsdl/Session-metadata.wsdl"))),
+    PARTNER(new com.sforce.soap.partner.SforceService(ServiceEnum.class.getClassLoader().getResource("wsdl/Session-partner.wsdl"))),
     TOOLING(new SforceServiceService(ServiceEnum.class.getClassLoader().getResource("wsdl/Session-tooling.wsdl")));
 
     final Service service;

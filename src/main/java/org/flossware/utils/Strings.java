@@ -1,4 +1,4 @@
-package org.flossware.util;
+package org.flossware.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
