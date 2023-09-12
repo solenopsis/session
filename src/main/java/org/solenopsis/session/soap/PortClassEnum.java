@@ -9,7 +9,7 @@ import org.flossware.soap.Soap;
  *
  * @author sfloess
  */
-public enum PortEnum {
+public enum PortClassEnum {
     APEX(ApexPortType.class),
     ENTERPRISE(Soap.class),
     PARTNER(com.sforce.soap.partner.Soap.class),
@@ -18,7 +18,7 @@ public enum PortEnum {
 
     final Class portType;
 
-    PortEnum(final Class portType) {
+    PortClassEnum(final Class portType) {
         this.portType = portType;
     }
 
