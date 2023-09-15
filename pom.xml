@@ -96,12 +96,9 @@
 
                         <configuration>
                             <defaultOptions>
-                                <!--
                                 <bindingFiles>
                                     <bindingFile>${basedir}/src/main/jaxb/binding.xml</bindingFile>
                                 </bindingFiles>
-                                -->
-
                                 <noAddressBinding>true</noAddressBinding>
                                 <autoNameResolution>true</autoNameResolution>
                             </defaultOptions>
