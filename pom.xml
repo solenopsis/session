@@ -30,7 +30,12 @@
 
         <org.apache.commons_commons-lang3>3.12.0</org.apache.commons_commons-lang3>
 
+
         <cxf.version>4.0.2</cxf.version>
+
+        <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
+
+        <org.solenopsis_soap>1.0</org.solenopsis_soap>
     </properties>
 
     <build>
@@ -82,56 +87,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-codegen-plugin</artifactId>
-                <version>${cxf.version}</version>
-
-                <executions>
-                    <execution>
-                        <id>generate-sources</id>
-                        <phase>generate-sources</phase>
-
-                        <configuration>
-                            <defaultOptions>
-                                <bindingFiles>
-                                    <bindingFile>${basedir}/src/main/jaxb/binding.xml</bindingFile>
-                                </bindingFiles>
-                                <noAddressBinding>true</noAddressBinding>
-                                <autoNameResolution>true</autoNameResolution>
-                            </defaultOptions>
-
-                            <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
-
-                            <!--
-                            <targetNameSpace>org.solenopsis.session.soap.ws</targetNameSpace>
-                            -->
-
-                            <includes>
-                                <include>Session-*.wsdl</include>
-                            </includes>
-
-                            <!--
-                            <wsdlOptions>
-                                <wsdlOption>
-                                    <extraargs>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>org.solenopsis.session.soap.ws</extraarg>
-                                    </extraargs>
-                                </wsdlOption>
-                            </wsdlOptions>
-                            -->
-                        </configuration>
-
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
 
     <dependencies>
@@ -141,6 +96,7 @@
             <version>${org.apache.commons_commons-lang3}</version>
         </dependency>
 
+        <!--
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -158,11 +114,18 @@
             <artifactId>cxf-rt-transports-http-jetty</artifactId>
             <version>${cxf.version}</version>
         </dependency>
+        -->
+
+        <dependency>
+            <groupId>org.solenopsis</groupId>
+            <artifactId>soap</artifactId>
+            <version>${org.solenopsis_soap}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.0</version>
+            <version>${org.junit.jupiter_junit-jupiter-api}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
