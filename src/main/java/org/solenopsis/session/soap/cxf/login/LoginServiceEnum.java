@@ -1,6 +1,6 @@
 package org.solenopsis.session.soap.cxf.login;
 
-import org.solenopsis.soap.wsimport.port.factory.PortFactoryEnum;
+import org.solenopsis.soap.port.factory.PortFactoryEnum;
 
 /**
  *

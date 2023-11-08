@@ -21,10 +21,10 @@ import org.solenopsis.session.Session;
 import org.solenopsis.session.soap.login.LoginException;
 import org.solenopsis.session.soap.login.LoginService;
 import org.solenopsis.session.soap.login.LogoutException;
-import org.solenopsis.soap.cxf.tooling.LoginResult;
-import org.solenopsis.soap.cxf.tooling.SforceServicePortType;
+import org.solenopsis.soap.port.factory.PortFactoryEnum;
 import org.solenopsis.soap.service.ServiceSubUrlEnum;
-import org.solenopsis.soap.wsimport.port.factory.PortFactoryEnum;
+import org.solenopsis.soap.tooling.LoginResult;
+import org.solenopsis.soap.tooling.SforceServicePortType;
 
 /**
  * Uses the Enterprise service for login/logout.
