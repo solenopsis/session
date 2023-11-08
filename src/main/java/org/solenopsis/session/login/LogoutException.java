@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.solenopsis.session.soap.login;
+package org.solenopsis.session.login;
 
 /**
  * Thrown when a problem arises during logout.

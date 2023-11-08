@@ -14,24 +14,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.solenopsis.session.soap.cxf.login;
+package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.Session;
-import org.solenopsis.session.soap.login.LoginException;
-import org.solenopsis.session.soap.login.LoginService;
-import org.solenopsis.session.soap.login.LogoutException;
-import org.solenopsis.soap.enterprise.LoginResult;
-import org.solenopsis.soap.enterprise.Soap;
+import org.solenopsis.session.login.LoginException;
+import org.solenopsis.session.login.LoginService;
+import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 import org.solenopsis.soap.service.ServiceSubUrlEnum;
+import org.solenopsis.soap.tooling.LoginResult;
+import org.solenopsis.soap.tooling.SforceServicePortType;
 
 /**
  * Uses the Enterprise service for login/logout.
  *
  * @author Scot P. Floess
  */
-class EnterpriseLoginService implements LoginService {
+class ToolingLoginService implements LoginService {
     Session toSession(final LoginResult loginResult, final Credentials credentials) {
         return
             new Session(
@@ -39,42 +39,40 @@ class EnterpriseLoginService implements LoginService {
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
                 loginResult.getServerUrl(),
-                ServiceSubUrlEnum.ENTERPRISE,
+                ServiceSubUrlEnum.TOOLING,
                 loginResult.getSessionId(),
                 loginResult.getUserId(),
                 credentials
             );
     }
 
-    Session login(final Soap port, final Credentials credentials) {
+    Session login(final SforceServicePortType port, final Credentials credentials) {
         try {
             return toSession(port.login(credentials.username(), credentials.password()), credentials);
         } catch (final Exception exception) {
-            throw new LoginException("Could not login using the Enterprise service", exception);
+            throw new LoginException("Could not login using the Tooling service", exception);
         }
     }
 
-    void logout(final Soap port) {
+    void logout(final SforceServicePortType port) {
         try {
             port.logout();
         } catch(final Exception exception) {
-            throw new LogoutException("Logout trouble from the Enterprise service", exception);
+            throw new LogoutException("Logout trouble from the Tooling service", exception);
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.ENTERPRISE.createPort(), credentials);
+        return login(PortFactoryEnum.TOOLING.createPort(), credentials);
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     public void logout(final Session session) {
-//        logout(PortFactoryEnum.ENTERPRISE.createPort());
+//        logout(PortFactoryEnum.TOOLING.createPort());
     }
 }

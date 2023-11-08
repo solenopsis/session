@@ -1,4 +1,4 @@
-package org.solenopsis.session.soap.cxf.login;
+package org.solenopsis.session.soap.login;
 
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 

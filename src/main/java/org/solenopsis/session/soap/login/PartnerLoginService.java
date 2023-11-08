@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.solenopsis.session.soap.cxf.login;
+package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.Session;
-import org.solenopsis.session.soap.login.LoginException;
-import org.solenopsis.session.soap.login.LoginService;
-import org.solenopsis.session.soap.login.LogoutException;
+import org.solenopsis.session.login.LoginException;
+import org.solenopsis.session.login.LoginService;
+import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.soap.partner.LoginResult;
 import org.solenopsis.soap.partner.Soap;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
