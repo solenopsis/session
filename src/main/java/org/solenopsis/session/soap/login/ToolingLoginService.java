@@ -22,7 +22,7 @@ import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
-import org.solenopsis.soap.service.ServiceSubUrlEnum;
+import org.solenopsis.soap.SubUrlEnum;
 import org.solenopsis.soap.tooling.LoginResult;
 import org.solenopsis.soap.tooling.SforceServicePortType;
 
@@ -39,7 +39,7 @@ class ToolingLoginService implements LoginService {
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
                 loginResult.getServerUrl(),
-                ServiceSubUrlEnum.TOOLING,
+                SubUrlEnum.TOOLING,
                 loginResult.getSessionId(),
                 loginResult.getUserId(),
                 credentials

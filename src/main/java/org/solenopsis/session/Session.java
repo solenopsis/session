@@ -1,6 +1,6 @@
 package org.solenopsis.session;
 
-import org.solenopsis.soap.service.ServiceSubUrlEnum;
+import org.solenopsis.soap.SubUrlEnum;
 
 /**
  * Represents data returned from Salesforce upon login.  Also used when one
@@ -13,7 +13,7 @@ public record Session(
     boolean isPasswordExpired,
     boolean isSandbox,
     String serverUrl,
-    ServiceSubUrlEnum baseServerUrl,
+    SubUrlEnum baseServerUrl,
     String sessionId,
     String userId,
     Credentials credentials)
