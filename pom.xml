@@ -20,7 +20,7 @@
         </license>
     </licenses>
 
-	<packaging>jar</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,6 +35,7 @@
 
         <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
 
+        <org.solenopsis_credentials>1.0</org.solenopsis_credentials>
         <org.solenopsis_soap>1.0</org.solenopsis_soap>
     </properties>
 
@@ -98,8 +99,16 @@
 
         <dependency>
             <groupId>org.solenopsis</groupId>
+            <artifactId>credentials</artifactId>
+            <version>${org.solenopsis_credentials}</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.solenopsis</groupId>
             <artifactId>soap</artifactId>
             <version>${org.solenopsis_soap}</version>
+            <type>jar</type>
         </dependency>
 
         <dependency>

@@ -16,7 +16,7 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.Credentials;
+import org.solenopsis.credentials.CredentialsRecord;
 import org.solenopsis.session.Session;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
@@ -32,7 +32,7 @@ import org.solenopsis.soap.SubUrlEnum;
  * @author Scot P. Floess
  */
 class PartnerLoginService implements LoginService {
-    Session toSession(final LoginResult loginResult, final Credentials credentials) {
+    Session toSession(final LoginResult loginResult, final CredentialsRecord credentials) {
         return
             new Session(
                 loginResult.getMetadataServerUrl(),
@@ -46,7 +46,7 @@ class PartnerLoginService implements LoginService {
             );
     }
 
-    Session login(final Soap port, final Credentials credentials) {
+    Session login(final Soap port, final CredentialsRecord credentials) {
         try {
             return toSession(port.login(credentials.username(), credentials.password()), credentials);
         } catch (final Exception exception) {
@@ -66,7 +66,7 @@ class PartnerLoginService implements LoginService {
      * {@inheritDoc}
      */
     @Override
-    public Session login(final Credentials credentials) {
+    public Session login(final CredentialsRecord credentials) {
         return login(PortFactoryEnum.PARTNER.createPort(), credentials);
     }
 

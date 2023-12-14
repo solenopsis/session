@@ -1,6 +1,8 @@
 package org.solenopsis.session;
 
+import org.solenopsis.credentials.CredentialsRecord;
 import org.solenopsis.soap.SubUrlEnum;
+import org.solenopsis.credentials.CredentialsIfc;
 
 /**
  * Represents data returned from Salesforce upon login.  Also used when one

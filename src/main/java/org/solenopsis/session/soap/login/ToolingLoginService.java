@@ -16,7 +16,7 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.Credentials;
+import org.solenopsis.credentials.CredentialsRecord;
 import org.solenopsis.session.Session;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
@@ -32,7 +32,7 @@ import org.solenopsis.soap.tooling.SforceServicePortType;
  * @author Scot P. Floess
  */
 class ToolingLoginService implements LoginService {
-    Session toSession(final LoginResult loginResult, final Credentials credentials) {
+    Session toSession(final LoginResult loginResult, final CredentialsRecord credentials) {
         return
             new Session(
                 loginResult.getMetadataServerUrl(),
@@ -46,7 +46,7 @@ class ToolingLoginService implements LoginService {
             );
     }
 
-    Session login(final SforceServicePortType port, final Credentials credentials) {
+    Session login(final SforceServicePortType port, final CredentialsRecord credentials) {
         try {
             return toSession(port.login(credentials.username(), credentials.password()), credentials);
         } catch (final Exception exception) {
@@ -65,7 +65,7 @@ class ToolingLoginService implements LoginService {
     /**
      * {@inheritDoc}
      */
-    public Session login(final Credentials credentials) {
+    public Session login(final CredentialsRecord credentials) {
         return login(PortFactoryEnum.TOOLING.createPort(), credentials);
     }
 

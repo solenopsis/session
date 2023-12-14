@@ -1,5 +1,6 @@
 package org.solenopsis.session.soap.login;
 
+import org.solenopsis.session.login.LoginService;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 
 /**
@@ -7,17 +8,17 @@ import org.solenopsis.soap.port.factory.PortFactoryEnum;
  * @author sfloess
  */
 public enum LoginServiceEnum {
-    ENTERPRISE(PortFactoryEnum.ENTERPRISE),
-    PARTNER(PortFactoryEnum.PARTNER),
-    TOOLING(PortFactoryEnum.TOOLING);
+    ENTERPRISE(new EnterpriseLoginService()),
+    PARTNER(new PartnerLoginService()),
+    TOOLING(new ToolingLoginService());
 
-    private final PortFactoryEnum portFactory;
+    private final LoginService loginService;
 
-    private LoginServiceEnum(final PortFactoryEnum portFactory) {
-        this.portFactory = portFactory;
+    private LoginServiceEnum(final LoginService loginService) {
+        this.loginService = loginService;
     }
 
-    public PortFactoryEnum getLoginPortFactory() {
-        return portFactory;
+    public LoginService getLoginService() {
+        return loginService;
     }
 }
