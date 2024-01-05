@@ -17,7 +17,7 @@
 package org.solenopsis.session.login;
 
 import org.solenopsis.session.Session;
-import org.solenopsis.credentials.CredentialsIfc;
+import org.solenopsis.session.credentials.Credentials;
 
 /**
  * Represents a way to login and out of SFDC for the enterprise, partner and tooling web services. Additionally, maintains a session
@@ -34,7 +34,7 @@ public interface LoginService {
      *
      * @return a login result from SFDC.
      */
-    Session login(CredentialsIfc credentials);
+    Session login(Credentials credentials);
 
     /**
      * Force a logout.
