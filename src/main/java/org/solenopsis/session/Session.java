@@ -1,6 +1,6 @@
 package org.solenopsis.session;
 
-import org.solenopsis.credentials.CredentialsRecord;
+import org.solenopsis.session.credentials.Credentials;
 import org.solenopsis.soap.SubUrlEnum;
 
 /**
@@ -17,6 +17,6 @@ public record Session(
     SubUrlEnum baseServerUrl,
     String sessionId,
     String userId,
-    CredentialsRecord credentials)
+    Credentials credentials)
 {
 }
