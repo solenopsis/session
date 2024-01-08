@@ -48,7 +48,7 @@ class EnterpriseLoginService implements LoginService {
 
     Session login(final Soap port, final Credentials credentials) {
         try {
-            return toSession(port.login(credentials.username(), credentials.password()), credentials);
+            return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
             throw new LoginException("Could not login using the Enterprise service", exception);
         }
@@ -67,7 +67,7 @@ class EnterpriseLoginService implements LoginService {
      */
     @Override
     public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.ENTERPRISE.createPort(), credentials);
+        return login(PortFactoryEnum.ENTERPRISE.createPort(credentials.url() + "/" + "services/Soap/c/51.0"), credentials);
     }
 
     /**
