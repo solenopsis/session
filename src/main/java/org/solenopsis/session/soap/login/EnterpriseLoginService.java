@@ -67,7 +67,7 @@ class EnterpriseLoginService implements LoginService {
      */
     @Override
     public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.ENTERPRISE.createPort(credentials.url() + "/" + "services/Soap/c/51.0"), credentials);
+        return login(PortFactoryEnum.ENTERPRISE.createPort(credentials.url() + "/" + SubUrlEnum.ENTERPRISE.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**

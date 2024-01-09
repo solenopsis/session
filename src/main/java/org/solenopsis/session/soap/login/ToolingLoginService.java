@@ -66,7 +66,7 @@ class ToolingLoginService implements LoginService {
      * {@inheritDoc}
      */
     public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.TOOLING.createPort(), credentials);
+        return login(PortFactoryEnum.TOOLING.createPort(credentials.url() + "/" + SubUrlEnum.TOOLING.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**

@@ -67,7 +67,7 @@ class PartnerLoginService implements LoginService {
      */
     @Override
     public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.PARTNER.createPort(), credentials);
+        return login(PortFactoryEnum.PARTNER.createPort(credentials.url() + "/" + SubUrlEnum.PARTNER.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**
