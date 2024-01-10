@@ -18,13 +18,14 @@ package org.solenopsis.session.soap.login;
 
 import com.sforce.soap.tooling.LoginResult;
 import com.sforce.soap.tooling.SforceServicePortType;
-import org.solenopsis.session.Session;
 import org.solenopsis.session.Credentials;
+import org.solenopsis.session.Session;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.soap.SubUrlEnum;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
+import org.solenopsis.soap.service.ServiceEnum;
 
 /**
  * Uses the Enterprise service for login/logout.
@@ -39,9 +40,9 @@ class ToolingLoginService implements LoginService {
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
                 loginResult.getServerUrl(),
-                SubUrlEnum.TOOLING,
                 loginResult.getSessionId(),
                 loginResult.getUserId(),
+                ServiceEnum.TOOLING,
                 credentials
             );
     }

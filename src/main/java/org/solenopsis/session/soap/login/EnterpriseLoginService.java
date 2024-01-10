@@ -16,8 +16,8 @@
  */
 package org.solenopsis.session.soap.login;
 
-import org.solenopsis.session.Session;
 import org.solenopsis.session.Credentials;
+import org.solenopsis.session.Session;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
@@ -25,6 +25,7 @@ import org.solenopsis.soap.SubUrlEnum;
 import org.solenopsis.soap.enterprise.LoginResult;
 import org.solenopsis.soap.enterprise.Soap;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
+import org.solenopsis.soap.service.ServiceEnum;
 
 /**
  * Uses the Enterprise service for login/logout.
@@ -39,9 +40,9 @@ class EnterpriseLoginService implements LoginService {
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
                 loginResult.getServerUrl(),
-                SubUrlEnum.ENTERPRISE,
                 loginResult.getSessionId(),
                 loginResult.getUserId(),
+                ServiceEnum.ENTERPRISE,
                 credentials
             );
     }
