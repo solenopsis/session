@@ -16,14 +16,14 @@
  */
 package org.solenopsis.session.soap.login;
 
+import com.sforce.soap.partner.LoginResult;
+import com.sforce.soap.partner.Soap;
 import org.solenopsis.session.Session;
 import org.solenopsis.session.credentials.Credentials;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.soap.SubUrlEnum;
-import org.solenopsis.soap.partner.LoginResult;
-import org.solenopsis.soap.partner.Soap;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 
 /**
@@ -48,7 +48,7 @@ class PartnerLoginService implements LoginService {
 
     Session login(final Soap port, final Credentials credentials) {
         try {
-            return toSession(port.login(credentials.username(), credentials.password()), credentials);
+            return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
             throw new LoginException("Could not login using the Partner service", exception);
         }

@@ -16,6 +16,8 @@
  */
 package org.solenopsis.session.soap.login;
 
+import com.sforce.soap.tooling.LoginResult;
+import com.sforce.soap.tooling.SforceServicePortType;
 import org.solenopsis.session.Session;
 import org.solenopsis.session.credentials.Credentials;
 import org.solenopsis.session.login.LoginException;
@@ -23,8 +25,6 @@ import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.soap.SubUrlEnum;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
-import org.solenopsis.soap.tooling.LoginResult;
-import org.solenopsis.soap.tooling.SforceServicePortType;
 
 /**
  * Uses the Enterprise service for login/logout.
@@ -48,7 +48,7 @@ class ToolingLoginService implements LoginService {
 
     Session login(final SforceServicePortType port, final Credentials credentials) {
         try {
-            return toSession(port.login(credentials.username(), credentials.password()), credentials);
+            return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
             throw new LoginException("Could not login using the Tooling service", exception);
         }
