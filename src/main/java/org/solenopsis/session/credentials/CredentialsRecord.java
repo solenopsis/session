@@ -1,5 +1,7 @@
 package org.solenopsis.session.credentials;
 
+import org.solenopsis.session.Credentials;
+
 /**
  * Represents credential to log in to Salesforce.
  *

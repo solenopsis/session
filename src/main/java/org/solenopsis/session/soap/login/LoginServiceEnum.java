@@ -1,7 +1,6 @@
 package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.login.LoginService;
-import org.solenopsis.soap.port.factory.PortFactoryEnum;
 
 /**
  *

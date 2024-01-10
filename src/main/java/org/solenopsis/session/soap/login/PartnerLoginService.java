@@ -19,7 +19,7 @@ package org.solenopsis.session.soap.login;
 import com.sforce.soap.partner.LoginResult;
 import com.sforce.soap.partner.Soap;
 import org.solenopsis.session.Session;
-import org.solenopsis.session.credentials.Credentials;
+import org.solenopsis.session.Credentials;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;

@@ -1,5 +1,6 @@
 package org.solenopsis.session.credentials;
 
+import org.solenopsis.session.Credentials;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package org.solenopsis.session.credentials;
+package org.solenopsis.session;
 
 /**
  * Represents credential to log in to Salesforce.

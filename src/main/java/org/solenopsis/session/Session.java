@@ -1,6 +1,5 @@
 package org.solenopsis.session;
 
-import org.solenopsis.session.credentials.Credentials;
 import org.solenopsis.soap.SubUrlEnum;
 
 /**
