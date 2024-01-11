@@ -1,7 +1,9 @@
 package org.solenopsis.session.soap.login;
 
 import com.sforce.soap.enterprise.Soap;
+import com.sforce.soap.tooling.SforceServiceService;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.flossware.jcommons.util.SoapUtil;
 import org.solenopsis.session.credentials.CredentialsUtil;
 
 /**
@@ -10,6 +12,10 @@ import org.solenopsis.session.credentials.CredentialsUtil;
  */
 public class DoLogin {
     public static void main(final String[] args) throws Exception {
+        final SforceServiceService sf = new SforceServiceService();
+
+        System.out.println("QName = " + SoapUtil.computeQName(sf.getClass()));
+        System.out.println("QName = " + SoapUtil.computeQName(SforceServiceService.class));
 //        System.out.println((Object) LoginServiceEnum.ENTERPRISE.getLoginPortFactory().createPort("https://test.salesforce.com"));
         JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
         factory.setServiceClass(Soap.class);
