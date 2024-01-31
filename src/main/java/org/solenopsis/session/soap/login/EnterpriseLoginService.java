@@ -21,7 +21,7 @@ import org.solenopsis.session.Session;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
-import org.solenopsis.soap.SubUrlEnum;
+import org.solenopsis.session.soap.SubUrlEnum;
 import org.solenopsis.soap.enterprise.LoginResult;
 import org.solenopsis.soap.enterprise.Soap;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
