@@ -18,25 +18,23 @@ package org.solenopsis.session.soap;
 
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebEndpoint;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import org.flossware.jcommons.util.MethodUtil;
 import org.solenopsis.session.Session;
 
 /**
- * The partial URLs for each service
+ * Computes URLs for a service and session.
  *
  * @author Scot P. Floess
  */
-public enum SubUrlEnum {
+public enum UrlEnum {
     APEX("services/Soap/s", (service, session) -> session.credentials().version()),
     CUSTOM("services/Soap/class", (service, session) -> MethodUtil.findMethodsForAnnotationClass(service.getClass(), WebEndpoint.class).get(0).getName()),
     ENTERPRISE("services/Soap/c", (service, session) -> session.credentials().version()),
     METADATA("services/Soap/m", (service, session) -> session.credentials().version()),
     PARTNER("services/Soap/u", (service, session) -> session.credentials().version()),
     TOOLING("services/Soap/T", (service, session) -> session.credentials().version());
-
-    private record UrlRecord(Service service, Session session) {
-    }
 
     /**
      * The partial URL.
@@ -52,11 +50,14 @@ public enum SubUrlEnum {
      * @param sessionServerFactory is the factory that can compute a server name for a session.
      * @param webServiceSubUrl     the port for the web service.
      */
-    private SubUrlEnum(final String partialUrl, BiFunction<Service, Session, String> urlFunction) {
+    private UrlEnum(final String partialUrl, BiFunction<Service, Session, String> urlFunction) {
         this.partialUrl = partialUrl;
         this.urlFunction = urlFunction;
     }
 
+    /**
+     * Computes the URL based upon service and session.
+     */
     BiFunction<Service, Session, String>getUrlFunction() {
         return urlFunction;
     }
@@ -69,6 +70,6 @@ public enum SubUrlEnum {
     }
 
     public String computeUrl(final Service service, final Session session) {
-        return getPartialUrl() + "/" + getUrlFunction().apply(service, session);
+        return getPartialUrl() + "/" + getUrlFunction().apply(Objects.requireNonNull(service, "Service cannot be null!"), Objects.requireNonNull(session, "Session cannot be null!"));
     }
 }

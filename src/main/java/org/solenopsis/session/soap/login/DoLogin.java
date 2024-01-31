@@ -4,6 +4,7 @@ import com.sforce.soap.enterprise.Soap;
 import com.sforce.soap.tooling.SforceServiceService;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.flossware.jcommons.util.SoapUtil;
+import org.solenopsis.session.Session;
 import org.solenopsis.session.credentials.CredentialsUtil;
 
 /**
@@ -26,8 +27,8 @@ public class DoLogin {
 //        Soap soap = LoginServiceEnum.ENTERPRISE.getLoginPortFactory().createPort("https://test.salesforce.com");
 
 //        LoginServiceEnum.ENTERPRISE.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
-        LoginServiceEnum.PARTNER.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
+        final Session session = LoginServiceEnum.PARTNER.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
 //        LoginServiceEnum.TOOLING.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
-
+        
     }
 }

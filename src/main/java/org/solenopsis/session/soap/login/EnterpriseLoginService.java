@@ -21,7 +21,7 @@ import org.solenopsis.session.Session;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
-import org.solenopsis.session.soap.SubUrlEnum;
+import org.solenopsis.session.soap.UrlEnum;
 import org.solenopsis.soap.enterprise.LoginResult;
 import org.solenopsis.soap.enterprise.Soap;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
@@ -68,7 +68,7 @@ class EnterpriseLoginService implements LoginService {
      */
     @Override
     public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.ENTERPRISE.createPort(credentials.url() + "/" + SubUrlEnum.ENTERPRISE.getPartialUrl() + "/" + credentials.version()), credentials);
+        return login(PortFactoryEnum.ENTERPRISE.createPort(credentials.url() + "/" + UrlEnum.ENTERPRISE.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**
