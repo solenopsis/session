@@ -19,7 +19,7 @@ package org.solenopsis.session.soap.login;
 import com.sforce.soap.partner.LoginResult;
 import com.sforce.soap.partner.Soap;
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.Session;
+import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
@@ -33,9 +33,9 @@ import org.solenopsis.soap.service.ServiceEnum;
  * @author Scot P. Floess
  */
 class PartnerLoginService implements LoginService {
-    Session toSession(final LoginResult loginResult, final Credentials credentials) {
+    SessionContext toSession(final LoginResult loginResult, final Credentials credentials) {
         return
-            new Session(
+            new SessionContext(
                 loginResult.getMetadataServerUrl(),
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
@@ -47,7 +47,7 @@ class PartnerLoginService implements LoginService {
             );
     }
 
-    Session login(final Soap port, final Credentials credentials) {
+    SessionContext login(final Soap port, final Credentials credentials) {
         try {
             return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
@@ -67,7 +67,7 @@ class PartnerLoginService implements LoginService {
      * {@inheritDoc}
      */
     @Override
-    public Session login(final Credentials credentials) {
+    public SessionContext login(final Credentials credentials) {
         return login(PortFactoryEnum.PARTNER.createPort(credentials.url() + "/" + UrlEnum.PARTNER.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
@@ -75,7 +75,7 @@ class PartnerLoginService implements LoginService {
      * {@inheritDoc}
      */
     @Override
-    public void logout(final Session session) {
+    public void logout(final SessionContext session) {
 //        logout(PortFactoryEnum.PARTNER.createPort());
     }
 }

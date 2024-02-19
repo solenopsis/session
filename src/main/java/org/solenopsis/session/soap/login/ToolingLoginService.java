@@ -19,7 +19,7 @@ package org.solenopsis.session.soap.login;
 import com.sforce.soap.tooling.LoginResult;
 import com.sforce.soap.tooling.SforceServicePortType;
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.Session;
+import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
@@ -33,9 +33,9 @@ import org.solenopsis.soap.service.ServiceEnum;
  * @author Scot P. Floess
  */
 class ToolingLoginService implements LoginService {
-    Session toSession(final LoginResult loginResult, final Credentials credentials) {
+    SessionContext toSession(final LoginResult loginResult, final Credentials credentials) {
         return
-            new Session(
+            new SessionContext(
                 loginResult.getMetadataServerUrl(),
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
@@ -47,7 +47,7 @@ class ToolingLoginService implements LoginService {
             );
     }
 
-    Session login(final SforceServicePortType port, final Credentials credentials) {
+    SessionContext login(final SforceServicePortType port, final Credentials credentials) {
         try {
             return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
@@ -66,14 +66,14 @@ class ToolingLoginService implements LoginService {
     /**
      * {@inheritDoc}
      */
-    public Session login(final Credentials credentials) {
+    public SessionContext login(final Credentials credentials) {
         return login(PortFactoryEnum.TOOLING.createPort(credentials.url() + "/" + UrlEnum.TOOLING.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**
      * {@inheritDoc}
      */
-    public void logout(final Session session) {
+    public void logout(final SessionContext session) {
 //        logout(PortFactoryEnum.TOOLING.createPort());
     }
 }

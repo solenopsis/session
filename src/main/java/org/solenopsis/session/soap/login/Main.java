@@ -1,20 +1,21 @@
 package org.solenopsis.session.soap.login;
 
-import com.sforce.soap.enterprise.Soap;
-import com.sforce.soap.tooling.SforceServiceService;
+
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.flossware.jcommons.util.SoapUtil;
-import org.solenopsis.session.Session;
+import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.credentials.CredentialsUtil;
+import org.solenopsis.session.soap.PortEnum;
+import org.solenopsis.soap.enterprise.SforceService;
+import org.solenopsis.soap.enterprise.Soap;
 
 /**
  *
  * @author sfloess
  */
-public class DoLogin {
-    public static void main(final String[] args) throws Exception {
-        System.out.println("QName = " + SoapUtil.computeQName(new SforceServiceService().getClass()));
-        System.out.println("QName = " + SoapUtil.computeQName(SforceServiceService.class));
+public class Main {
+    public static void oldMain(final String[] args) throws Exception {
+//        System.out.println("QName = " + SoapUtil.computeQName(new SforceServiceService().getClass()));
+//        System.out.println("QName = " + SoapUtil.computeQName(SforceServiceService.class));
 //        System.out.println((Object) LoginServiceEnum.ENTERPRISE.getLoginPortFactory().createPort("https://test.salesforce.com"));
         JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
         factory.setServiceClass(Soap.class);
@@ -27,8 +28,16 @@ public class DoLogin {
 //        Soap soap = LoginServiceEnum.ENTERPRISE.getLoginPortFactory().createPort("https://test.salesforce.com");
 
 //        LoginServiceEnum.ENTERPRISE.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
-        final Session session = LoginServiceEnum.PARTNER.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
+        final SessionContext session = LoginServiceEnum.PARTNER.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
 //        LoginServiceEnum.TOOLING.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
-        
+
+    }
+
+    public static void main(final String[] args) throws Exception {
+        final SessionContext session = LoginServiceEnum.PARTNER.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
+
+
+        Soap s = PortEnum.ENTERPRISE.createPort(SforceService.class, session);
+        System.out.println("Making call:  " + s.search("select 1 from foo"));
     }
 }

@@ -17,7 +17,7 @@
 package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.Session;
+import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
@@ -33,9 +33,9 @@ import org.solenopsis.soap.service.ServiceEnum;
  * @author Scot P. Floess
  */
 class EnterpriseLoginService implements LoginService {
-    Session toSession(final LoginResult loginResult, final Credentials credentials) {
+    SessionContext toSession(final LoginResult loginResult, final Credentials credentials) {
         return
-            new Session(
+            new SessionContext(
                 loginResult.getMetadataServerUrl(),
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
@@ -47,7 +47,7 @@ class EnterpriseLoginService implements LoginService {
             );
     }
 
-    Session login(final Soap port, final Credentials credentials) {
+    SessionContext login(final Soap port, final Credentials credentials) {
         try {
             return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
@@ -67,7 +67,7 @@ class EnterpriseLoginService implements LoginService {
      * {@inheritDoc}
      */
     @Override
-    public Session login(final Credentials credentials) {
+    public SessionContext login(final Credentials credentials) {
         return login(PortFactoryEnum.ENTERPRISE.createPort(credentials.url() + "/" + UrlEnum.ENTERPRISE.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
@@ -75,7 +75,7 @@ class EnterpriseLoginService implements LoginService {
      * {@inheritDoc}
      */
     @Override
-    public void logout(final Session session) {
+    public void logout(final SessionContext session) {
 //        logout(PortFactoryEnum.ENTERPRISE.createPort());
     }
 }

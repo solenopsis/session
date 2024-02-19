@@ -20,8 +20,9 @@ import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebEndpoint;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import org.apache.commons.lang3.StringUtils;
 import org.flossware.jcommons.util.MethodUtil;
-import org.solenopsis.session.Session;
+import org.solenopsis.session.SessionContext;
 
 /**
  * Computes URLs for a service and session.
@@ -29,19 +30,19 @@ import org.solenopsis.session.Session;
  * @author Scot P. Floess
  */
 public enum UrlEnum {
-    APEX("services/Soap/s", (service, session) -> session.credentials().version()),
-    CUSTOM("services/Soap/class", (service, session) -> MethodUtil.findMethodsForAnnotationClass(service.getClass(), WebEndpoint.class).get(0).getName()),
-    ENTERPRISE("services/Soap/c", (service, session) -> session.credentials().version()),
-    METADATA("services/Soap/m", (service, session) -> session.credentials().version()),
-    PARTNER("services/Soap/u", (service, session) -> session.credentials().version()),
-    TOOLING("services/Soap/T", (service, session) -> session.credentials().version());
+    APEX("services/Soap/s", (serviceClass, session) -> session.credentials().version()),
+    CUSTOM("services/Soap/class", (serviceClass, session) -> MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getName()),
+    ENTERPRISE("services/Soap/c", (serviceClass, session) -> session.credentials().version()),
+    METADATA("services/Soap/m", (serviceClass, session) -> session.credentials().version()),
+    PARTNER("services/Soap/u", (serviceClass, session) -> session.credentials().version()),
+    TOOLING("services/Soap/T", (serviceClass, session) -> session.credentials().version());
 
     /**
      * The partial URL.
      */
     private final String partialUrl;
 
-    private final BiFunction<Service, Session, String> urlFunction;
+    private final BiFunction<Class<? extends Service>, SessionContext, String> urlFunction;
 
     /**
      * This constructor sets the SFDC web service, port type and partial URL (as defined in the Java doc header).
@@ -50,7 +51,7 @@ public enum UrlEnum {
      * @param sessionServerFactory is the factory that can compute a server name for a session.
      * @param webServiceSubUrl     the port for the web service.
      */
-    private UrlEnum(final String partialUrl, BiFunction<Service, Session, String> urlFunction) {
+    private UrlEnum(final String partialUrl, BiFunction<Class<? extends Service>, SessionContext, String> urlFunction) {
         this.partialUrl = partialUrl;
         this.urlFunction = urlFunction;
     }
@@ -58,7 +59,7 @@ public enum UrlEnum {
     /**
      * Computes the URL based upon service and session.
      */
-    BiFunction<Service, Session, String>getUrlFunction() {
+    BiFunction<Class<? extends Service>, SessionContext, String> getUrlFunction() {
         return urlFunction;
     }
 
@@ -69,7 +70,16 @@ public enum UrlEnum {
         return partialUrl;
     }
 
-    public String computeUrl(final Service service, final Session session) {
-        return getPartialUrl() + "/" + getUrlFunction().apply(Objects.requireNonNull(service, "Service cannot be null!"), Objects.requireNonNull(session, "Session cannot be null!"));
+    public String computeUrl(final Class<? extends Service> serviceClass, final SessionContext session) {
+        return StringUtils.join(
+                session.serverUrl(),
+                "/",
+                getPartialUrl(),
+                "/",
+                getUrlFunction().apply(
+                        Objects.requireNonNull(serviceClass, "Service class cannot be null!"),
+                        Objects.requireNonNull(session, "Session cannot be null!")
+                )
+        );
     }
 }
