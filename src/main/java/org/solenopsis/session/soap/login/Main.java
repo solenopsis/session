@@ -1,12 +1,13 @@
 package org.solenopsis.session.soap.login;
 
 
+import com.sforce.soap.enterprise.SforceService;
+import com.sforce.soap.enterprise.Soap;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.credentials.CredentialsUtil;
 import org.solenopsis.session.soap.PortEnum;
-import org.solenopsis.soap.enterprise.SforceService;
-import org.solenopsis.soap.enterprise.Soap;
+
 
 /**
  *
@@ -38,6 +39,8 @@ public class Main {
 
 
         Soap s = PortEnum.ENTERPRISE.createPort(SforceService.class, session);
-        System.out.println("Making call:  " + s.search("select 1 from foo"));
+        s.query("foo");
+
+        System.out.println("Done");
     }
 }
