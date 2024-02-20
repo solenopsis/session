@@ -1,0 +1,20 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< org.solenopsis:session >-----------------------
+[INFO] Building Salesforce Session Library 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from nexus: https://nexus.corp.redhat.com/repository/information-retrieval-maven2/jakarta/xml/soap/jakarta.xml.soap-api/3.0.1/jakarta.xml.soap-api-3.0.1.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.650 s
+[INFO] Finished at: 2024-02-20T15:20:03-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal on project session: Could not resolve dependencies for project org.solenopsis:session:jar:1.0: Failed to collect dependencies at jakarta.xml.soap:jakarta.xml.soap-api:jar:3.0.1: Failed to read artifact descriptor for jakarta.xml.soap:jakarta.xml.soap-api:jar:3.0.1: Could not transfer artifact jakarta.xml.soap:jakarta.xml.soap-api:pom:3.0.1 from/to nexus (https://nexus.corp.redhat.com/repository/information-retrieval-maven2/): PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException

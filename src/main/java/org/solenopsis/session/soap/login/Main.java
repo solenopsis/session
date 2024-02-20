@@ -38,8 +38,8 @@ public class Main {
         final SessionContext session = LoginServiceEnum.PARTNER.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
 
 
-        Soap s = PortEnum.ENTERPRISE.createPort(SforceService.class, session);
-        s.query("foo");
+        Soap s = PortEnum.ENTERPRISE.createPortForService(SforceService.class, session);
+        s.query("select foo from bar");
 
         System.out.println("Done");
     }
