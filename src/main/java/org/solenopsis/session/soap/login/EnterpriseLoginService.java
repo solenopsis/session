@@ -17,14 +17,15 @@
 package org.solenopsis.session.soap.login;
 
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.Session;
+import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
+import org.solenopsis.session.soap.UrlEnum;
 import org.solenopsis.soap.enterprise.LoginResult;
 import org.solenopsis.soap.enterprise.Soap;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
-import org.solenopsis.soap.service.ServiceSubUrlEnum;
+import org.solenopsis.soap.service.ServiceEnum;
 
 /**
  * Uses the Enterprise service for login/logout.
@@ -32,23 +33,23 @@ import org.solenopsis.soap.service.ServiceSubUrlEnum;
  * @author Scot P. Floess
  */
 class EnterpriseLoginService implements LoginService {
-    Session toSession(final LoginResult loginResult, final Credentials credentials) {
+    SessionContext toSession(final LoginResult loginResult, final Credentials credentials) {
         return
-            new Session(
+            new SessionContext(
                 loginResult.getMetadataServerUrl(),
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
                 loginResult.getServerUrl(),
-                ServiceSubUrlEnum.ENTERPRISE,
                 loginResult.getSessionId(),
                 loginResult.getUserId(),
+                ServiceEnum.ENTERPRISE,
                 credentials
             );
     }
 
-    Session login(final Soap port, final Credentials credentials) {
+    SessionContext login(final Soap port, final Credentials credentials) {
         try {
-            return toSession(port.login(credentials.username(), credentials.password()), credentials);
+            return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
             throw new LoginException("Could not login using the Enterprise service", exception);
         }
@@ -66,15 +67,15 @@ class EnterpriseLoginService implements LoginService {
      * {@inheritDoc}
      */
     @Override
-    public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.ENTERPRISE.createPort(), credentials);
+    public SessionContext login(final Credentials credentials) {
+        return login(PortFactoryEnum.ENTERPRISE.createPort(credentials.url() + "/" + UrlEnum.ENTERPRISE.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void logout(final Session session) {
+    public void logout(final SessionContext session) {
 //        logout(PortFactoryEnum.ENTERPRISE.createPort());
     }
 }

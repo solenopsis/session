@@ -16,15 +16,16 @@
  */
 package org.solenopsis.session.soap.login;
 
+import com.sforce.soap.tooling.LoginResult;
+import com.sforce.soap.tooling.SforceServicePortType;
 import org.solenopsis.session.Credentials;
-import org.solenopsis.session.Session;
+import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
+import org.solenopsis.session.soap.UrlEnum;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
-import org.solenopsis.soap.service.ServiceSubUrlEnum;
-import org.solenopsis.soap.tooling.LoginResult;
-import org.solenopsis.soap.tooling.SforceServicePortType;
+import org.solenopsis.soap.service.ServiceEnum;
 
 /**
  * Uses the Enterprise service for login/logout.
@@ -32,23 +33,23 @@ import org.solenopsis.soap.tooling.SforceServicePortType;
  * @author Scot P. Floess
  */
 class ToolingLoginService implements LoginService {
-    Session toSession(final LoginResult loginResult, final Credentials credentials) {
+    SessionContext toSession(final LoginResult loginResult, final Credentials credentials) {
         return
-            new Session(
+            new SessionContext(
                 loginResult.getMetadataServerUrl(),
                 loginResult.isPasswordExpired(),
                 loginResult.isSandbox(),
                 loginResult.getServerUrl(),
-                ServiceSubUrlEnum.TOOLING,
                 loginResult.getSessionId(),
                 loginResult.getUserId(),
+                ServiceEnum.TOOLING,
                 credentials
             );
     }
 
-    Session login(final SforceServicePortType port, final Credentials credentials) {
+    SessionContext login(final SforceServicePortType port, final Credentials credentials) {
         try {
-            return toSession(port.login(credentials.username(), credentials.password()), credentials);
+            return toSession(port.login(credentials.username(), credentials.securityPassword()), credentials);
         } catch (final Exception exception) {
             throw new LoginException("Could not login using the Tooling service", exception);
         }
@@ -65,14 +66,14 @@ class ToolingLoginService implements LoginService {
     /**
      * {@inheritDoc}
      */
-    public Session login(final Credentials credentials) {
-        return login(PortFactoryEnum.TOOLING.createPort(), credentials);
+    public SessionContext login(final Credentials credentials) {
+        return login(PortFactoryEnum.TOOLING.createPort(credentials.url() + "/" + UrlEnum.TOOLING.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**
      * {@inheritDoc}
      */
-    public void logout(final Session session) {
+    public void logout(final SessionContext session) {
 //        logout(PortFactoryEnum.TOOLING.createPort());
     }
 }

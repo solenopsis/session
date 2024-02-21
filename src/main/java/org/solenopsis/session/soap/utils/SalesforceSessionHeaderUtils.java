@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.solenopsis.session.soap.jaxws.utils;
+package org.solenopsis.session.soap.utils;
 
 import jakarta.xml.ws.Service;
 import java.util.Objects;
 import javax.xml.namespace.QName;
-import org.flossware.utils.Strings;
+import org.flossware.jcommons.util.StringUtil;
 
 /**
  * Utility class for port functionality.
@@ -42,7 +42,7 @@ public final class SalesforceSessionHeaderUtils {
      * @throws IllegalArgumentException if namespaceUri is blank or null.
      */
     public static QName computeSessionHeaderNameForNamespace(final String namespaceUri) {
-        Strings.requireNonBlank(namespaceUri, "Must provide a namespace URI!");
+        StringUtil.requireNonBlank(namespaceUri, "Must provide a namespace URI!");
 
         return new QName(namespaceUri, SESSION_HEADER);
     }

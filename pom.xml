@@ -20,7 +20,7 @@
         </license>
     </licenses>
 
-	<packaging>jar</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,7 +30,7 @@
 
         <org.apache.commons_commons-lang3>3.12.0</org.apache.commons_commons-lang3>
 
-
+        <com.sun.xml.messaging.saaj_saaj-impl>3.0.3</com.sun.xml.messaging.saaj_saaj-impl>
         <cxf.version>4.0.2</cxf.version>
 
         <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
@@ -91,6 +91,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>${com.sun.xml.messaging.saaj_saaj-impl}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${org.apache.commons_commons-lang3}</version>
@@ -100,6 +106,7 @@
             <groupId>org.solenopsis</groupId>
             <artifactId>soap</artifactId>
             <version>${org.solenopsis_soap}</version>
+            <type>jar</type>
         </dependency>
 
         <dependency>
