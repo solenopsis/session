@@ -31,7 +31,7 @@ import org.solenopsis.session.SessionContext;
  */
 public enum UrlEnum {
     APEX("services/Soap/s", (serviceClass, session) -> session.credentials().version()),
-    CUSTOM("services/Soap/class", (serviceClass, session) -> MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getName()),
+    CUSTOM("services/Soap/class", (serviceClass, session) -> ((WebEndpoint) (MethodUtil.findAnnotationOnMethods(serviceClass, WebEndpoint.class))).name()),
     ENTERPRISE("services/Soap/c", (serviceClass, session) -> session.credentials().version()),
     METADATA("services/Soap/m", (serviceClass, session) -> session.credentials().version()),
     PARTNER("services/Soap/u", (serviceClass, session) -> session.credentials().version()),
