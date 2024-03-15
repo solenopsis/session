@@ -21,7 +21,7 @@ import jakarta.xml.ws.WebEndpoint;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import org.apache.commons.lang3.StringUtils;
-import org.flossware.jcommons.util.MethodUtil;
+import org.flossware.commons.util.MethodUtil;
 import org.solenopsis.session.SessionContext;
 
 /**

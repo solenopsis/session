@@ -1,6 +1,6 @@
 package org.solenopsis.session;
 
-import org.flossware.jcommons.util.UrlUtil;
+import org.flossware.commons.util.UrlUtil;
 import org.solenopsis.soap.service.ServiceEnum;
 
 /**

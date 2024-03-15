@@ -1,16 +1,14 @@
 package org.solenopsis.session.credentials;
 
-import org.solenopsis.session.Credentials;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.flossware.jcommons.io.IOException;
-import org.flossware.jcommons.util.LoggerUtil;
-import org.flossware.jcommons.util.PropertyUtil;
+import org.flossware.commons.util.PropertyUtil;
+import org.solenopsis.session.Credentials;
 
 /**
  *
@@ -31,7 +29,7 @@ public final class CredentialsUtil {
     static Logger getLogger() {
         return LOGGER;
     }
-    
+
     private CredentialsUtil() {
     }
 
@@ -55,36 +53,27 @@ public final class CredentialsUtil {
         return fromProperties(PropertyUtil.fromInputStream(inputStream));
     }
 
-    public static Credentials fromReader(final InputStream inputStream, final boolean closeStream) {
-        return fromProperties(PropertyUtil.fromInputStream(inputStream, closeStream));
+    public static Credentials fromReader(final Reader reader, final boolean closeReader) {
+        return fromProperties(PropertyUtil.fromReader(reader, closeReader));
     }
 
-    public static Credentials fromReader(final InputStream inputStream) {
-        return fromProperties(PropertyUtil.fromInputStream(inputStream));
+    public static Credentials fromReader(final Reader reader) {
+        return fromProperties(PropertyUtil.fromReader(reader));
     }
 
     public static Credentials fromResource(final String resource) {
-        return fromInputStream(CredentialsUtil.class.getClassLoader().getResourceAsStream(resource), true);
+        return fromProperties(PropertyUtil.fromResource(resource));
+    }
+
+    public static Credentials fromString(final String string) {
+        return fromReader(new StringReader(string), true);
     }
 
     public static Credentials fromFile(final File file) {
-        try {
-            return fromInputStream(new FileInputStream(file), true);
-        } catch (final Exception exception) {
-            LoggerUtil.log(getLogger(), Level.WARNING, "Trouble reading input stream!", exception);
-
-            throw new IOException(exception);
-        }
-
+        return fromProperties(PropertyUtil.fromFile(file));
     }
 
     public static Credentials fromFile(final String file) {
-        try {
-            return fromInputStream(new FileInputStream(file), true);
-        } catch (final Exception exception) {
-            LoggerUtil.log(getLogger(), Level.WARNING, "Trouble reading input stream!", exception);
-
-            throw new IOException(exception);
-        }
+        return fromFile(new File(file));
     }
 }

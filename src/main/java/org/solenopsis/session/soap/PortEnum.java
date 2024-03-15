@@ -12,9 +12,9 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.flossware.jcommons.util.MethodUtil;
-import org.flossware.jcommons.util.SoapException;
-import org.flossware.jcommons.util.SoapUtil;
+import org.flossware.commons.util.MethodUtil;
+import org.flossware.commons.util.SoapException;
+import org.flossware.commons.util.SoapUtil;
 import org.solenopsis.session.SessionContext;
 
 /**

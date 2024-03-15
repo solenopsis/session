@@ -5,7 +5,7 @@
 
     <groupId>org.solenopsis</groupId>
     <artifactId>session</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <name>Salesforce Session Library</name>
     <description>This project is a Java session management library for SFDC.</description>
@@ -35,7 +35,7 @@
 
         <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
 
-        <org.solenopsis_soap>1.0</org.solenopsis_soap>
+        <org.solenopsis_soap>1.1</org.solenopsis_soap>
     </properties>
 
     <build>
@@ -116,4 +116,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+            
+    <distributionManagement>
+        <repository>
+            <id>packagecloud-solenopsis</id>
+            <name>packagecloud-solenopsis</name>
+            <url>https://packagecloud.io/solenopsis/java/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
