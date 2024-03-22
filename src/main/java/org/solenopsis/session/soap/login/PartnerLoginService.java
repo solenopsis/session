@@ -23,7 +23,7 @@ import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
-import org.solenopsis.session.soap.UrlEnum;
+import org.solenopsis.session.soap.SoapUrlEnum;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 import org.solenopsis.soap.service.ServiceEnum;
 
@@ -68,7 +68,7 @@ class PartnerLoginService implements LoginService {
      */
     @Override
     public SessionContext login(final Credentials credentials) {
-        return login(PortFactoryEnum.PARTNER.createPort(credentials.url() + "/" + UrlEnum.PARTNER.getPartialUrl() + "/" + credentials.version()), credentials);
+        return login(PortFactoryEnum.PARTNER.createPort(credentials.url() + "/" + SoapUrlEnum.PARTNER.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**
