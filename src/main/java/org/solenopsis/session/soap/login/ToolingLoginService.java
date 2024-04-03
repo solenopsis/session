@@ -23,7 +23,7 @@ import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
-import org.solenopsis.session.soap.UrlEnum;
+import org.solenopsis.session.soap.SoapUrlEnum;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 import org.solenopsis.soap.service.ServiceEnum;
 
@@ -67,7 +67,7 @@ class ToolingLoginService implements LoginService {
      * {@inheritDoc}
      */
     public SessionContext login(final Credentials credentials) {
-        return login(PortFactoryEnum.TOOLING.createPort(credentials.url() + "/" + UrlEnum.TOOLING.getPartialUrl() + "/" + credentials.version()), credentials);
+        return login(PortFactoryEnum.TOOLING.createPort(credentials.url() + "/" + SoapUrlEnum.TOOLING.getPartialUrl() + "/" + credentials.version()), credentials);
     }
 
     /**

@@ -29,7 +29,7 @@ import org.solenopsis.session.SessionContext;
  *
  * @author Scot P. Floess
  */
-public enum UrlEnum {
+public enum SoapUrlEnum {
     APEX("services/Soap/s", (serviceClass, session) -> session.credentials().version()),
     CUSTOM("services/Soap/class", (serviceClass, session) -> ((WebEndpoint) (MethodUtil.findAnnotationOnMethods(serviceClass, WebEndpoint.class))).name()),
     ENTERPRISE("services/Soap/c", (serviceClass, session) -> session.credentials().version()),
@@ -51,7 +51,7 @@ public enum UrlEnum {
      * @param sessionServerFactory is the factory that can compute a server name for a session.
      * @param webServiceSubUrl     the port for the web service.
      */
-    private UrlEnum(final String partialUrl, BiFunction<Class<? extends Service>, SessionContext, String> urlFunction) {
+    private SoapUrlEnum(final String partialUrl, BiFunction<Class<? extends Service>, SessionContext, String> urlFunction) {
         this.partialUrl = partialUrl;
         this.urlFunction = urlFunction;
     }

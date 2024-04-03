@@ -15,30 +15,29 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.flossware.commons.util.MethodUtil;
 import org.flossware.commons.util.SoapException;
 import org.flossware.commons.util.SoapUtil;
+import org.solenopsis.session.Credentials;
 import org.solenopsis.session.SessionContext;
+import org.solenopsis.session.soap.login.LoginServiceEnum;
 
 /**
  *
  * @author sfloess
  */
 public enum PortEnum {
-    APEX(UrlEnum.APEX),
-    CUSTOM(UrlEnum.CUSTOM),
-    ENTERPRISE(UrlEnum.ENTERPRISE),
-    METADATA(UrlEnum.METADATA),
-    PARTNER(UrlEnum.PARTNER),
-    TOOLING(UrlEnum.TOOLING);
+    APEX(SoapUrlEnum.APEX),
+    CUSTOM(SoapUrlEnum.CUSTOM),
+    ENTERPRISE(SoapUrlEnum.ENTERPRISE),
+    METADATA(SoapUrlEnum.METADATA),
+    PARTNER(SoapUrlEnum.PARTNER),
+    TOOLING(SoapUrlEnum.TOOLING);
 
-    private final UrlEnum url;
+    private final SoapUrlEnum url;
 
-    public static final String SESSION_ID = "sessionId";
-    public static final String SESSION_HEADER = "SessionHeader";
-
-    private PortEnum(final UrlEnum url) {
+    private PortEnum(final SoapUrlEnum url) {
         this.url = url;
     }
 
-    UrlEnum getUrl() {
+    SoapUrlEnum getUrl() {
         return url;
     }
 
@@ -50,17 +49,17 @@ public enum PortEnum {
             final P retVal = (P) factory.create();
             final String url = getUrl().computeUrl(serviceClass, session);
 
-            SOAPElement sessionId = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SESSION_ID));
+            final SOAPElement sessionId = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_ID.getString()));
             sessionId.addTextNode(session.sessionId());
 
-            SOAPElement sessionHeader = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SESSION_HEADER));
+            final SOAPElement sessionHeader = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()));
             sessionHeader.addChildElement(sessionId);
 
-            List<Header> headers = new ArrayList<Header>();
-            Header soapHeader = new Header(new QName(targetNamespace, SESSION_HEADER), sessionHeader);
+            final List<Header> headers = new ArrayList<Header>();
+            final Header soapHeader = new Header(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()), sessionHeader);
             headers.add(soapHeader);
 
-            Map<String, Object> ctx = ((BindingProvider) retVal).getRequestContext();
+            final Map<String, Object> ctx = ((BindingProvider) retVal).getRequestContext();
             ctx.put(Header.HEADER_LIST, headers);
 
             SoapUtil.setUrl(retVal, url);
@@ -71,15 +70,35 @@ public enum PortEnum {
         }
     }
 
+    <P> P createPortForTargetNamespace(final String targetNamespace, final Class<? extends Service> serviceClass, final Credentials credentials, final LoginServiceEnum loginService) throws SoapException {
+        return createPortForTargetNamespace(targetNamespace, serviceClass, loginService.getLoginService().login(credentials));
+    }
+
+    <P> P createPortForTargetNamespace(final String targetNamespace, final Class<? extends Service> serviceClass, final Credentials creds) throws SoapException {
+        return createPortForTargetNamespace(targetNamespace, serviceClass, creds, LoginServiceEnum.DEFAULT_LOGIN_SERVICE);
+    }
+
     <P> P createPortForAnnotation(final WebServiceClient webServiceClientAnnotation, final Class<? extends Service> serviceClass, final SessionContext session) {
         return createPortForTargetNamespace(webServiceClientAnnotation.targetNamespace(), serviceClass, session);
     }
 
-    public <P> P createPortForService(final Class<? extends Service> serviceClass, final SessionContext session) {
+    <P> P createPortForAnnotation(final WebServiceClient webServiceClientAnnotation, final Class<? extends Service> serviceClass, final Credentials credentials, final LoginServiceEnum loginService) {
+        return createPortForTargetNamespace(webServiceClientAnnotation.targetNamespace(), serviceClass, loginService.getLoginService().login(credentials));
+    }
+
+    public <P> P createPortForService(final Class<? extends Service> serviceClass, final SessionContext session, final LoginServiceEnum loginService) {
         return createPortForAnnotation(serviceClass.getAnnotation(WebServiceClient.class), serviceClass, session);
     }
-//
-//    public <P> P createProxyPort(final Class<? extends Service> serviceClass, final Session session) {
-//
-//    }
+
+    public <P> P createPortForService(final Class<? extends Service> serviceClass, final SessionContext session) {
+        return createPortForService(serviceClass, session, LoginServiceEnum.DEFAULT_LOGIN_SERVICE);
+    }
+
+    public <P> P createPortForService(final Class<? extends Service> serviceClass, final Credentials credentials, final LoginServiceEnum loginService) {
+        return createPortForAnnotation(serviceClass.getAnnotation(WebServiceClient.class), serviceClass, credentials, loginService);
+    }
+
+    public <P> P createPortForService(final Class<? extends Service> serviceClass, final Credentials credentials) {
+        return createPortForService(serviceClass, credentials, LoginServiceEnum.DEFAULT_LOGIN_SERVICE);
+    }
 }

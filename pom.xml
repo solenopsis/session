@@ -7,7 +7,7 @@
     <artifactId>session</artifactId>
     <version>1.1</version>
 
-    <name>Salesforce Session Library</name>
+    <name>Solenopsis:  Salesforce Session Library</name>
     <description>This project is a Java session management library for SFDC.</description>
 
     <url>https://github.com/solenopsis/Session</url>
