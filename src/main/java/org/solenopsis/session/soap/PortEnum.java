@@ -1,17 +1,11 @@
 package org.solenopsis.session.soap;
 
-import jakarta.xml.soap.SOAPElement;
-import jakarta.xml.soap.SOAPException;
-import jakarta.xml.ws.BindingProvider;
-import jakarta.xml.ws.Service;
-import jakarta.xml.ws.WebEndpoint;
-import jakarta.xml.ws.WebServiceClient;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.xml.namespace.QName;
-import org.apache.cxf.headers.Header;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.flossware.commons.util.MethodUtil;
 import org.flossware.commons.util.SoapException;
 import org.flossware.commons.util.SoapUtil;
@@ -31,7 +25,11 @@ public enum PortEnum {
     PARTNER(SoapUrlEnum.PARTNER),
     TOOLING(SoapUrlEnum.TOOLING);
 
+    private static final Class[] DEFAULT_CONSTRCUCTOR_PARAMS_TYPES = new Class[0];
+    private static final Object[] DEFAULT_CONSTRUCTOR_PARAMS = new Object[0];
+
     private final SoapUrlEnum url;
+
 
     private PortEnum(final SoapUrlEnum url) {
         this.url = url;
@@ -41,12 +39,19 @@ public enum PortEnum {
         return url;
     }
 
+    List<Handler> createHandlerList() {
+        return new ArrayList<Handler>(1);
+    }
+
     <P> P createPortForTargetNamespace(final String targetNamespace, final Class<? extends Service> serviceClass, final SessionContext session) throws SoapException {
         try {
-            JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-            factory.setServiceClass(MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getReturnType());
+            final Constructor constructor = serviceClass.getConstructor(DEFAULT_CONSTRCUCTOR_PARAMS_TYPES);
+            final Service service = (Service) constructor.newInstance(DEFAULT_CONSTRUCTOR_PARAMS);
 
-            final P retVal = (P) factory.create();
+            final Method method = MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0);
+
+            final P retVal = (P)  method.invoke(serviceClass, DEFAULT_CONSTRUCTOR_PARAMS);
+
             final String url = getUrl().computeUrl(serviceClass, session);
 
             final SOAPElement sessionId = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_ID.getString()));
@@ -54,6 +59,10 @@ public enum PortEnum {
 
             final SOAPElement sessionHeader = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()));
             sessionHeader.addChildElement(sessionId);
+
+
+
+
 
             final List<Header> headers = new ArrayList<Header>();
             final Header soapHeader = new Header(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()), sessionHeader);
@@ -65,7 +74,7 @@ public enum PortEnum {
             SoapUtil.setUrl(retVal, url);
 
             return retVal;
-        } catch(final SOAPException soapException) {
+        } catch(final Throwable soapException) {
             throw new SoapException(soapException);
         }
     }

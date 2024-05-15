@@ -16,8 +16,6 @@
  */
 package org.solenopsis.session.soap.login;
 
-import com.sforce.soap.tooling.LoginResult;
-import com.sforce.soap.tooling.SforceServicePortType;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
@@ -26,6 +24,8 @@ import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.session.soap.SoapUrlEnum;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 import org.solenopsis.soap.service.ServiceEnum;
+import org.solenopsis.soap.tooling.LoginResult;
+import org.solenopsis.soap.tooling.SforceServicePortType;
 
 /**
  * Uses the Enterprise service for login/logout.
