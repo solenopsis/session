@@ -10,7 +10,7 @@
     <name>Solenopsis:  Salesforce Session Library</name>
     <description>This project is a Java session management library for SFDC.</description>
 
-    <url>https://github.com/solenopsis/Session</url>
+    <url>https://github.com/solenopsis/session</url>
 
     <licenses>
         <license>
