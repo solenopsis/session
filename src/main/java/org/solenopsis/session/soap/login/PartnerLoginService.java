@@ -16,14 +16,14 @@
  */
 package org.solenopsis.session.soap.login;
 
-import com.sforce.soap.partner.LoginResult;
-import com.sforce.soap.partner.Soap;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.login.LoginException;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.login.LogoutException;
 import org.solenopsis.session.soap.SoapUrlEnum;
+import org.solenopsis.soap.partner.LoginResult;
+import org.solenopsis.soap.partner.Soap;
 import org.solenopsis.soap.port.factory.PortFactoryEnum;
 import org.solenopsis.soap.service.ServiceEnum;
 
