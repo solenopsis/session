@@ -5,7 +5,7 @@
 
     <groupId>org.solenopsis</groupId>
     <artifactId>session</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
 
     <name>Solenopsis:  Salesforce Session Library</name>
     <description>This project is a Java session management library for SFDC.</description>
@@ -35,7 +35,7 @@
 
         <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
 
-        <org.solenopsis_soap>1.3</org.solenopsis_soap>
+        <org.solenopsis_soap>1.5</org.solenopsis_soap>
     </properties>
 
     <build>
