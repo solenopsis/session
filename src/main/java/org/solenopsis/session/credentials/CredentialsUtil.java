@@ -20,7 +20,6 @@ public final class CredentialsUtil {
      */
     private static final Logger LOGGER = Logger.getLogger(CredentialsUtil.class.getName());
 
-
     /**
      * Return the logger.
      *
@@ -33,10 +32,14 @@ public final class CredentialsUtil {
     private CredentialsUtil() {
     }
 
+    public static Credentials fromValues(final String url, final String username, final String password, final String token, final String version) {
+        return new CredentialsRecord(url, username, password, token, version);
+    }
+    
     public static Credentials fromProperties(final Properties properties) {
         Objects.requireNonNull(properties, "Null properties not allowed!");
 
-        return new CredentialsRecord(
+        return fromValues(
             PropertiesCredentialsEnum.URL.getValue(properties),
             PropertiesCredentialsEnum.USERNAME.getValue(properties),
             PropertiesCredentialsEnum.PASSWORD.getValue(properties),
