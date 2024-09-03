@@ -5,7 +5,7 @@
 
     <groupId>org.solenopsis</groupId>
     <artifactId>session</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
 
     <name>Solenopsis:  Salesforce Session Library</name>
     <description>This project is a Java session management library for SFDC.</description>
@@ -30,7 +30,7 @@
 
         <org.apache.maven.plugins_maven-scm-plugin>2.0.1</org.apache.maven.plugins_maven-scm-plugin>
 
-        <org.apache.commons_commons-lang3>3.12.0</org.apache.commons_commons-lang3>
+        <org.apache.commons_commons-lang3>3.17.0</org.apache.commons_commons-lang3>
 
         <com.sun.xml.messaging.saaj_saaj-impl>3.0.3</com.sun.xml.messaging.saaj_saaj-impl>
         <cxf.version>4.0.4</cxf.version>
