@@ -37,7 +37,7 @@
 
         <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
 
-        <org.solenopsis_soap>1.5</org.solenopsis_soap>
+        <org.solenopsis_soap>1.6</org.solenopsis_soap>
         
         <message>Automated Version Bump ${project.version} [ci skip]</message>
     </properties>
