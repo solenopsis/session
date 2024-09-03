@@ -28,6 +28,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
 
+        <org.apache.maven.plugins_maven-scm-plugin>2.0.1</org.apache.maven.plugins_maven-scm-plugin>
+
         <org.apache.commons_commons-lang3>3.12.0</org.apache.commons_commons-lang3>
 
         <com.sun.xml.messaging.saaj_saaj-impl>3.0.3</com.sun.xml.messaging.saaj_saaj-impl>
@@ -36,7 +38,15 @@
         <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
 
         <org.solenopsis_soap>1.5</org.solenopsis_soap>
+        
+        <message>Automated Version Bump ${project.version} [ci skip]</message>
     </properties>
+
+    <scm>
+        <connection>scm:git:https://github.com/solenopsis/session.git</connection>
+        <developerConnection>scm:git:https://github.com/solenopsis/session.git</developerConnection>
+        <url>https://github.com/solenopsis/session</url>
+    </scm>
 
     <build>
         <pluginManagement>
@@ -87,6 +97,22 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+                    
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>${org.apache.maven.plugins_maven-scm-plugin}</version>
+
+                <configuration>
+                    <providerImplementations>
+                        <git>git</git>
+                    </providerImplementations>
+
+                    <tag>${project.version}</tag>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <dependencies>
@@ -117,11 +143,26 @@
         </dependency>
     </dependencies>
             
+    <repositories>
+        <repository>
+            <id>flossware-packagecloud</id>
+            <url>https://packagecloud.io/flossware/java/maven2</url>
+        </repository>
+    </repositories>
+
     <distributionManagement>
+        <!--
         <repository>
             <id>packagecloud-solenopsis</id>
             <name>packagecloud-solenopsis</name>
             <url>https://packagecloud.io/solenopsis/java/maven2/</url>
+        </repository>
+        -->
+
+        <repository>
+            <id>packagecloud-flossware</id>
+            <name>packagecloud-flossware</name>
+            <url>https://packagecloud.io/flossware/java/maven2/</url>
         </repository>
     </distributionManagement>
 </project>
