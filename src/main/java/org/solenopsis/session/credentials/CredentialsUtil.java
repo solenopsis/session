@@ -35,7 +35,7 @@ public final class CredentialsUtil {
     public static Credentials fromValues(final String url, final String username, final String password, final String token, final String version) {
         return new CredentialsRecord(url, username, password, token, version);
     }
-    
+
     public static Credentials fromProperties(final Properties properties) {
         Objects.requireNonNull(properties, "Null properties not allowed!");
 

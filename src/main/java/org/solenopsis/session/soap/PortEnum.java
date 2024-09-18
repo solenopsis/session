@@ -44,9 +44,9 @@ public enum PortEnum {
     <P> P createPortForTargetNamespace(final String targetNamespace, final Class<? extends Service> serviceClass, final SessionContext session) throws SoapException {
         try {
             JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-            factory.setServiceClass(MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getReturnType());
 
-            final P retVal = (P) factory.create();
+            final P retVal = (P) factory.create(MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getReturnType());
+
             final String url = getUrl().computeUrl(serviceClass, session);
 
             final SOAPElement sessionId = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_ID.getString()));

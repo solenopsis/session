@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
+import java.util.logging.Level;
 import org.flossware.commons.AbstractBase;
-import org.flossware.commons.util.SoapException;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.soap.login.LoginServiceEnum;
@@ -51,7 +51,7 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
     public PortProxy(final PortEnum portEnum, final Class<? extends Service> serviceClass, final Object toProxy, final SessionContext session, final LoginServiceEnum loginService) {
         this.portEnum = Objects.requireNonNull(portEnum, "Must provide an instance of port enum!");
         this.serviceClass = Objects.requireNonNull(serviceClass, "Must provide a service class!");
-        this.proxy = Objects.requireNonNull(toProxy, "Must provide an instance to proxy!");
+        this.proxy = Objects.requireNonNull(toProxy, "Must provide an instance to a proxy!");
         this.session = Objects.requireNonNull(session, "Must provide a session!");
         this.loginService = Objects.requireNonNull(loginService, "Must provide a login service!");
     }
@@ -72,9 +72,8 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
 
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-        boolean isDone = false;
-
-        while(!isDone) {
+        // Run forever...
+        while(true) {
             try {
                 return method.invoke(getProxy(), args);
             } catch(final InvocationTargetException exception) {
@@ -83,12 +82,11 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
                 } else if (SoapExceptionUtil.isRetry(exception)) {
                     continue;
                 }
-                else if (SoapExceptionUtil.isInvalidQueryLocator(exception)) {
-                    throw exception;
-                }
+
+                log(Level.SEVERE, exception, "Problem  Invoking " + getProxy().getClass().getName() + " -> " + method.getName());
+
+                throw exception;
             }
         }
-
-        throw new SoapException("Could not call [" + proxy.getClass().getName() + "." + method.getName() + "]");
     }
 }

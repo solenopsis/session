@@ -4,10 +4,9 @@ package org.solenopsis.session.soap.login;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.credentials.CredentialsUtil;
-import org.solenopsis.session.soap.PortEnum;
+import org.solenopsis.session.soap.ProxyPortEnum;
+import org.solenopsis.soap.enterprise.SforceService;
 import org.solenopsis.soap.enterprise.Soap;
-import org.solenopsis.soap.tooling.SforceServicePortType;
-import org.solenopsis.soap.tooling.SforceServiceService;
 
 
 /**
@@ -39,7 +38,8 @@ public class Main {
         final SessionContext session = LoginServiceEnum.TOOLING.getLoginService().login(CredentialsUtil.fromFile("/home/sfloess/.solenopsis/credentials/qa.properties"));
 
 
-        SforceServicePortType port = PortEnum.TOOLING.TOOLING.createPortForService(SforceServiceService.class, session);
+//        SforceServicePortType port = PortEnum.TOOLING.TOOLING.createPortForService(SforceServiceService.class, session);
+        Soap port = ProxyPortEnum.ENTERPRISE.createProxyPortForService(SforceService.class, session);
 
 //                .createPortForService(SforceService.class, session);
         port.query("select foo from bar");
