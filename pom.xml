@@ -36,6 +36,7 @@
         <cxf.version>4.0.4</cxf.version>
 
         <org.junit.jupiter_junit-jupiter-api>5.11.4</org.junit.jupiter_junit-jupiter-api>
+        <org.mockito_mockito-core>5.15.2</org.mockito_mockito-core>
 
         <org.solenopsis_soap>1.6</org.solenopsis_soap>
         
@@ -139,6 +140,13 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${org.junit.jupiter_junit-jupiter-api}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${org.mockito_mockito-core}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
