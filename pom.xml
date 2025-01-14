@@ -35,7 +35,7 @@
         <com.sun.xml.messaging.saaj_saaj-impl>3.0.3</com.sun.xml.messaging.saaj_saaj-impl>
         <cxf.version>4.0.4</cxf.version>
 
-        <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
+        <org.junit.jupiter_junit-jupiter-api>5.11.4</org.junit.jupiter_junit-jupiter-api>
 
         <org.solenopsis_soap>1.6</org.solenopsis_soap>
         
