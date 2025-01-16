@@ -19,6 +19,7 @@ import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.credentials.CredentialsRecord;
 import org.solenopsis.session.login.LoginService;
 import org.solenopsis.session.soap.login.LoginServiceEnum;
+import org.solenopsis.session.soap.util.SoapFailureMsgEnum;
 import org.solenopsis.soap.partner.SforceService;
 import org.solenopsis.soap.partner.Soap;
 import org.solenopsis.soap.partner.UnexpectedErrorFault_Exception;
@@ -41,14 +42,13 @@ public class PortProxyTest {
     @Mock
     LoginService loginService;
 
-
-
     Credentials credentials;
 
     SessionContext session;
 
+    // Tests relogins
     @Test
-    public void test_invoke_relogin() throws Throwable {
+    public void test_invoke_invalidSessionId() throws Throwable {
         credentials = new CredentialsRecord("http://foobar.com", "user", "password", "token", "75.0");
 
         session = new SessionContext("http://meta/data/url", false, false, "http://foobar.com", "1234567890", "user", ServiceEnum.ENTERPRISE, credentials);
@@ -57,7 +57,7 @@ public class PortProxyTest {
         when(loginService.login(any(Credentials.class))).thenReturn(session.createNewSessionContext("0987654321"));
 
         // Forcing a new port for calls to make.
-        when(soap.describeAllTabs()).thenThrow(new UnexpectedErrorFault_Exception("INVALID_SESSION_ID"));
+        when(soap.describeAllTabs()).thenThrow(new UnexpectedErrorFault_Exception(SoapFailureMsgEnum.INVALID_SESSION_ID.getMsg()));
 
         final PortProxy proxy = new PortProxy(PortEnum.PARTNER, SforceService.class, soap, session, loginServiceEnum);
 
