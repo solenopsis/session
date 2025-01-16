@@ -30,4 +30,8 @@ public record SessionContext(
         this.service = service;
         this.credentials = credentials;
     }
+
+    public SessionContext createNewSessionContext(final String newSessionId) {
+        return new SessionContext(medataServerUrl, isPasswordExpired, isSandbox, serverUrl, newSessionId, userId, service, credentials);
+    }
 }

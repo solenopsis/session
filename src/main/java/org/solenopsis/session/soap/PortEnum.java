@@ -87,7 +87,7 @@ public enum PortEnum {
     }
 
     public <P> P createPortForService(final Class<? extends Service> serviceClass, final SessionContext session, final LoginServiceEnum loginService) {
-        return createPortForAnnotation(serviceClass.getAnnotation(WebServiceClient.class), serviceClass, session);
+        return createPortForAnnotation(serviceClass.getAnnotation(WebServiceClient.class), serviceClass, session.credentials(), loginService);
     }
 
     public <P> P createPortForService(final Class<? extends Service> serviceClass, final SessionContext session) {

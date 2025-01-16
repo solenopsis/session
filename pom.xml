@@ -35,10 +35,12 @@
         <com.sun.xml.messaging.saaj_saaj-impl>3.0.3</com.sun.xml.messaging.saaj_saaj-impl>
         <cxf.version>4.0.4</cxf.version>
 
-        <org.junit.jupiter_junit-jupiter-api>5.10.0</org.junit.jupiter_junit-jupiter-api>
+        <org.junit.jupiter_junit-jupiter-api>5.11.4</org.junit.jupiter_junit-jupiter-api>
+        <org.mockito_mockito-core>5.15.2</org.mockito_mockito-core>
+		<org.mockito_mockito-junit-jupiter>5.15.2</org.mockito_mockito-junit-jupiter>
 
-        <org.solenopsis_soap>1.6</org.solenopsis_soap>
-        
+        <org.solenopsis_soap>1.7</org.solenopsis_soap>
+
         <message>Automated Version Bump ${project.version} [ci skip]</message>
     </properties>
 
@@ -97,7 +99,7 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-                    
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -141,8 +143,22 @@
             <version>${org.junit.jupiter_junit-jupiter-api}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${org.mockito_mockito-core}</version>
+            <scope>test</scope>
+        </dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${org.mockito_mockito-junit-jupiter}</version>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
-            
+
     <repositories>
         <repository>
             <id>flossware-packagecloud</id>
