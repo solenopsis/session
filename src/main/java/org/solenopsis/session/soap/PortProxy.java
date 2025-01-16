@@ -78,7 +78,11 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
                 return method.invoke(getProxy(), args);
             } catch(final InvocationTargetException exception) {
                 if (SoapExceptionUtil.isInvalidSessionId(exception)) {
+                    log(Level.WARNING, exception,"Session ID [" + getSession().sessionId() + "] is stale, will relogin");
+
                     this.proxy = getPortEnum().createPortForService(getServiceClass(), getSession(), getLoginService());
+
+                    continue;
                 } else if (SoapExceptionUtil.isRetry(exception)) {
                     continue;
                 }
