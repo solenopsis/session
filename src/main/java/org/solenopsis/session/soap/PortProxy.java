@@ -57,7 +57,7 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
     }
 
     public PortProxy(final PortEnum portEnum, final Class<? extends Service> serviceClass, final Object toProxy, final SessionContext session) {
-        this(portEnum, serviceClass, toProxy, session, LoginServiceEnum.PARTNER);
+        this(portEnum, serviceClass, toProxy, session, LoginServiceEnum.DEFAULT_LOGIN_SERVICE);
     }
 
 

@@ -1,9 +1,7 @@
 package org.solenopsis.session.soap;
 
 import jakarta.xml.ws.Service;
-import jakarta.xml.ws.WebEndpoint;
 import java.lang.reflect.Proxy;
-import org.flossware.commons.util.MethodUtil;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.soap.login.LoginServiceEnum;
@@ -26,20 +24,23 @@ public enum ProxyPortEnum {
         this.portEnum = portEnum;
     }
 
-    <P> P createProxyPort(final Class<? extends Service> serviceClass, final Class portClass, final Object toProxy, final SessionContext session, final LoginServiceEnum loginService) {
-        return (P) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[] {portClass}, new PortProxy(getPortEnum(), serviceClass, toProxy, session, loginService));
+
+    <P> P createProxiedPort(final Class<? extends Service> serviceClass, final Object toProxy, final SessionContext session, final LoginServiceEnum loginService) {
+        return (P) Proxy.newProxyInstance(getClass().getClassLoader(), toProxy.getClass().getInterfaces(), new PortProxy(getPortEnum(), serviceClass, toProxy, session, loginService));
     }
 
-    <P> P createProxyPort(final Class<? extends Service> serviceClass, final Class portClass, final Object toProxy, final Credentials credentials, final LoginServiceEnum loginService) {
-        return (P) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[] {portClass}, new PortProxy(getPortEnum(), serviceClass, toProxy, credentials, loginService));
+    <P> P createProxiedPort(final Class<? extends Service> serviceClass, final Object toProxy, final Credentials credentials, final LoginServiceEnum loginService) {
+        return (P) Proxy.newProxyInstance(getClass().getClassLoader(), toProxy.getClass().getInterfaces(), new PortProxy(getPortEnum(), serviceClass, toProxy, credentials, loginService));
     }
 
     <P> P createProxyPort(final Class<? extends Service> serviceClass, final SessionContext session, final LoginServiceEnum loginService) {
-        return createProxyPort(serviceClass, MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getReturnType(), getPortEnum().createPortForService(serviceClass, session), session, loginService);
+        // The created port has all the interface definitions.
+        return createProxiedPort(serviceClass, getPortEnum().createPortForService(serviceClass, session), session, loginService);
     }
 
     <P> P createProxyPort(final Class<? extends Service> serviceClass, final Credentials credentials, final LoginServiceEnum loginService) {
-        return createProxyPort(serviceClass, MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getReturnType(), getPortEnum().createPortForService(serviceClass, credentials), credentials, loginService);
+        // The created port has all the interface definitions.
+        return createProxiedPort(serviceClass, getPortEnum().createPortForService(serviceClass, credentials), credentials, loginService);
     }
 
     public PortEnum getPortEnum() {
