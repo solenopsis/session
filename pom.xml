@@ -39,7 +39,7 @@
         <org.mockito_mockito-core>5.23.0</org.mockito_mockito-core>
 		<org.mockito_mockito-junit-jupiter>5.23.0</org.mockito_mockito-junit-jupiter>
 
-        <org.solenopsis_soap>1.9</org.solenopsis_soap>
+        <org.solenopsis_soap>1.10</org.solenopsis_soap>
 
         <message>Automated Version Bump ${project.version} [ci skip]</message>
     </properties>

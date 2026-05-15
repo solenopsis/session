@@ -5,6 +5,16 @@ All notable changes to the Solenopsis Session library will be documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16] - 2026-05-15
+
+### Changed
+- Updated to use FlossWare JCommons (renamed from Commons)
+- Updated Java imports from org.flossware.commons.* → org.flossware.jcommons.*
+- Transitively updated through SOAP 1.11 dependency
+
+### Breaking Changes
+- Requires Solenopsis SOAP 1.11+ which uses FlossWare JCommons 1.14+
+
 ## [1.14] - 2026-05-15
 
 ### Security

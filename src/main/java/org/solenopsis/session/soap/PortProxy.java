@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.logging.Level;
-import org.flossware.commons.AbstractBase;
+import org.flossware.jcommons.AbstractBase;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.soap.login.LoginServiceEnum;

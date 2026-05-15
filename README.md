@@ -183,8 +183,8 @@ public record SessionContext(
 ## Requirements
 
 - **Java 17+**
-- **Solenopsis SOAP 1.9+** - Salesforce SOAP clients
-- **FlossWare Commons 1.10+** - Foundation utilities (transitive)
+- **Solenopsis SOAP 1.10+** - Salesforce SOAP clients
+- **FlossWare JCommons 1.13+** - Foundation utilities (transitive)
 - **Apache CXF 4.0+** - SOAP framework (transitive)
 
 ## Testing
@@ -295,7 +295,7 @@ GNU General Public License, Version 3 - See [LICENSE](LICENSE) file
 - **Source**: https://github.com/solenopsis/session
 - **Issues**: https://github.com/solenopsis/session/issues
 - **SOAP Library**: https://github.com/solenopsis/soap
-- **Commons Library**: https://github.com/FlossWare/commons
+- **JCommons Library**: https://github.com/FlossWare/jcommons
 - **Package Repository**: https://packagecloud.io/flossware/java
 
 ## Salesforce Documentation
