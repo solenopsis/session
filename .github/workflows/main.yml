@@ -4,23 +4,36 @@ on:
   push:
     branches: [ main ]
 
+# Prevent concurrent builds
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.pusher.email != 'version-bump@solenopsis.org'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Updating runner
         run: sudo apt-get update
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Checkout
-        uses: actions/checkout@v2
+          cache: 'maven'
 
       - name: Preparing settings.xml
         uses: s4u/maven-settings-action@v3.0.0
@@ -42,22 +55,29 @@ jobs:
             ]
 
       - name: Setup .gitconfig for version bumps
-        uses: oleksiyrudenko/gha-git-credentials@latest
+        uses: oleksiyrudenko/gha-git-credentials@v0.4
         with:
           global: true
           name: 'Version Bump'
-          email: 'version-bump@flossware.org'
+          email: 'version-bump@solenopsis.org'
           actor: 'VersionBump'
           token: '${{ secrets.GITHUB_TOKEN }}'
 
       - name: Incrementing pom.xml version
         run: "mvn -U build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.nextMinorVersion} versions:commit"
 
-      - name: Ensure latests depenendencies in pom.xml
+      - name: Ensure latest dependencies in pom.xml
         run: "mvn -Dincludes='org.apache.commons:*, org.apache.cxf:*, org.flossware:*, org.solenopsis:*, org.junit.jupiter:*' -DgenerateBackupPoms=false versions:update-properties"
 
-      - name: Building
+      - name: Building and testing
         run: "mvn -U clean install"
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: '**/target/surefire-reports/TEST-*.xml'
+          check_name: Test Results
 
       - name: Deploy to packagecloud.io
         run: "mvn -DskipTests deploy"
