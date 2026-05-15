@@ -3,7 +3,8 @@ package org.solenopsis.session.soap.login;
 import org.solenopsis.session.login.LoginService;
 
 /**
- *
+ * Different ways to login...
+ * 
  * @author sfloess
  */
 public enum LoginServiceEnum {
@@ -11,7 +12,7 @@ public enum LoginServiceEnum {
     PARTNER(new PartnerLoginService()),
     TOOLING(new ToolingLoginService());
 
-    public static LoginServiceEnum DEFAULT_LOGIN_SERVICE = PARTNER;
+    public static final LoginServiceEnum DEFAULT_LOGIN_SERVICE = PARTNER;
 
     private final LoginService loginService;
 
