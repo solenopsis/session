@@ -5,6 +5,17 @@ All notable changes to the Solenopsis Session library will be documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12] - 2024-12-03
+
+### Changed
+- Replaced all wildcard imports with explicit imports for better code clarity
+- Updated Solenopsis SOAP dependency to 1.8
+- All test files now use explicit static imports from JUnit assertions
+
+### Improved
+- Better IDE support and code readability
+- Clearer dependencies in test files
+
 ## [1.11] - 2024-12-03
 
 ### Added
@@ -18,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Error handling examples
 
 ### Changed
-- Updated Solenopsis SOAP dependency to 1.7
+- Updated Solenopsis SOAP dependency to 1.8
 - Updated Apache Commons Lang3 to 3.18.0
 - Updated Mockito to 5.15.2
 - Enhanced JavaDoc throughout
@@ -47,6 +58,18 @@ Previous versions (1.0 - 1.9) included:
 
 ## Upgrade Guide
 
+### Upgrading to 1.12
+
+#### Improvements You Get
+
+- ✅ Explicit imports (no wildcards)
+- ✅ Updated SOAP dependency to 1.8
+- ✅ Transitive update to FlossWare Commons 1.10
+
+#### No Breaking Changes
+
+Version 1.12 is fully backward compatible with 1.11. No code changes required.
+
 ### Upgrading to 1.11
 
 #### Improvements You Get
@@ -69,11 +92,11 @@ If you're upgrading from earlier versions, ensure you have compatible dependenci
 <dependency>
     <groupId>org.solenopsis</groupId>
     <artifactId>soap</artifactId>
-    <version>1.7</version>
+    <version>1.8</version>
 </dependency>
 ```
 
-The SOAP dependency was updated, which transitively updates FlossWare Commons to 1.9.
+The SOAP dependency was updated, which transitively updates FlossWare Commons to 1.10.
 
 ### Security Recommendations
 

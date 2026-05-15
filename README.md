@@ -30,7 +30,7 @@ This library provides high-level session management and authentication for Sales
 <dependency>
     <groupId>org.solenopsis</groupId>
     <artifactId>session</artifactId>
-    <version>1.11</version>
+    <version>1.12</version>
 </dependency>
 
 <repositories>
@@ -183,8 +183,8 @@ public record SessionContext(
 ## Requirements
 
 - **Java 17+**
-- **Solenopsis SOAP 1.7+** - Salesforce SOAP clients
-- **FlossWare Commons 1.9+** - Foundation utilities (transitive)
+- **Solenopsis SOAP 1.8+** - Salesforce SOAP clients
+- **FlossWare Commons 1.10+** - Foundation utilities (transitive)
 - **Apache CXF 4.0+** - SOAP framework (transitive)
 
 ## Testing
