@@ -5,6 +5,27 @@ All notable changes to the Solenopsis Session library will be documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14] - 2026-05-15
+
+### Security
+- Updated saaj-impl from 3.0.3 to 3.0.5 to address security vulnerability
+
+### Changed
+- Updated Solenopsis SOAP dependency from 1.8 to 1.9
+- Updated Mockito from 5.15.2 to 5.23.0
+- Updated mockito-junit-jupiter from 5.15.2 to 5.23.0
+
+## [1.13] - 2026-05-15
+
+### Improved
+- Upgraded GitHub Actions workflow for better performance and security
+  - Updated actions/checkout from v2 to v4
+  - Added Maven dependency caching
+  - Added build timeout (30 minutes)
+  - Added concurrency control
+  - Added explicit permissions block
+  - Added test report publishing
+
 ## [1.12] - 2024-12-03
 
 ### Changed
@@ -58,6 +79,36 @@ Previous versions (1.0 - 1.9) included:
 
 ## Upgrade Guide
 
+### Upgrading to 1.14
+
+#### Security Fix
+
+- ✅ Security vulnerability fixed in saaj-impl (3.0.3 → 3.0.5)
+
+#### Improvements You Get
+
+- ✅ Updated SOAP dependency to 1.9
+- ✅ Updated Mockito to 5.23.0 for better test support
+- ✅ Improved GitHub Actions workflow (faster builds, better security)
+
+#### No Breaking Changes
+
+Version 1.14 is fully backward compatible with 1.13 and earlier. No code changes required.
+
+#### Recommended Action
+
+**Update immediately** to address the security vulnerability in saaj-impl.
+
+```xml
+<dependency>
+    <groupId>org.solenopsis</groupId>
+    <artifactId>session</artifactId>
+    <version>1.14</version>
+</dependency>
+```
+
+The SOAP dependency update (1.9) brings transitive updates to FlossWare Commons.
+
 ### Upgrading to 1.12
 
 #### Improvements You Get
@@ -92,7 +143,7 @@ If you're upgrading from earlier versions, ensure you have compatible dependenci
 <dependency>
     <groupId>org.solenopsis</groupId>
     <artifactId>soap</artifactId>
-    <version>1.8</version>
+    <version>1.9</version>
 </dependency>
 ```
 
