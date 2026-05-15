@@ -55,7 +55,7 @@ jobs:
             ]
 
       - name: Setup .gitconfig for version bumps
-        uses: oleksiyrudenko/gha-git-credentials@v0.4
+        uses: oleksiyrudenko/gha-git-credentials@v2.1
         with:
           global: true
           name: 'Version Bump'
