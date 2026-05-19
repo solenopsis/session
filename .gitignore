@@ -1,19 +1,100 @@
+# Compiled class files
 *.class
 
-# Package Files #
+# Log files
+*.log
+logs/
+
+# Package files
 *.jar
 *.war
 *.ear
+*.zip
+*.tar.gz
+*.rar
 
-# Maven work #
-target
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
 
-# Netbeans
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# IDE - Eclipse
+.project
+.classpath
+.settings/
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# IDE - NetBeans
 nb-configuration.xml
 nb_jr_remoting.cfg
 nbactions.xml
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
 
-#JRebel
+# IDE - VS Code
+.vscode/
+*.code-workspace
+
+# JRebel
 rebel-remote.xml
 rebel.xml
-.idea
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# Credentials and secrets
+*.properties
+!**/src/test/resources/**/*.properties
+!**/src/main/resources/**/*.properties
+.solenopsis/
+*.key
+*.pem
+*.p12
+*.jks
+credentials/
+secrets/
+
+# Test coverage
+jacoco/
+coverage/
+*.exec
+
+# Other
+*.pid
+*.seed
+*.pid.lock
+.gradle/
