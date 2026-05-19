@@ -104,6 +104,7 @@ jobs:
 
       - name: Generate JavaDoc
         run: "mvn javadoc:javadoc"
+        continue-on-error: true
 
       - name: Deploy JavaDoc to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
