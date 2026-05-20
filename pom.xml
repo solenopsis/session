@@ -40,7 +40,7 @@
 		<org.mockito_mockito-junit-jupiter>5.14.2</org.mockito_mockito-junit-jupiter>
 
         <slf4j.version>2.0.16</slf4j.version>
-        <logback.version>1.5.12</logback.version>
+        <logback.version>1.5.32</logback.version>
 
         <org.solenopsis_soap>1.11</org.solenopsis_soap>
 
