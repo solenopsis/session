@@ -201,4 +201,16 @@ class CredentialsUtilTest {
     void testGetLogger() {
         assertNotNull(CredentialsUtil.getLogger());
     }
+
+    @Test
+    void testFromResource() {
+        Credentials creds = CredentialsUtil.fromResource("test-credentials.properties");
+
+        assertNotNull(creds);
+        assertEquals("https://resource.salesforce.com", creds.url());
+        assertEquals("resource@test.com", creds.username());
+        assertEquals("resourcePass", creds.password());
+        assertEquals("resourceToken", creds.token());
+        assertEquals("58.0", creds.version());
+    }
 }

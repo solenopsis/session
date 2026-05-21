@@ -179,6 +179,13 @@ public class SoapExceptionUtilTest {
     }
 
     @Test
+    public void testIsInvalidSessionId_ExceptionAsInvocationTargetException() {
+        RuntimeException target = new RuntimeException("INVALID_SESSION_ID");
+        Exception exception = new InvocationTargetException(target);
+        assertTrue(SoapExceptionUtil.isInvalidSessionId(exception));
+    }
+
+    @Test
     public void testIsInvalidSessionId_NestedExceptions() {
         assertTrue(SoapExceptionUtil.isInvalidSessionId(
             new Exception(new Throwable(new Throwable(new Throwable(SoapFailureMsgEnum.INVALID_SESSION_ID.getMsg()))))),
@@ -226,6 +233,13 @@ public class SoapExceptionUtilTest {
     public void testIsInvalidQueryLocator_InvocationTargetException() {
         RuntimeException target = new RuntimeException("INVALID_QUERY_LOCATOR");
         InvocationTargetException exception = new InvocationTargetException(target);
+        assertTrue(SoapExceptionUtil.isInvalidQueryLocator(exception));
+    }
+
+    @Test
+    public void testIsInvalidQueryLocator_ThrowableAsInvocationTargetException() {
+        RuntimeException target = new RuntimeException("INVALID_QUERY_LOCATOR");
+        Throwable exception = new InvocationTargetException(target);
         assertTrue(SoapExceptionUtil.isInvalidQueryLocator(exception));
     }
 
