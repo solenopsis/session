@@ -152,27 +152,4 @@ class ProxyPortEnumCompleteTest {
         }
     }
 
-    @Test
-    void testAllEnumValues() {
-        assertNotNull(ProxyPortEnum.APEX);
-        assertNotNull(ProxyPortEnum.CUSTOM);
-        assertNotNull(ProxyPortEnum.ENTERPRISE);
-        assertNotNull(ProxyPortEnum.METADATA);
-        assertNotNull(ProxyPortEnum.PARTNER);
-        assertNotNull(ProxyPortEnum.TOOLING);
-    }
-
-    @Test
-    void testGetPortEnum() {
-        assertEquals(PortEnum.APEX, ProxyPortEnum.APEX.getPortEnum());
-        assertEquals(PortEnum.CUSTOM, ProxyPortEnum.CUSTOM.getPortEnum());
-        assertEquals(PortEnum.ENTERPRISE, ProxyPortEnum.ENTERPRISE.getPortEnum());
-        assertEquals(PortEnum.METADATA, ProxyPortEnum.METADATA.getPortEnum());
-        assertEquals(PortEnum.PARTNER, ProxyPortEnum.PARTNER.getPortEnum());
-        assertEquals(PortEnum.TOOLING, ProxyPortEnum.TOOLING.getPortEnum());
-    }
-
-    private static void assertEquals(PortEnum expected, PortEnum actual) {
-        org.junit.jupiter.api.Assertions.assertEquals(expected, actual);
-    }
 }

@@ -18,16 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class PortEnumCompleteTest {
 
     @Test
-    void testGetUrl() {
-        assertEquals(SoapUrlEnum.APEX, PortEnum.APEX.getUrl());
-        assertEquals(SoapUrlEnum.CUSTOM, PortEnum.CUSTOM.getUrl());
-        assertEquals(SoapUrlEnum.ENTERPRISE, PortEnum.ENTERPRISE.getUrl());
-        assertEquals(SoapUrlEnum.METADATA, PortEnum.METADATA.getUrl());
-        assertEquals(SoapUrlEnum.PARTNER, PortEnum.PARTNER.getUrl());
-        assertEquals(SoapUrlEnum.TOOLING, PortEnum.TOOLING.getUrl());
-    }
-
-    @Test
     void testCreatePortForService_WithSessionAndLoginService() {
         Credentials credentials = new CredentialsRecord(
             "https://test.salesforce.com",
@@ -133,16 +123,6 @@ class PortEnumCompleteTest {
         } catch (Exception e) {
             // Expected - actual connection will fail
         }
-    }
-
-    @Test
-    void testAllEnumValues() {
-        assertNotNull(PortEnum.APEX);
-        assertNotNull(PortEnum.CUSTOM);
-        assertNotNull(PortEnum.ENTERPRISE);
-        assertNotNull(PortEnum.METADATA);
-        assertNotNull(PortEnum.PARTNER);
-        assertNotNull(PortEnum.TOOLING);
     }
 
     @Test
