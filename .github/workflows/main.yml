@@ -35,6 +35,9 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
+      - name: Validate license headers
+        run: mvn license:check
+
       - name: Preparing settings.xml
         uses: s4u/maven-settings-action@v3.0.0
         with:

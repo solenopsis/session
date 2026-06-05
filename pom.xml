@@ -44,6 +44,11 @@
 
         <org.solenopsis_soap>1.17</org.solenopsis_soap>
 
+        <project.inceptionYear>2023</project.inceptionYear>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <license.owner>Scot P. Floess</license.owner>
+        <com.mycila_license-maven-plugin>4.5</com.mycila_license-maven-plugin>
+
         <message>Automated Version Bump ${project.version} [ci skip]</message>
     </properties>
 
@@ -146,6 +151,38 @@
 
                     <tag>${project.version}</tag>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${com.mycila_license-maven-plugin}</version>
+                <configuration>
+                    <header>LICENSE-HEADER.txt</header>
+                    <properties>
+                        <owner>${license.owner}</owner>
+                        <year>${project.inceptionYear}-${maven.build.timestamp}</year>
+                    </properties>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+                    <includes>
+                        <include>src/main/java/**/*.java</include>
+                        <include>src/test/java/**/*.java</include>
+                    </includes>
+                    <strictCheck>true</strictCheck>
+                    <failIfMissing>true</failIfMissing>
+                    <useDefaultExcludes>true</useDefaultExcludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check-license-headers</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
