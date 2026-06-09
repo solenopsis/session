@@ -98,3 +98,4 @@ coverage/
 *.seed
 *.pid.lock
 .gradle/
+.claude
