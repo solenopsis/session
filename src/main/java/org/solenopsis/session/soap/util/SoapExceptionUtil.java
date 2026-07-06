@@ -67,7 +67,8 @@ public class SoapExceptionUtil {
      */
     public static boolean isServerUnavailable(final InvocationTargetException exception) {
         // Nope, get the cause and try again.
-        return isServerUnavailable(exception.getTargetException().getMessage());
+        final Throwable target = exception.getTargetException();
+        return (target == null) ? false : isServerUnavailable(target.getMessage());
     }
 
     /**
