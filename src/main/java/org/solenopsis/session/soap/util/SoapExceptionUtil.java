@@ -112,7 +112,8 @@ public class SoapExceptionUtil {
      */
     public static boolean isFunctionTemporarilyUnavailable(final InvocationTargetException exception) {
         // Nope, get the cause and try again.
-        return isFunctionTemporarilyUnavailable(exception.getTargetException().getMessage());
+        final Throwable target = exception.getTargetException();
+        return (target == null) ? false : isFunctionTemporarilyUnavailable(target.getMessage());
     }
 
     /**
@@ -153,7 +154,8 @@ public class SoapExceptionUtil {
      * @param failure is the failure to examine for an invalid session id.
      */
     public static boolean isInvalidSessionId(final InvocationTargetException failure) {
-        return isInvalidSessionId(failure.getTargetException().getMessage());
+        final Throwable target = failure.getTargetException();
+        return (target == null) ? false : isInvalidSessionId(target.getMessage());
     }
 
     /**
@@ -191,8 +193,9 @@ public class SoapExceptionUtil {
      *
      * @return true if throwable is an IOException or false if not.
      */
-    public static  boolean isInvalidQueryLocator(final InvocationTargetException exception) {
-        return isInvalidQueryLocator(exception.getTargetException().getMessage());
+    public static boolean isInvalidQueryLocator(final InvocationTargetException exception) {
+        final Throwable target = exception.getTargetException();
+        return (target == null) ? false : isInvalidQueryLocator(target.getMessage());
     }
 
     /**
