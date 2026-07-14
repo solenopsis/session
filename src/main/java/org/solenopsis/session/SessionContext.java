@@ -16,6 +16,7 @@
  */
 package org.solenopsis.session;
 
+import java.util.Objects;
 import org.flossware.jcommons.util.UrlUtil;
 import org.solenopsis.soap.service.ServiceEnum;
 
@@ -40,7 +41,7 @@ public record SessionContext(
         this.medataServerUrl = medataServerUrl;
         this.isPasswordExpired = isPasswordExpired;
         this.isSandbox = isSandbox;
-        this.serverUrl = UrlUtil.computeHostUrlAsString(serverUrl);
+        this.serverUrl = UrlUtil.computeHostUrlAsString(Objects.requireNonNull(serverUrl, "serverUrl cannot be null"));
         this.sessionId = sessionId;
         this.userId = userId;
         this.service = service;

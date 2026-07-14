@@ -16,9 +16,15 @@
  */
 package org.solenopsis.session.soap;
 
+import org.flossware.jcommons.util.SoapException;
 import org.junit.jupiter.api.Test;
+import org.solenopsis.session.SessionContext;
+import org.solenopsis.session.credentials.CredentialsRecord;
+import org.solenopsis.soap.service.ServiceEnum;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test for PortEnum.
@@ -91,5 +97,22 @@ class PortEnumTest {
     void testValues() {
         PortEnum[] values = PortEnum.values();
         assertEquals(6, values.length);
+    }
+
+    @Test
+    void testCreatePortForTargetNamespaceNoWebEndpointThrows() {
+        var creds = new CredentialsRecord("https://test.salesforce.com", "user@test.com", "pass", "tok", "58.0");
+        var session = new SessionContext(
+            "https://test.salesforce.com/services/Soap/m/58.0",
+            false, true,
+            "https://test.salesforce.com/services/Soap/u/58.0",
+            "sessionId", "userId", ServiceEnum.ENTERPRISE, creds
+        );
+
+        SoapException ex = assertThrows(SoapException.class, () -> {
+            PortEnum.ENTERPRISE.createPortForTargetNamespace("urn:test", NoWebEndpointService.class, session);
+        });
+        assertTrue(ex.getMessage().contains("No methods annotated with @WebEndpoint"));
+        assertTrue(ex.getMessage().contains("NoWebEndpointService"));
     }
 }

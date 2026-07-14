@@ -25,6 +25,7 @@ import org.solenopsis.soap.service.ServiceEnum;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test for SoapUrlEnum.
@@ -104,5 +105,33 @@ class SoapUrlEnumTest {
     void testValues() {
         SoapUrlEnum[] values = SoapUrlEnum.values();
         assertEquals(6, values.length);
+    }
+
+    @Test
+    void testCustomComputeUrlNoWebEndpointAnnotationThrows() {
+        Credentials creds = new CredentialsRecord(
+            "https://test.salesforce.com",
+            "user@test.com",
+            "password",
+            "token",
+            "58.0"
+        );
+
+        SessionContext session = new SessionContext(
+            "https://test.salesforce.com/metadata",
+            false,
+            true,
+            "https://test.salesforce.com",
+            "session123",
+            "user123",
+            ServiceEnum.ENTERPRISE,
+            creds
+        );
+
+        NullPointerException ex = assertThrows(NullPointerException.class, () -> {
+            SoapUrlEnum.CUSTOM.computeUrl(NoWebEndpointService.class, session);
+        });
+        assertTrue(ex.getMessage().contains("No @WebEndpoint annotation found on methods of"));
+        assertTrue(ex.getMessage().contains("NoWebEndpointService"));
     }
 }

@@ -61,7 +61,11 @@ public enum PortEnum {
         try {
             JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
 
-            final P retVal = (P) factory.create(MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class).get(0).getReturnType());
+            final var methods = MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class);
+            if (methods.isEmpty()) {
+                throw new SoapException("No methods annotated with @WebEndpoint found on " + serviceClass.getName());
+            }
+            final P retVal = (P) factory.create(methods.get(0).getReturnType());
 
             final String url = getUrl().computeUrl(serviceClass, session);
 

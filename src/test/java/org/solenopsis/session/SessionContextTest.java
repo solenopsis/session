@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SessionContextTest {
@@ -159,6 +160,25 @@ class SessionContextTest {
         );
 
         assertNotEquals(context1, context2);
+    }
+
+    @Test
+    void testConstructorNullServerUrlThrows() {
+        Credentials creds = new CredentialsRecord("https://test.salesforce.com", "user@test.com", "password123", "token", "58.0");
+
+        NullPointerException ex = assertThrows(NullPointerException.class, () -> {
+            new SessionContext(
+                "https://test.salesforce.com/services/Soap/m/58.0",
+                false,
+                true,
+                null,
+                "sessionId123",
+                "userId123",
+                ServiceEnum.METADATA,
+                creds
+            );
+        });
+        assertEquals("serverUrl cannot be null", ex.getMessage());
     }
 
     @Test
