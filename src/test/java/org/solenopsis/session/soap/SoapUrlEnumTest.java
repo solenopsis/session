@@ -108,6 +108,74 @@ class SoapUrlEnumTest {
     }
 
     @Test
+    void testComputeUrl_Enterprise() {
+        Credentials creds = new CredentialsRecord(
+            "https://test.salesforce.com", "user@test.com",
+            "password", "token", "58.0");
+        SessionContext session = new SessionContext(
+            "https://test.salesforce.com/metadata", false, true,
+            "https://test.salesforce.com",
+            "session123", "user123", ServiceEnum.ENTERPRISE, creds);
+
+        String url = SoapUrlEnum.ENTERPRISE.computeUrl(
+            org.solenopsis.soap.enterprise.SforceService.class, session);
+        assertNotNull(url);
+        assertTrue(url.contains("services/Soap/c"));
+        assertTrue(url.contains("58.0"));
+    }
+
+    @Test
+    void testComputeUrl_Partner() {
+        Credentials creds = new CredentialsRecord(
+            "https://test.salesforce.com", "user@test.com",
+            "password", "token", "58.0");
+        SessionContext session = new SessionContext(
+            "https://test.salesforce.com/metadata", false, true,
+            "https://test.salesforce.com",
+            "session123", "user123", ServiceEnum.PARTNER, creds);
+
+        String url = SoapUrlEnum.PARTNER.computeUrl(
+            org.solenopsis.soap.partner.SforceService.class, session);
+        assertNotNull(url);
+        assertTrue(url.contains("services/Soap/u"));
+        assertTrue(url.contains("58.0"));
+    }
+
+    @Test
+    void testComputeUrl_Metadata() {
+        Credentials creds = new CredentialsRecord(
+            "https://test.salesforce.com", "user@test.com",
+            "password", "token", "58.0");
+        SessionContext session = new SessionContext(
+            "https://test.salesforce.com/metadata", false, true,
+            "https://test.salesforce.com",
+            "session123", "user123", ServiceEnum.METADATA, creds);
+
+        String url = SoapUrlEnum.METADATA.computeUrl(
+            org.solenopsis.soap.metadata.MetadataService.class, session);
+        assertNotNull(url);
+        assertTrue(url.contains("services/Soap/m"));
+        assertTrue(url.contains("58.0"));
+    }
+
+    @Test
+    void testComputeUrl_Tooling() {
+        Credentials creds = new CredentialsRecord(
+            "https://test.salesforce.com", "user@test.com",
+            "password", "token", "58.0");
+        SessionContext session = new SessionContext(
+            "https://test.salesforce.com/metadata", false, true,
+            "https://test.salesforce.com",
+            "session123", "user123", ServiceEnum.TOOLING, creds);
+
+        String url = SoapUrlEnum.TOOLING.computeUrl(
+            org.solenopsis.soap.tooling.SforceServiceService.class, session);
+        assertNotNull(url);
+        assertTrue(url.contains("services/Soap/T"));
+        assertTrue(url.contains("58.0"));
+    }
+
+    @Test
     void testCustomComputeUrlNoWebEndpointAnnotationThrows() {
         Credentials creds = new CredentialsRecord(
             "https://test.salesforce.com",

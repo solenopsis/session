@@ -328,4 +328,56 @@ public class SoapExceptionUtilTest {
     public void testIsRetry_WithNull() {
         assertFalse(SoapExceptionUtil.isRetry(null));
     }
+
+    // ========== null-target InvocationTargetException tests ==========
+
+    @Test
+    public void testIsServerUnavailable_InvocationTargetExceptionWithNullTarget() {
+        InvocationTargetException exception = new InvocationTargetException(null);
+        assertFalse(SoapExceptionUtil.isServerUnavailable(exception));
+    }
+
+    @Test
+    public void testIsFunctionTemporarilyUnavailable_InvocationTargetExceptionWithNullTarget() {
+        InvocationTargetException exception = new InvocationTargetException(null);
+        assertFalse(SoapExceptionUtil.isFunctionTemporarilyUnavailable(exception));
+    }
+
+    @Test
+    public void testIsInvalidSessionId_InvocationTargetExceptionWithNullTarget() {
+        InvocationTargetException exception = new InvocationTargetException(null);
+        assertFalse(SoapExceptionUtil.isInvalidSessionId(exception));
+    }
+
+    @Test
+    public void testIsInvalidQueryLocator_InvocationTargetExceptionWithNullTarget() {
+        InvocationTargetException exception = new InvocationTargetException(null);
+        assertFalse(SoapExceptionUtil.isInvalidQueryLocator(exception));
+    }
+
+    // ========== deeply nested Throwable chain traversal tests ==========
+
+    @Test
+    public void testIsFunctionTemporarilyUnavailable_DeeplyNestedThrowable() {
+        Throwable deep = new RuntimeException("FUNCTIONALITY_TEMPORARILY_UNAVAILABLE");
+        Throwable level1 = new Exception("wrapper", deep);
+        Throwable level2 = new RuntimeException("outer", level1);
+        assertTrue(SoapExceptionUtil.isFunctionTemporarilyUnavailable(level2));
+    }
+
+    @Test
+    public void testIsInvalidQueryLocator_DeeplyNestedThrowable() {
+        Throwable deep = new RuntimeException("INVALID_QUERY_LOCATOR");
+        Throwable level1 = new Exception("wrapper", deep);
+        Throwable level2 = new RuntimeException("outer", level1);
+        assertTrue(SoapExceptionUtil.isInvalidQueryLocator(level2));
+    }
+
+    @Test
+    public void testIsServerUnavailable_DeeplyNestedThrowable() {
+        Throwable deep = new RuntimeException("SERVER_UNAVAILABLE");
+        Throwable level1 = new Exception("wrapper", deep);
+        Throwable level2 = new RuntimeException("outer", level1);
+        assertTrue(SoapExceptionUtil.isServerUnavailable(level2));
+    }
 }

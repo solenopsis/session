@@ -22,9 +22,7 @@ import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebEndpoint;
 import jakarta.xml.ws.WebServiceClient;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.xml.namespace.QName;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
@@ -59,15 +57,12 @@ public enum PortEnum {
 
     <P> P createPortForTargetNamespace(final String targetNamespace, final Class<? extends Service> serviceClass, final SessionContext session) throws SoapException {
         try {
-            JaxWsProxyFactoryBean factory = new JaxWsProxyFactoryBean();
-
             final var methods = MethodUtil.findMethodsForAnnotationClass(serviceClass, WebEndpoint.class);
             if (methods.isEmpty()) {
                 throw new SoapException("No methods annotated with @WebEndpoint found on " + serviceClass.getName());
             }
-            final P retVal = (P) factory.create(methods.get(0).getReturnType());
 
-            final String url = getUrl().computeUrl(serviceClass, session);
+            final P retVal = (P) new JaxWsProxyFactoryBean().create(methods.get(0).getReturnType());
 
             final SOAPElement sessionId = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_ID.getString()));
             sessionId.addTextNode(session.sessionId());
@@ -75,17 +70,13 @@ public enum PortEnum {
             final SOAPElement sessionHeader = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()));
             sessionHeader.addChildElement(sessionId);
 
-            final List<Header> headers = new ArrayList<Header>();
-            final Header soapHeader = new Header(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()), sessionHeader);
-            headers.add(soapHeader);
+            ((BindingProvider) retVal).getRequestContext().put(
+                Header.HEADER_LIST,
+                List.of(new Header(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()), sessionHeader))
+            );
 
-            final Map<String, Object> ctx = ((BindingProvider) retVal).getRequestContext();
-            ctx.put(Header.HEADER_LIST, headers);
-
-            SoapUtil.setUrl(retVal, url);
-
-            return retVal;
-        } catch(final SOAPException soapException) {
+            return SoapUtil.setUrl(retVal, getUrl().computeUrl(serviceClass, session));
+        } catch (final SOAPException soapException) {
             throw new SoapException(soapException);
         }
     }

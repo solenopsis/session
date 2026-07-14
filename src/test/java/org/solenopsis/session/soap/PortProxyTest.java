@@ -18,6 +18,7 @@ package org.solenopsis.session.soap;
 
 import jakarta.xml.ws.WebServiceException;
 import java.lang.reflect.InvocationTargetException;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
@@ -93,5 +94,39 @@ public class PortProxyTest {
 
         // Should only be called once.
         verify(soap, times(1)).describeAllTabs();
+    }
+
+    @Test
+    public void test_invoke_nonRetryableException() throws Throwable {
+        credentials = new CredentialsRecord("http://foobar.com", "user", "password", "token", "75.0");
+
+        session = new SessionContext("http://meta/data/url", false, false, "http://foobar.com", "1234567890", "user", ServiceEnum.ENTERPRISE, credentials);
+
+        when(loginServiceEnum.getLoginService()).thenReturn(loginService);
+
+        when(soap.describeAllTabs()).thenThrow(new UnexpectedErrorFault_Exception("SOME_OTHER_ERROR"));
+
+        final PortProxy proxy = new PortProxy(PortEnum.PARTNER, SforceService.class, soap, session, loginServiceEnum);
+
+        final InvocationTargetException thrown = assertThrows(InvocationTargetException.class,
+            () -> proxy.invoke(soap, Soap.class.getMethod("describeAllTabs", new Class[0]), new Object[0]));
+
+        verify(loginService, times(0)).login(any(CredentialsRecord.class));
+        verify(soap, times(1)).describeAllTabs();
+    }
+
+    @Test
+    public void test_constructor_withCredentialsAndLoginService() {
+        credentials = new CredentialsRecord("http://foobar.com", "user", "password", "token", "75.0");
+
+        session = new SessionContext("http://meta/data/url", false, false, "http://foobar.com", "1234567890", "user", ServiceEnum.ENTERPRISE, credentials);
+
+        when(loginServiceEnum.getLoginService()).thenReturn(loginService);
+        when(loginService.login(credentials)).thenReturn(session);
+
+        final PortProxy proxy = new PortProxy(PortEnum.PARTNER, SforceService.class, soap, credentials, loginServiceEnum);
+
+        assertNotNull(proxy);
+        verify(loginService, times(1)).login(credentials);
     }
 }
