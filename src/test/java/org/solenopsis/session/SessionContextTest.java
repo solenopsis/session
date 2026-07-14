@@ -160,4 +160,26 @@ class SessionContextTest {
 
         assertNotEquals(context1, context2);
     }
+
+    @Test
+    void testToStringRedactsSessionId() {
+        Credentials creds = new CredentialsRecord("https://test.salesforce.com", "user@test.com", "password123", "token", "58.0");
+
+        SessionContext context = new SessionContext(
+            "https://test.salesforce.com/services/Soap/m/58.0",
+            false,
+            true,
+            "https://test.salesforce.com/services/Soap/u/58.0",
+            "superSecretSessionId",
+            "userId123",
+            ServiceEnum.METADATA,
+            creds
+        );
+
+        String str = context.toString();
+        assertNotNull(str);
+        assertFalse(str.contains("superSecretSessionId"), "toString must not expose session ID");
+        assertTrue(str.contains("*****"));
+        assertTrue(str.contains("userId123"));
+    }
 }

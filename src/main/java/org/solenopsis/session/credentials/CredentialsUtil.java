@@ -55,13 +55,13 @@ public final class CredentialsUtil {
     public static Credentials fromProperties(final Properties properties) {
         Objects.requireNonNull(properties, "Null properties not allowed!");
 
-        return fromValues(
-            PropertiesCredentialsEnum.URL.getValue(properties),
-            PropertiesCredentialsEnum.USERNAME.getValue(properties),
-            PropertiesCredentialsEnum.PASSWORD.getValue(properties),
-            PropertiesCredentialsEnum.TOKEN.getValue(properties),
-            PropertiesCredentialsEnum.VERSION.getValue(properties)
-        );
+        final String url = Objects.requireNonNull(PropertiesCredentialsEnum.URL.getValue(properties), "Property 'url' is required");
+        final String username = Objects.requireNonNull(PropertiesCredentialsEnum.USERNAME.getValue(properties), "Property 'username' is required");
+        final String password = Objects.requireNonNull(PropertiesCredentialsEnum.PASSWORD.getValue(properties), "Property 'password' is required");
+        final String token = Objects.requireNonNull(PropertiesCredentialsEnum.TOKEN.getValue(properties), "Property 'token' is required");
+        final String version = Objects.requireNonNull(PropertiesCredentialsEnum.VERSION.getValue(properties), "Property 'version' is required");
+
+        return fromValues(url, username, password, token, version);
     }
 
     public static Credentials fromInputStream(final InputStream inputStream, final boolean closeStream) {

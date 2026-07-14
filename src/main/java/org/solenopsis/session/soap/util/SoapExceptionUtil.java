@@ -59,38 +59,38 @@ public class SoapExceptionUtil {
     }
 
     /**
-     * Determine if we server is unavailable - or contains one...
+     * Determine if the server is unavailable based on the target exception.
      *
-     * @param throwable the failure to examine if its an IOException.
+     * @param exception the InvocationTargetException to examine.
      *
-     * @return true if throwable is an IOException or false if not.
+     * @return true if the target exception indicates server unavailable or false if not.
      */
     public static boolean isServerUnavailable(final InvocationTargetException exception) {
-        // Nope, get the cause and try again.
         final Throwable target = exception.getTargetException();
         return (target == null) ? false : isServerUnavailable(target.getMessage());
     }
 
     /**
-     * Determine if we server is unavailable - or contains one...
+     * Determine if the throwable or any cause in its chain indicates server unavailable.
      *
-     * @param throwable the failure to examine if its an IOException.
+     * @param throwable the failure to examine for server unavailable.
      *
-     * @return true if throwable is an IOException or false if not.
+     * @return true if throwable indicates server unavailable or false if not.
      */
     public static boolean isServerUnavailable(final Throwable throwable) {
-        // If we reach the top of the exception stack, we are done...
         if (null == throwable) {
             return false;
         }
 
-        // Is it an IOException?  If so, return true.
         if (throwable instanceof InvocationTargetException) {
             return isServerUnavailable((InvocationTargetException) throwable);
         }
 
-        // Nope, get the cause and try again.
-        return isServerUnavailable(throwable.getMessage());
+        if (isServerUnavailable(throwable.getMessage())) {
+            return true;
+        }
+
+        return isServerUnavailable(throwable.getCause());
     }
 
     /**
@@ -105,38 +105,38 @@ public class SoapExceptionUtil {
     }
 
     /**
-     * Determine if the server returned functionality temporarily unavailable - or contains one...
+     * Determine if the server returned functionality temporarily unavailable.
      *
-     * @param throwable the failure to examine if its an functionality temporarily unavailable.
+     * @param exception the InvocationTargetException to examine.
      *
-     * @return true if throwable is a functionality temporarily unavailable or false if not.
+     * @return true if the target exception indicates functionality temporarily unavailable or false if not.
      */
     public static boolean isFunctionTemporarilyUnavailable(final InvocationTargetException exception) {
-        // Nope, get the cause and try again.
         final Throwable target = exception.getTargetException();
         return (target == null) ? false : isFunctionTemporarilyUnavailable(target.getMessage());
     }
 
     /**
-     * Determine if we server returned functionality temporarily unavailable - or contains one...
+     * Determine if the throwable or any cause in its chain indicates functionality temporarily unavailable.
      *
-     * @param throwable the failure to examine if functionality temporarily unavailable.
+     * @param throwable the failure to examine for functionality temporarily unavailable.
      *
-     * @return true if throwable is functionality temporarily unavailable or false if not.
+     * @return true if throwable indicates functionality temporarily unavailable or false if not.
      */
     public static boolean isFunctionTemporarilyUnavailable(final Throwable throwable) {
-        // If we reach the top of the exception stack, we are done...
         if (null == throwable) {
             return false;
         }
 
-        // Is it an IOException?  If so, return true.
         if (throwable instanceof InvocationTargetException) {
             return isFunctionTemporarilyUnavailable((InvocationTargetException) throwable);
         }
 
-        // Nope, get the cause and try again.
-        return isFunctionTemporarilyUnavailable(throwable.getMessage());
+        if (isFunctionTemporarilyUnavailable(throwable.getMessage())) {
+            return true;
+        }
+
+        return isFunctionTemporarilyUnavailable(throwable.getCause());
     }
 
 
@@ -177,22 +177,22 @@ public class SoapExceptionUtil {
     }
 
     /**
-     * Determine if have a invalid query locator- or contains one...
+     * Determine if the message indicates an invalid query locator.
      *
-     * @param msg the failure to examine if its an IOException.
+     * @param message the message to examine for invalid query locator.
      *
-     * @return true if msg is an IOException or false if not.
+     * @return true if the message contains invalid query locator or false if not.
      */
-    public static  boolean isInvalidQueryLocator(final String message) {
+    public static boolean isInvalidQueryLocator(final String message) {
         return (message == null ? false : message.contains(SoapFailureMsgEnum.INVALID_QUERY_LOCATOR.getMsg()));
     }
 
     /**
-     * Determine if have a invalid query locator- or contains one...
+     * Determine if the exception indicates an invalid query locator.
      *
-     * @param InvocationTargetException the failure to examine if its an IOException.
+     * @param exception the InvocationTargetException to examine.
      *
-     * @return true if throwable is an IOException or false if not.
+     * @return true if the target exception indicates invalid query locator or false if not.
      */
     public static boolean isInvalidQueryLocator(final InvocationTargetException exception) {
         final Throwable target = exception.getTargetException();
@@ -200,25 +200,26 @@ public class SoapExceptionUtil {
     }
 
     /**
-     * Determine if have a invalid query locator- or contains one...
+     * Determine if the throwable or any cause in its chain indicates an invalid query locator.
      *
-     * @param throwable the failure to examine if its an IOException.
+     * @param throwable the failure to examine for invalid query locator.
      *
-     * @return true if throwable is an IOException or false if not.
+     * @return true if throwable indicates invalid query locator or false if not.
      */
-    public static  boolean isInvalidQueryLocator(final Throwable throwable) {
-        // If we reach the top of the exception stack, we are done...
+    public static boolean isInvalidQueryLocator(final Throwable throwable) {
         if (null == throwable) {
             return false;
         }
 
-        // Is it an IOException?  If so, return true.
         if (throwable instanceof InvocationTargetException) {
             return isInvalidQueryLocator((InvocationTargetException) throwable);
         }
 
-        // Nope, get the cause and try again.
-        return isInvalidQueryLocator(throwable.getMessage());
+        if (isInvalidQueryLocator(throwable.getMessage())) {
+            return true;
+        }
+
+        return isInvalidQueryLocator(throwable.getCause());
     }
 
     /**
@@ -236,8 +237,7 @@ public class SoapExceptionUtil {
     /**
      * Should we retry the call?
      *
-     * @param remainingCalls the number of remaining calls.
-     * @param failure        the failure that arose.
+     * @param failure the failure that arose.
      *
      * @return true if we should retry the call or false if not.
      */

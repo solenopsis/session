@@ -85,7 +85,7 @@ Thumbs.db
 *.pem
 *.p12
 *.jks
-credentials/
+/credentials/
 secrets/
 
 # Test coverage

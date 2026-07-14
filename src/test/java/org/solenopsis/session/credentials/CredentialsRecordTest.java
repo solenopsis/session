@@ -20,8 +20,10 @@ import org.junit.jupiter.api.Test;
 import org.solenopsis.session.Credentials;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -131,6 +133,35 @@ class CredentialsRecordTest {
         assertTrue(str.contains("test.salesforce.com"));
         assertTrue(str.contains("user@test.com"));
         assertTrue(str.contains("58.0"));
+        assertFalse(str.contains("password123"), "toString must not expose password");
+        assertFalse(str.contains("token456"), "toString must not expose token");
+        assertTrue(str.contains("*****"));
+    }
+
+    @Test
+    void testSecurityPasswordNullPassword() {
+        CredentialsRecord creds = new CredentialsRecord(
+            "https://test.salesforce.com",
+            "user@test.com",
+            null,
+            "token456",
+            "58.0"
+        );
+
+        assertThrows(NullPointerException.class, creds::securityPassword);
+    }
+
+    @Test
+    void testSecurityPasswordNullToken() {
+        CredentialsRecord creds = new CredentialsRecord(
+            "https://test.salesforce.com",
+            "user@test.com",
+            "password123",
+            null,
+            "58.0"
+        );
+
+        assertThrows(NullPointerException.class, creds::securityPassword);
     }
 
     @Test

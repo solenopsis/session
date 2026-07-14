@@ -50,4 +50,11 @@ public record SessionContext(
     public SessionContext createNewSessionContext(final String newSessionId) {
         return new SessionContext(medataServerUrl, isPasswordExpired, isSandbox, serverUrl, newSessionId, userId, service, credentials);
     }
+
+    @Override
+    public String toString() {
+        return "SessionContext[medataServerUrl=" + medataServerUrl + ", isPasswordExpired=" + isPasswordExpired
+            + ", isSandbox=" + isSandbox + ", serverUrl=" + serverUrl + ", sessionId=*****, userId=" + userId
+            + ", service=" + service + ", credentials=" + credentials + "]";
+    }
 }

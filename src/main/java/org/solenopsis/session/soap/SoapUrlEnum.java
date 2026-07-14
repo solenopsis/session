@@ -71,15 +71,15 @@ public enum SoapUrlEnum {
     }
 
     public String computeUrl(final Class<? extends Service> serviceClass, final SessionContext session) {
+        Objects.requireNonNull(serviceClass, "Service class cannot be null!");
+        Objects.requireNonNull(session, "Session cannot be null!");
+
         return StringUtils.join(
                 session.serverUrl(),
                 "/",
                 getPartialUrl(),
                 "/",
-                getUrlFunction().apply(
-                        Objects.requireNonNull(serviceClass, "Service class cannot be null!"),
-                        Objects.requireNonNull(session, "Session cannot be null!")
-                )
+                getUrlFunction().apply(serviceClass, session)
         );
     }
 }

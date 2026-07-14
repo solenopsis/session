@@ -34,9 +34,13 @@ import org.solenopsis.session.soap.util.SoapExceptionUtil;
  * @author sfloess
  */
 public class PortProxy extends AbstractBase implements InvocationHandler {
+    static final int MAX_RETRIES = 5;
+    static final int MAX_RELOGINS = 3;
+    static final long MAX_BACKOFF_MS = 30_000L;
+
     private final PortEnum portEnum;
     private final Class<? extends Service> serviceClass;
-    private Object proxy;
+    private volatile Object proxy;
     private final SessionContext session;
     private final LoginServiceEnum loginService;
 
@@ -60,10 +64,6 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
         return loginService;
     }
 
-    void handleException(final Method method, final Object[] args, final InvocationTargetException exception) throws Throwable {
-
-    }
-
     public PortProxy(final PortEnum portEnum, final Class<? extends Service> serviceClass, final Object toProxy, final SessionContext session, final LoginServiceEnum loginService) {
         this.portEnum = Objects.requireNonNull(portEnum, "Must provide an instance of port enum!");
         this.serviceClass = Objects.requireNonNull(serviceClass, "Must provide a service class!");
@@ -76,7 +76,6 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
         this(portEnum, serviceClass, toProxy, session, LoginServiceEnum.DEFAULT_LOGIN_SERVICE);
     }
 
-
     public PortProxy(final PortEnum portEnum, final Class<? extends Service> serviceClass, final Object toProxy, final Credentials credentials, final LoginServiceEnum loginService) {
         this(portEnum, serviceClass, toProxy, Objects.requireNonNull(loginService, "Must provide a login service!").getLoginService().login(credentials), loginService);
     }
@@ -85,26 +84,37 @@ public class PortProxy extends AbstractBase implements InvocationHandler {
         this(portEnum, serviceClass, toProxy, credentials, LoginServiceEnum.DEFAULT_LOGIN_SERVICE);
     }
 
-
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-        // Run forever...
-        while(true) {
+        int retryCount = 0;
+        int reloginCount = 0;
+
+        while (true) {
             try {
                 return method.invoke(getProxy(), args);
-            } catch(final InvocationTargetException exception) {
+            } catch (final InvocationTargetException exception) {
                 if (SoapExceptionUtil.isInvalidSessionId(exception)) {
-                    log(Level.WARNING, exception,"Session ID [" + getSession().sessionId() + "] is stale, will relogin");
+                    if (++reloginCount > MAX_RELOGINS) {
+                        log(Level.SEVERE, exception, "Exhausted " + MAX_RELOGINS + " relogin attempts for " + method.getName());
+                        throw exception;
+                    }
 
+                    log(Level.WARNING, exception, "Session is stale, relogin attempt " + reloginCount + "/" + MAX_RELOGINS);
                     this.proxy = getPortEnum().createPortForService(getServiceClass(), getSession(), getLoginService());
-
                     continue;
                 } else if (SoapExceptionUtil.isRetry(exception)) {
+                    if (++retryCount > MAX_RETRIES) {
+                        log(Level.SEVERE, exception, "Exhausted " + MAX_RETRIES + " retry attempts for " + method.getName());
+                        throw exception;
+                    }
+
+                    final long backoffMs = Math.min(1000L * (1L << (retryCount - 1)), MAX_BACKOFF_MS);
+                    log(Level.WARNING, exception, "Transient error, retry " + retryCount + "/" + MAX_RETRIES + " after " + backoffMs + "ms");
+                    Thread.sleep(backoffMs);
                     continue;
                 }
 
-                log(Level.SEVERE, exception, "Problem  Invoking " + getProxy().getClass().getName() + " -> " + method.getName());
-
+                log(Level.SEVERE, exception, "Problem invoking " + getProxy().getClass().getName() + " -> " + method.getName());
                 throw exception;
             }
         }

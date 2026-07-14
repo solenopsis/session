@@ -16,6 +16,8 @@
  */
 package org.solenopsis.session;
 
+import java.util.Objects;
+
 /**
  * Represents credential to log in to Salesforce.
  *
@@ -33,6 +35,6 @@ public interface Credentials {
     String version();
 
     default String securityPassword() {
-        return password() + token();
+        return Objects.requireNonNull(password(), "Password cannot be null") + Objects.requireNonNull(token(), "Token cannot be null");
     }
 }

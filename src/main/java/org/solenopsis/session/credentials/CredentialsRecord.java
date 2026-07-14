@@ -24,4 +24,8 @@ import org.solenopsis.session.Credentials;
  * @author sfloess
  */
 public record CredentialsRecord(String url, String username, String password, String token, String version) implements Credentials {
+    @Override
+    public String toString() {
+        return "CredentialsRecord[url=" + url + ", username=" + username + ", password=*****, token=*****, version=" + version + "]";
+    }
 }

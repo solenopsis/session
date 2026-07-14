@@ -28,7 +28,7 @@ import org.solenopsis.soap.port.factory.PortFactoryEnum;
 import org.solenopsis.soap.service.ServiceEnum;
 
 /**
- * Uses the Enterprise service for login/logout.
+ * Uses the Partner service for login/logout.
  *
  * @author Scot P. Floess
  */

@@ -30,6 +30,7 @@ import org.solenopsis.soap.partner.SforceService;
 import org.solenopsis.soap.partner.Soap;
 import org.solenopsis.soap.service.ServiceEnum;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -283,39 +284,9 @@ public class PortProxyExpandedTest {
     }
 
     @Test
-    public void testHandleException() throws Throwable {
-        Credentials credentials = new CredentialsRecord(
-            "https://test.salesforce.com",
-            "user@test.com",
-            "password",
-            "token",
-            "58.0"
-        );
-
-        SessionContext session = new SessionContext(
-            "https://test.salesforce.com/metadata",
-            false,
-            true,
-            "https://test.salesforce.com",
-            "session123",
-            "user123",
-            ServiceEnum.PARTNER,
-            credentials
-        );
-
-        PortProxy proxy = new PortProxy(
-            PortEnum.PARTNER,
-            SforceService.class,
-            soapMock,
-            session,
-            LoginServiceEnum.PARTNER
-        );
-
-        // handleException is a no-op method, just call it for coverage
-        proxy.handleException(
-            Soap.class.getMethod("getUserInfo"),
-            new Object[0],
-            new java.lang.reflect.InvocationTargetException(new RuntimeException("test"))
-        );
+    public void testConstants() {
+        assertEquals(5, PortProxy.MAX_RETRIES);
+        assertEquals(3, PortProxy.MAX_RELOGINS);
+        assertEquals(30_000L, PortProxy.MAX_BACKOFF_MS);
     }
 }

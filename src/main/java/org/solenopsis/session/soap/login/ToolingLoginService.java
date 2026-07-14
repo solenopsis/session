@@ -28,7 +28,7 @@ import org.solenopsis.soap.tooling.LoginResult;
 import org.solenopsis.soap.tooling.SforceServicePortType;
 
 /**
- * Uses the Enterprise service for login/logout.
+ * Uses the Tooling service for login/logout.
  *
  * @author Scot P. Floess
  */
@@ -66,6 +66,7 @@ class ToolingLoginService implements LoginService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public SessionContext login(final Credentials credentials) {
         return login(PortFactoryEnum.TOOLING.createPort(credentials.url() + "/" + SoapUrlEnum.TOOLING.getPartialUrl() + "/" + credentials.version()), credentials);
     }
@@ -73,6 +74,7 @@ class ToolingLoginService implements LoginService {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void logout(final SessionContext session) {
 //        logout(PortFactoryEnum.TOOLING.createPort());
     }

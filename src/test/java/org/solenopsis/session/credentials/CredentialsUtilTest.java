@@ -214,6 +214,28 @@ class CredentialsUtilTest {
     }
 
     @Test
+    void testFromPropertiesMissingUrlThrows() {
+        Properties props = new Properties();
+        props.setProperty("username", "user@test.com");
+        props.setProperty("password", "pass");
+        props.setProperty("token", "tok");
+        props.setProperty("version", "58.0");
+
+        assertThrows(NullPointerException.class, () -> CredentialsUtil.fromProperties(props));
+    }
+
+    @Test
+    void testFromPropertiesMissingPasswordThrows() {
+        Properties props = new Properties();
+        props.setProperty("url", "https://test.salesforce.com");
+        props.setProperty("username", "user@test.com");
+        props.setProperty("token", "tok");
+        props.setProperty("version", "58.0");
+
+        assertThrows(NullPointerException.class, () -> CredentialsUtil.fromProperties(props));
+    }
+
+    @Test
     void testGetLogger() {
         assertNotNull(CredentialsUtil.getLogger());
     }

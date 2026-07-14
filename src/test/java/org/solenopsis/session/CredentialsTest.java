@@ -19,6 +19,7 @@ package org.solenopsis.session;
 import org.junit.jupiter.api.Test;
 import org.solenopsis.session.credentials.CredentialsRecord;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -112,10 +113,11 @@ class CredentialsTest {
 
         String str = creds.toString();
         assertNotNull(str);
-        // Records have automatic toString()
         assertTrue(str.contains("test.salesforce.com"));
         assertTrue(str.contains("58.0"));
         assertTrue(str.contains("user@test.com"));
+        assertFalse(str.contains("password123"), "toString must not expose password");
+        assertFalse(str.contains("token456"), "toString must not expose token");
     }
 
     @Test
