@@ -18,8 +18,8 @@ package org.solenopsis.session.soap;
 
 import jakarta.xml.ws.WebServiceException;
 import java.lang.reflect.InvocationTargetException;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -86,8 +86,8 @@ public class PortProxyTest {
         // call.
         final Throwable throwable = assertThrows(InvocationTargetException.class, () -> proxy.invoke(soap, Soap.class.getMethod("describeAllTabs", new Class[0]), new Object[0]));
 
-        // The failed web service call.
-        assertSame(WebServiceException.class, throwable.getCause().getClass());
+        // The failed web service call (SOAPFaultException extends WebServiceException).
+        assertInstanceOf(WebServiceException.class, throwable.getCause());
 
         // Make sure we've only tried login once.
         verify(loginService, times(1)).login(any(CredentialsRecord.class));

@@ -21,7 +21,7 @@ import jakarta.xml.ws.WebEndpoint;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import org.apache.commons.lang3.StringUtils;
-import org.flossware.jcommons.util.MethodUtil;
+import org.flossware.commons.util.MethodUtil;
 import org.solenopsis.session.SessionContext;
 
 /**
@@ -31,7 +31,7 @@ import org.solenopsis.session.SessionContext;
  */
 public enum SoapUrlEnum {
     APEX("services/Soap/s", (serviceClass, session) -> session.credentials().version()),
-    CUSTOM("services/Soap/class", (serviceClass, session) -> ((WebEndpoint) Objects.requireNonNull(MethodUtil.findAnnotationOnMethods(serviceClass, WebEndpoint.class), "No @WebEndpoint annotation found on methods of " + serviceClass.getName())).name()),
+    CUSTOM("services/Soap/class", (serviceClass, session) -> MethodUtil.findAnnotationOnMethods(serviceClass, WebEndpoint.class).orElseThrow(() -> new NullPointerException("No @WebEndpoint annotation found on methods of " + serviceClass.getName())).name()),
     ENTERPRISE("services/Soap/c", (serviceClass, session) -> session.credentials().version()),
     METADATA("services/Soap/m", (serviceClass, session) -> session.credentials().version()),
     PARTNER("services/Soap/u", (serviceClass, session) -> session.credentials().version()),

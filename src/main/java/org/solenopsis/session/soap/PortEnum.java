@@ -18,17 +18,14 @@ package org.solenopsis.session.soap;
 
 import jakarta.xml.soap.SOAPElement;
 import jakarta.xml.soap.SOAPException;
-import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebEndpoint;
 import jakarta.xml.ws.WebServiceClient;
-import java.util.List;
 import javax.xml.namespace.QName;
-import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.flossware.jcommons.util.MethodUtil;
-import org.flossware.jcommons.util.SoapException;
-import org.flossware.jcommons.util.SoapUtil;
+import org.flossware.commons.util.MethodUtil;
+import org.flossware.commons.util.SoapException;
+import org.flossware.commons.util.SoapUtil;
 import org.solenopsis.session.Credentials;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.soap.login.LoginServiceEnum;
@@ -70,10 +67,7 @@ public enum PortEnum {
             final SOAPElement sessionHeader = SoapUtil.getSoapFactory().createElement(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()));
             sessionHeader.addChildElement(sessionId);
 
-            ((BindingProvider) retVal).getRequestContext().put(
-                Header.HEADER_LIST,
-                List.of(new Header(new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()), sessionHeader))
-            );
+            SoapUtil.setHeader(retVal, new QName(targetNamespace, SessionHeaderEnum.SESSION_HEADER.getString()), sessionHeader);
 
             return SoapUtil.setUrl(retVal, getUrl().computeUrl(serviceClass, session));
         } catch (final SOAPException soapException) {

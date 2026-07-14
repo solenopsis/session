@@ -16,7 +16,7 @@
  */
 package org.solenopsis.session.soap;
 
-import org.flossware.jcommons.util.SoapException;
+import org.flossware.commons.util.SoapException;
 import org.junit.jupiter.api.Test;
 import org.solenopsis.session.SessionContext;
 import org.solenopsis.session.credentials.CredentialsRecord;

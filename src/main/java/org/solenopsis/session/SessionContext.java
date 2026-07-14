@@ -17,7 +17,7 @@
 package org.solenopsis.session;
 
 import java.util.Objects;
-import org.flossware.jcommons.util.UrlUtil;
+import org.flossware.commons.util.UrlUtil;
 import org.solenopsis.soap.service.ServiceEnum;
 
 /**

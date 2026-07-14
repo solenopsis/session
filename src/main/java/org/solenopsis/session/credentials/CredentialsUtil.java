@@ -23,7 +23,7 @@ import java.io.StringReader;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.logging.Logger;
-import org.flossware.jcommons.util.PropertyUtil;
+import org.flossware.commons.util.PropertyUtil;
 import org.solenopsis.session.Credentials;
 
 /**
