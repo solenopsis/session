@@ -17,7 +17,7 @@ jobs:
   build:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.event.pusher.email != 'version-bump@solenopsis.org'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
 
     steps:
       - name: Updating runner
@@ -93,6 +93,14 @@ jobs:
           name: codecov-solenopsis-session
           fail_ci_if_error: false
 
+      - name: Cache OWASP Dependency Check Database
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/org/owasp/dependency-check-data
+          key: ${{ runner.os }}-owasp-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-owasp-
+
       - name: OWASP Dependency Check
         run: "mvn dependency-check:check -DfailBuildOnCVSS=7"
         continue-on-error: true
@@ -116,6 +124,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/site/apidocs
           destination_dir: javadoc
+          force_orphan: true
 
       - name: Deploy to packagecloud.io
         run: "mvn -DskipTests deploy"
